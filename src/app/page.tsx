@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { animate } from "motion"; // <-- import đúng
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,23 +11,28 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      animate(
+        containerRef.current,
+        { opacity: [0, 1], transform: ["translateY(-20px)", "translateY(0)"] },
+        { duration: 0.5 },
+      );
+    }
+  }, []);
 
   return (
     <div className="from-primary-50 to-primary-100 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
+      <div ref={containerRef} className="w-full max-w-md">
         <div className="space-y-6 rounded-2xl bg-white p-8 shadow-xl">
           <div className="space-y-2 text-center">
             <h1 className="text-3xl font-bold tracking-tighter">
-              {" "}
-              Welcom back
+              Welcome back
             </h1>
             <p className="text-muted-foreground">
-              Enter you credentials to access your account
+              Enter your credentials to access your account
             </p>
           </div>
           <form className="space-y-4">
@@ -36,7 +41,6 @@ export default function Home() {
               <Input
                 id="email"
                 type="email"
-                placeholder=""
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -47,6 +51,7 @@ export default function Home() {
               <div className="relative">
                 <Input
                   id="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -65,7 +70,7 @@ export default function Home() {
             </Button>
           </form>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
