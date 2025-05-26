@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,179 +8,78 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
-import { Bell } from "lucide-react";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-
-    href: "/",
-
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-
-  {
-    title: "Hover Card",
-
-    href: "/",
-
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-
-  {
-    title: "Progress",
-
-    href: "/",
-
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-
-  {
-    title: "Scroll-area",
-
-    href: "/",
-
-    description: "Visually or semantically separates content.",
-  },
-
-  {
-    title: "Tabs",
-
-    href: "/",
-
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-
-  {
-    title: "Tooltip",
-
-    href: "/",
-
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-
-  {
-    title: "Sign In",
-
-    href: "/sign-in",
-
-    description: "Sign in to your account.",
-  },
-];
-
-export function NavMenu() {
-  return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
-                    href="/"
-                  >
-                    <Bell className="h-6 w-6" />
-
-                    <div className="mt-4 mb-2 text-lg font-medium">
-                      shadcn/ui
-                    </div>
-
-                    <p className="text-muted-foreground text-sm leading-tight">
-                      Beautifully designed components built with Radix UI and
-                      Tailwind CSS.
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-
-              <ListItem href="/" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
-              </ListItem>
-
-              <ListItem href="/" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-
-              <ListItem href="/" title="Typography">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description ?? ""}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <Link href="/docs" className={navigationMenuTriggerStyle()}>
-              Documentation
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
-  );
+interface MenuItem {
+  title: string;
+  url: string;
+  description?: string;
+  icon?: React.ReactNode;
+  items?: MenuItem[];
 }
 
-const ListItem = ({
-  title,
+interface NavMenuProps {
+  menu: MenuItem[];
+}
 
-  children,
-
-  ...props
-}: {
-  href: string;
-
-  title: string;
-
-  children: React.ReactNode;
-}) => {
+const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link
-          className={cn(
-            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
-          )}
-          {...props}
-        >
-          <div className="text-sm leading-none font-medium">{title}</div>
-
-          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
-            {children}
+    <Link
+      className="hover:bg-muted hover:text-accent-foreground flex w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+      href={item.url}
+    >
+      <div className="text-foreground">{item.icon}</div>
+      <div>
+        <div className="text-sm font-semibold">{item.title}</div>
+        {item.description && (
+          <p className="text-muted-foreground text-sm leading-snug">
+            {item.description}
           </p>
-        </Link>
-      </NavigationMenuLink>
-    </li>
+        )}
+      </div>
+    </Link>
   );
 };
 
-ListItem.displayName = "ListItem";
+const renderMenuItem = (item: MenuItem) => {
+  if (item.items) {
+    return (
+      <NavigationMenuItem key={item.title}>
+        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+        <NavigationMenuContent className="bg-popover text-popover-foreground">
+          {item.items.map((subItem) => (
+            <NavigationMenuLink asChild key={subItem.title}>
+              <SubMenuLink item={subItem} />
+            </NavigationMenuLink>
+          ))}
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  return (
+    <NavigationMenuItem key={item.title}>
+      <NavigationMenuLink
+        href={item.url}
+        className="group bg-background hover:bg-muted hover:text-accent-foreground inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors"
+      >
+        {item.title}
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  );
+};
+
+const NavMenu = ({ menu }: NavMenuProps) => {
+  return (
+    <div className="flex items-center">
+      <NavigationMenu>
+        <NavigationMenuList>
+          {menu.map((item) => renderMenuItem(item))}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  );
+};
+
+export default NavMenu;

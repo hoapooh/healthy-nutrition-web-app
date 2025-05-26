@@ -11,7 +11,10 @@ export const useAuth = () => {
     // If we have a user, update the auth state
     if (user) {
       dispatch(
-        setCredentials({ user, token: localStorage.getItem("token") || "" }),
+        setCredentials({
+          user,
+          token: localStorage.getItem("healthy-nutrition-token") || "",
+        }),
       );
     }
   }, [user, dispatch]);

@@ -35,7 +35,10 @@ export interface AuthResponse {
 // Initial state
 const initialState: AuthState = {
   user: null,
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  token:
+    typeof window !== "undefined"
+      ? localStorage.getItem("healthy-nutrition-token")
+      : null,
   isAuthenticated: false,
 };
 
@@ -50,7 +53,7 @@ const authSlice = createSlice({
       state.token = token;
       state.isAuthenticated = true;
       if (typeof window !== "undefined") {
-        localStorage.setItem("token", token);
+        localStorage.setItem("healthy-nutrition-token", token);
       }
     },
     logout: (state) => {
@@ -58,7 +61,7 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       if (typeof window !== "undefined") {
-        localStorage.removeItem("token");
+        localStorage.removeItem("healthy-nutrition-token");
       }
     },
     updateUser: (state, action: PayloadAction<Partial<User>>) => {

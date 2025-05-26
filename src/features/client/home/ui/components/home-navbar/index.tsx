@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { NavMenu } from "./nav-menu";
+import NavAuthButton from "./nav-auth-button";
+import NavMenu from "./nav-menu";
+import { menuData } from "../../../data/nav-menu-data";
 
 const HomeNavbar = () => {
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 flex h-16 items-center bg-white px-2 pr-5">
+    <nav className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between bg-white px-2 pr-5">
       <div className="flex w-full items-center gap-4">
         {/* Menu and logo */}
 
@@ -19,7 +21,7 @@ const HomeNavbar = () => {
                 alt="Next.js Logo"
               />
 
-              <p className="text-xl font-semibold tracking-tight text-green-600">
+              <p className="text-xl font-semibold tracking-wide text-green-600">
                 Healthy<span className="text-black">Nutrition</span>
               </p>
             </div>
@@ -27,9 +29,10 @@ const HomeNavbar = () => {
         </div>
 
         {/* Navigation Menu */}
-
-        <NavMenu />
+        <NavMenu menu={menuData} />
       </div>
+      {/* Authentication Button */}
+      <NavAuthButton />
     </nav>
   );
 };

@@ -16,7 +16,7 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (user) {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("healthy-nutrition-token");
       if (token) {
         dispatch(setCredentials({ user, token }));
       }
