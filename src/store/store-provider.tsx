@@ -1,10 +1,13 @@
 "use client";
-import { useRef, useEffect } from "react";
+
 import { Provider } from "react-redux";
+import { useRef, useEffect } from "react";
 import { AppStore, makeStore } from "./store";
-import { useGetCurrentUserQuery } from "./slices/authSlice";
+
 import { useAppDispatch } from "./hooks";
 import { setCredentials } from "./slices/authSlice";
+import { useGetCurrentUserQuery } from "./slices/authSlice";
+import AppLoader from "@/features/shared/ui/components/app-loader";
 
 // Auth Initializer component
 function AuthInitializer({ children }: { children: React.ReactNode }) {
@@ -21,7 +24,11 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
   }, [user, dispatch]);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or your loading component
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <AppLoader />
+      </div>
+    );
   }
 
   return <>{children}</>;
