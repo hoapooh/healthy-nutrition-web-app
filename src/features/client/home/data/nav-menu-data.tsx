@@ -1,7 +1,7 @@
 import { Book, Sunset, Trees, Zap } from "lucide-react";
 
 export const menuData = [
-  { title: "Home", url: "#" },
+  { title: "Home", url: "/" },
   {
     title: "Products",
     url: "#",

@@ -1,9 +1,10 @@
 "use client";
-import { useAuth } from "@/store/hooks/useAuth";
+import { useAuth } from "@/store/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import AppLoader from "../app-loader";
 
-export default function ProtectedRoute({
+export default function ProtectedAuthRoute({
   children,
 }: {
   children: React.ReactNode;
@@ -12,14 +13,14 @@ export default function ProtectedRoute({
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/login");
+    if (!isLoading && isAuthenticated) {
+      router.push("/"); // Redirect to home if authenticated
     }
   }, [isLoading, isAuthenticated, router]);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or your loading component
+    return <AppLoader />;
   }
 
-  return isAuthenticated ? <>{children}</> : null;
+  return !isAuthenticated ? <>{children}</> : null;
 }

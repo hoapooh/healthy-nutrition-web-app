@@ -2,7 +2,7 @@
 
 // Stuffs
 import { cn } from "@/lib/utils";
-import { Eye, EyeOff, GalleryVerticalEnd } from "lucide-react";
+import { Eye, EyeOff, GalleryVerticalEnd, LoaderCircle } from "lucide-react";
 
 // UI Components
 import { Button } from "@/components/ui/button";
@@ -22,16 +22,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
+import { useLoginMutation } from "@/services/auth-services";
+import { useAppDispatch } from "@/store/hooks";
+import { setCredentials } from "@/store/slices/auth-slice";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  password: z.string().min(3, "Password must be at least 3 characters long"),
 });
 
 export default function SignInForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const [login, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,7 +52,29 @@ export default function SignInForm({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    login(values)
+      .unwrap()
+      .then((data) => {
+        const userResponse = data.accessToken;
+
+        dispatch(
+          setCredentials({
+            token: userResponse.accessToken,
+            user: {
+              fullName: userResponse.fullName,
+              id: userResponse.id,
+              role: userResponse.role,
+              image: userResponse.image,
+            },
+          }),
+        );
+        toast.success(data.message || "Login successful!");
+        // Optionally redirect or perform other actions after successful login
+        router.replace("/");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   }
 
   const togglePasswordVisibility = () => {
@@ -156,8 +187,13 @@ export default function SignInForm({
             <Button
               type="submit"
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? (
+                <LoaderCircle className="size-5 animate-spin" />
+              ) : (
+                "Continue"
+              )}
             </Button>
           </div>
 

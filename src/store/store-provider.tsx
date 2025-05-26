@@ -5,9 +5,9 @@ import { useRef, useEffect } from "react";
 import { AppStore, makeStore } from "./store";
 
 import { useAppDispatch } from "./hooks";
-import { setCredentials } from "./slices/authSlice";
-import { useGetCurrentUserQuery } from "./slices/authSlice";
+import { setCredentials } from "./slices/auth-slice";
 import AppLoader from "@/features/shared/ui/components/app-loader";
+import { useGetCurrentUserQuery } from "@/services/auth-services";
 
 // Auth Initializer component
 function AuthInitializer({ children }: { children: React.ReactNode }) {
@@ -18,7 +18,7 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
     if (user) {
       const token = localStorage.getItem("healthy-nutrition-token");
       if (token) {
-        dispatch(setCredentials({ user, token }));
+        dispatch(setCredentials({ user: user.result, token }));
       }
     }
   }, [user, dispatch]);

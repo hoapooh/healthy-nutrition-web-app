@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useGetCurrentUserQuery } from "../slices/authSlice";
 import { useAppDispatch } from "../hooks";
-import { setCredentials } from "../slices/authSlice";
+import { setCredentials } from "../slices/auth-slice";
+import { useGetCurrentUserQuery } from "@/services/auth-services";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export const useAuth = () => {
     if (user) {
       dispatch(
         setCredentials({
-          user,
+          user: user.result,
           token: localStorage.getItem("healthy-nutrition-token") || "",
         }),
       );

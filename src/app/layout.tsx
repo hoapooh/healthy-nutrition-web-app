@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <StoreProvider>
           {children}
-          <Toaster position="top-right" toastOptions={{ duration: 2500 }} />
+          <Toaster position="top-center" toastOptions={{ duration: 2500 }} />
         </StoreProvider>
       </body>
     </html>

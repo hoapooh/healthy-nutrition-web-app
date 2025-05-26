@@ -8,13 +8,7 @@ export const metadata: Metadata = {
 };
 
 const SignInPage = () => {
-  return (
-    <div className="bg-background flex flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <SignInForm />
-      </div>
-    </div>
-  );
+  return <SignInForm />;
 };
 
 export default SignInPage;

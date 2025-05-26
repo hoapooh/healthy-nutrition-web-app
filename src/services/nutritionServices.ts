@@ -1,4 +1,4 @@
-import { apiSlice } from "@/store/slices/apiSlice";
+import { apiSlice } from "@/store/slices/api-slice";
 
 // Define types for our nutrition data
 export interface NutritionData {
