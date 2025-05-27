@@ -1,11 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "../baseQuery";
+import { baseQueryWithReauth } from "../base-query";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["Nutrition", "User", "Meal"],
-  endpoints: (builder) => ({
-    // Your endpoints will be added here
-  }),
+  endpoints: () => ({}),
 });

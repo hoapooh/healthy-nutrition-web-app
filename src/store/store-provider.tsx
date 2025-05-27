@@ -1,27 +1,15 @@
 "use client";
 
 import { Provider } from "react-redux";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { AppStore, makeStore } from "./store";
-
-import { useAppDispatch } from "./hooks";
-import { setCredentials } from "./slices/authSlice";
-import { useGetCurrentUserQuery } from "./slices/authSlice";
+import { AuthProvider } from "./auth-provider";
 import AppLoader from "@/features/shared/ui/components/app-loader";
+import { useAuth } from "./hooks/use-auth";
 
-// Auth Initializer component
+// Auth Initializer component - handles user data fetching after token is set
 function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const dispatch = useAppDispatch();
-  const { data: user, isLoading } = useGetCurrentUserQuery();
-
-  useEffect(() => {
-    if (user) {
-      const token = localStorage.getItem("token");
-      if (token) {
-        dispatch(setCredentials({ user, token }));
-      }
-    }
-  }, [user, dispatch]);
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -46,7 +34,9 @@ export default function StoreProvider({
 
   return (
     <Provider store={storeRef.current}>
-      <AuthInitializer>{children}</AuthInitializer>
+      <AuthProvider>
+        <AuthInitializer>{children}</AuthInitializer>
+      </AuthProvider>
     </Provider>
   );
 }

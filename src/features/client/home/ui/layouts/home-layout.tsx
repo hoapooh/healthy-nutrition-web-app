@@ -1,3 +1,4 @@
+import HomeFooter from "../components/home-footer";
 import HomeNavbar from "../components/home-navbar";
 
 interface HomeLayoutProps {
@@ -6,12 +7,14 @@ interface HomeLayoutProps {
 
 export const HomeLayout = ({ children }: HomeLayoutProps) => {
   return (
-    <div className="w-full">
+    <div className="flex h-full w-full flex-col">
       <HomeNavbar />
 
-      <div className="flex min-h-screen pt-[4rem]">
+      <div className="flex flex-1 pt-[4rem]">
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
+
+      <HomeFooter />
     </div>
   );
 };

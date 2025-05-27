@@ -7,7 +7,7 @@ import type {
 import { RootState } from "./store";
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api",
+  baseUrl: process.env.NEXT_PUBLIC_API_URL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -27,7 +27,9 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   // If the request fails with 401 (Unauthorized), logout the user
   if (result.error && result.error.status === 401) {
-    api.dispatch({ type: "auth/logout" });
+    // Import logout action and dispatch it
+    const { clearCredentials } = await import("./slices/auth-slice");
+    api.dispatch(clearCredentials());
   }
 
   return result;
