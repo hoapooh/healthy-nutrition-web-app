@@ -31,10 +31,30 @@ const defaultSections = [
 ];
 
 const defaultSocialLinks = [
-  { icon: <FaInstagram className="size-5" />, href: "#", label: "Instagram" },
-  { icon: <FaFacebook className="size-5" />, href: "#", label: "Facebook" },
-  { icon: <FaTwitter className="size-5" />, href: "#", label: "Twitter" },
-  { icon: <FaLinkedin className="size-5" />, href: "#", label: "LinkedIn" },
+  {
+    icon: <FaInstagram className="size-5" />,
+    href: "#",
+    label: "Instagram",
+    color: "#e91e63", // Instagram brand color
+  },
+  {
+    icon: <FaFacebook className="size-5" />,
+    href: "#",
+    label: "Facebook",
+    color: "#2563eb", // blue-600
+  },
+  {
+    icon: <FaTwitter className="size-5" />,
+    href: "#",
+    label: "Twitter",
+    color: "#60a5fa", // blue-400
+  },
+  {
+    icon: <FaLinkedin className="size-5" />,
+    href: "#",
+    label: "LinkedIn",
+    color: "#1d4ed8", // blue-700
+  },
 ];
 
 const defaultLegalLinks = [

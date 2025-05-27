@@ -4,6 +4,7 @@ import {
   CurrentUserResponse,
   LoginRequest,
   RegisterRequest,
+  RegisterResponse,
 } from "@/types/auth";
 
 // Auth API slice
@@ -20,7 +21,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: credentials,
       }),
     }),
-    register: builder.mutation<AuthResponse, RegisterRequest>({
+    register: builder.mutation<RegisterResponse, RegisterRequest>({
       query: (userData) => ({
         url: "authentication/register",
         method: "POST",

@@ -25,10 +25,12 @@ export const baseQueryWithReauth: BaseQueryFn<
   // Make the request
   const result = await baseQuery(args, api, extraOptions);
 
-  // TODO: If the request fails with 401 (Unauthorized), logout the user
-  /* if (result.error && result.error.status === 401) {
-    api.dispatch({ type: "auth/logout" });
-  } */
+  // If the request fails with 401 (Unauthorized), logout the user
+  if (result.error && result.error.status === 401) {
+    // Import logout action and dispatch it
+    const { clearCredentials } = await import("./slices/auth-slice");
+    api.dispatch(clearCredentials());
+  }
 
   return result;
 };

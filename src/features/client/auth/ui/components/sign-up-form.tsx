@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeOff, GalleryVerticalEnd } from "lucide-react";
+import { Eye, EyeOff, GalleryVerticalEnd, LoaderCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -8,9 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-// Form handlers and validation
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -19,53 +16,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-
-const formSchema = z
-  .object({
-    fullName: z.string().min(2, "Full name must be at least 2 characters long"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters long"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
+import useSignUpHook from "../../hooks/use-sign-up-hook";
 
 export function SignUpForm({
   className,
 
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const [passwordVisibility, setPasswordVisibility] = useState({
-    password: false,
-    confirmPassword: false,
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
-
-  const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
-    setPasswordVisibility((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
+  const {
+    form,
+    onSubmit,
+    isLoading,
+    passwordVisibility,
+    togglePasswordVisibility,
+  } = useSignUpHook();
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -236,9 +200,14 @@ export function SignUpForm({
 
             <Button
               type="submit"
+              disabled={isLoading}
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
             >
-              Create account
+              {isLoading ? (
+                <LoaderCircle className="size-5 animate-spin" />
+              ) : (
+                "Create account"
+              )}
             </Button>
           </div>
 

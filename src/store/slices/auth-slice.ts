@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthPayload, AuthState, User } from "@/types/auth";
+import { AuthUtils } from "@/lib/auth-utils";
 
 // Initial state
+const getInitialToken = () => {
+  return AuthUtils.getToken();
+};
+
 const initialState: AuthState = {
   user: null,
-  token:
-    typeof window !== "undefined"
-      ? localStorage.getItem("healthy-nutrition-token")
-      : null,
+  token: getInitialToken(),
   isAuthenticated: false,
 };
 
@@ -20,18 +22,21 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
+      // Only set isAuthenticated to true if we have complete user data
       state.isAuthenticated = true;
-      if (typeof window !== "undefined") {
-        localStorage.setItem("healthy-nutrition-token", token);
-      }
+      AuthUtils.setToken(token);
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("healthy-nutrition-token");
-      }
+      AuthUtils.clearAuthData();
+    },
+    clearCredentials: (state) => {
+      state.user = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      AuthUtils.clearAuthData();
     },
     updateUser: (state, action: PayloadAction<Partial<User>>) => {
       if (state.user) {
@@ -42,7 +47,8 @@ const authSlice = createSlice({
 });
 
 // Export actions and reducer
-export const { setCredentials, logout, updateUser } = authSlice.actions;
+export const { setCredentials, logout, clearCredentials, updateUser } =
+  authSlice.actions;
 export const authReducer = authSlice.reducer;
 
 // Selectors

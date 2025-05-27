@@ -1,6 +1,6 @@
 // Types
 export interface User {
-  id: string;
+  id?: string;
   email?: string;
   fullName: string;
   phoneNumber?: string;
@@ -43,6 +43,10 @@ export interface AuthResponse {
   };
 }
 
+export interface RegisterResponse {
+  message: string;
+}
+
 export interface CurrentUserResponse {
   message: string;
   result: User;
@@ -50,6 +54,6 @@ export interface CurrentUserResponse {
 
 // Payloads
 export interface AuthPayload {
-  user: User;
+  user: User | null;
   token: string;
 }

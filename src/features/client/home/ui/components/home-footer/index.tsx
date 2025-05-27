@@ -24,6 +24,7 @@ interface HomeFooterProps {
     icon: React.ReactElement;
     href: string;
     label: string;
+    color: string;
   }>;
   copyright?: string;
   legalLinks?: Array<{
@@ -45,7 +46,7 @@ const HomeFooter = ({
     ),
   },
   sections = defaultSections,
-  description = "A collection of components for your startup business or side project.",
+  description = "A small company selling healthy products. We are committed to providing the best quality products to our customers.",
   socialLinks = defaultSocialLinks,
   copyright = `© ${new Date().getFullYear()} HealthyNutrition. All rights reserved.`,
   legalLinks = defaultLegalLinks,
@@ -72,10 +73,18 @@ const HomeFooter = ({
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
               {description}
-            </p>
+            </p>{" "}
             <ul className="text-muted-foreground flex items-center space-x-6">
               {socialLinks.map((social, idx) => (
-                <li key={idx} className="hover:text-primary font-medium">
+                <li
+                  key={idx}
+                  className="font-medium transition-colors duration-200 hover:text-[var(--hover-color)]"
+                  style={
+                    { "--hover-color": social.color } as React.CSSProperties & {
+                      "--hover-color": string;
+                    }
+                  }
+                >
                   <Link
                     href={social.href}
                     aria-label={social.label}
