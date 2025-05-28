@@ -52,8 +52,8 @@ const HomeFooter = ({
   legalLinks = defaultLegalLinks,
 }: HomeFooterProps) => {
   return (
-    <section className="pt-32">
-      <div className="container mx-auto">
+    <section>
+      <div className="container mx-auto px-2 lg:px-0">
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           {/* Left Section */}
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">

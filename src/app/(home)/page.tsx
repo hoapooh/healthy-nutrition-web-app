@@ -1,27 +1,46 @@
+import HomeBlog from "@/features/client/home/ui/components/home-blog";
+import HomeHero from "@/features/client/home/ui/components/home-hero";
+import HomeProposition from "@/features/client/home/ui/components/home-proposition";
 import Image from "next/image";
-import { AuthStatusIndicator } from "@/features/shared/ui/components/auth-status-indicator";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-8">
-      <div className="flex items-center justify-center gap-x-2">
-        <h1 className="text-2xl font-bold">Welcome to Healthy Nutrition!</h1>
+    <div className="py-2 lg:p-8">
+      {/* Hero */}
+      <HomeHero
+        heading="Welcome to Healthy Nutrition"
+        badge="🥕🫛 Your Healthy Friend"
+        buttons={{
+          primary: { text: "Shop Now", url: "/shop" },
+          secondary: {
+            text: "View our news",
+            url: "/blog",
+          },
+        }}
+        image={{
+          src: "/hero-banner.jpg",
+          alt: "Hero Section for Healthy Nutrition shop",
+        }}
+      />
+      {/* Proposition */}
+      <HomeProposition />
+
+      {/* Banner Decoration */}
+      <div>
         <Image
-          src="/next.svg"
-          alt="Next.js Logo"
-          height={0}
-          width={0}
-          style={{ width: "64px", height: "auto" }}
+          src="/banner-decor.jpg"
+          alt="Banner Decoration"
+          width={1200}
+          height={400}
+          className="h-32 w-full object-cover lg:h-[400px] lg:rounded-md"
         />
       </div>
 
-      <p className="text-gray-500">Your health and nutrition companion.</p>
-
-      {/* Auth Status Indicator */}
-      <div className="flex flex-col items-center gap-2">
-        <p className="text-sm text-gray-600">Authentication Status:</p>
-        <AuthStatusIndicator />
-      </div>
+      {/* Blog / News */}
+      <HomeBlog
+        heading="Latest News"
+        description="Check out our latest stories and articles"
+      />
     </div>
   );
 }
