@@ -1,3 +1,4 @@
+import ScrollToTop from "@/features/shared/ui/components/scroll-to-top-button";
 import HomeFooter from "../components/home-footer";
 import HomeNavbar from "../components/home-navbar";
 
@@ -15,6 +16,9 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
       </div>
 
       <HomeFooter />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };

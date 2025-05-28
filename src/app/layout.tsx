@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/store-provider";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
         <StoreProvider>
           {children}
           <Toaster position="top-center" toastOptions={{ duration: 2500 }} />
+          <Analytics />
         </StoreProvider>
       </body>
     </html>
