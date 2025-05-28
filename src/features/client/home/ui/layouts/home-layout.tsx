@@ -11,7 +11,7 @@ export const HomeLayout = ({ children }: HomeLayoutProps) => {
     <div className="flex h-full w-full flex-col">
       <HomeNavbar />
 
-      <div className="flex flex-1 pt-[4rem]">
+      <div className="flex flex-1 pt-[68px]">
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
 

@@ -17,7 +17,7 @@ const HomeBlog = ({
   description = "Stay updated with the latest news and articles from our blog.",
 }: HomeBlogProps) => {
   return (
-    <section className="px-2 py-16 lg:px-0 lg:py-32">
+    <section className="px-2 py-16 lg:px-0 lg:pt-32 lg:pb-0">
       <div className="container mx-auto">
         {/* Heading */}
         <div className="flex flex-col items-center text-center">
