@@ -23,10 +23,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const activeThemeValue = cookieStore.get("active_theme")?.value;
-  const isScaled = activeThemeValue?.endsWith("-scaled");
-
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
