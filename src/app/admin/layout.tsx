@@ -1,15 +1,10 @@
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { cookies } from "next/headers";
 import { cn } from "@/lib/utils";
-import { ActiveThemeProvider } from "@/features/admin/main/ui/components/active-theme";
+import { cookies } from "next/headers";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ActiveThemeProvider } from "@/components/providers/active-theme";
 import { AppSidebar } from "@/features/admin/main/ui/components/app-sidebar";
 import { SiteHeader } from "@/features/admin/main/ui/components/navigation/site-header";
-
-/* const META_THEME_COLORS = {
-  light: "#ffffff",
-  dark: "#09090b",
-}; */
 
 const AdminLayout = async ({
   children,
@@ -18,16 +13,9 @@ const AdminLayout = async ({
 }>) => {
   const cookieStore = await cookies();
   const activeThemeValue = cookieStore.get("active_theme")?.value;
-  const isScaled = activeThemeValue?.endsWith("-scaled");
 
   return (
-    <div
-      className={cn(
-        "bg-background overscroll-none font-sans antialiased",
-        activeThemeValue ? `theme-${activeThemeValue}` : "",
-        isScaled ? "theme-scaled" : "",
-      )}
-    >
+    <div className={cn("bg-background overscroll-none font-sans antialiased")}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

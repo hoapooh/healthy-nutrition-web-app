@@ -3,13 +3,13 @@
 import * as React from "react";
 import {
   IconCamera,
+  IconCategory2,
   IconChartBar,
   IconDashboard,
   IconDatabase,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
@@ -61,9 +61,9 @@ const data = {
       icon: IconChartBar,
     },
     {
-      title: "Projects",
-      url: "/admin/projects",
-      icon: IconFolder,
+      title: "Categories",
+      url: "/admin/categories",
+      icon: IconCategory2,
     },
   ],
   navClouds: [

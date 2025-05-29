@@ -17,6 +17,27 @@ function setThemeCookie(theme: string) {
   document.cookie = `${COOKIE_NAME}=${theme}; path=/; max-age=31536000; SameSite=Lax; ${window.location.protocol === "https:" ? "Secure;" : ""}`;
 }
 
+function applyThemeToElements(theme: string) {
+  if (typeof window === "undefined") return;
+
+  const elementsToUpdate = [document.body, document.documentElement];
+
+  elementsToUpdate.forEach((element) => {
+    // Remove all existing theme classes
+    Array.from(element.classList)
+      .filter((className) => className.startsWith("theme-"))
+      .forEach((className) => {
+        element.classList.remove(className);
+      });
+
+    // Add new theme classes
+    element.classList.add(`theme-${theme}`);
+    if (theme.endsWith("-scaled")) {
+      element.classList.add("theme-scaled");
+    }
+  });
+}
+
 type ThemeContextType = {
   activeTheme: string;
   setActiveTheme: (theme: string) => void;
@@ -34,19 +55,17 @@ export function ActiveThemeProvider({
   const [activeTheme, setActiveTheme] = useState<string>(
     () => initialTheme || DEFAULT_THEME,
   );
+  useEffect(() => {
+    const themeToApply = activeTheme || DEFAULT_THEME;
+    applyThemeToElements(themeToApply);
+
+    setThemeCookie(themeToApply);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setThemeCookie(activeTheme);
-
-    Array.from(document.body.classList)
-      .filter((className) => className.startsWith("theme-"))
-      .forEach((className) => {
-        document.body.classList.remove(className);
-      });
-    document.body.classList.add(`theme-${activeTheme}`);
-    if (activeTheme.endsWith("-scaled")) {
-      document.body.classList.add("theme-scaled");
-    }
+    applyThemeToElements(activeTheme);
   }, [activeTheme]);
 
   return (

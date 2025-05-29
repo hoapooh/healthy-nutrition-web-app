@@ -16,6 +16,20 @@ export const metadata: Metadata = {
     default: "Healthy Nutrition",
   },
   description: "A website for selling healthy nutrition products",
+  keywords: [
+    "healthy nutrition",
+    "nutrition products",
+    "health",
+    "wellness",
+    "eat clean",
+  ],
+  authors: [
+    {
+      name: "Healthy Nutrition Team",
+      url: "https://healthynutrition-xi.vercel.app/",
+    },
+  ],
+  creator: "WAG Team",
 };
 
 export default async function RootLayout({

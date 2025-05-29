@@ -1,7 +1,7 @@
-import data from "./data.json";
-import { SectionCards } from "@/features/admin/main/ui/components/section-cards";
-import { ChartAreaInteractive } from "@/features/admin/main/ui/components/chart-area-interactive";
-import { DataTable } from "@/features/admin/main/ui/components/data-table";
+import { SectionCards } from "@/features/admin/dashboard/ui/components/section-cards";
+import { ChartAreaInteractive } from "@/features/admin/dashboard/ui/components/chart-area-interactive";
+// import data from "./data.json";
+// import { DataTable } from "@/features/admin/main/ui/components/data-table";
 
 export default function Page() {
   return (
@@ -12,7 +12,7 @@ export default function Page() {
           <div className="px-4 lg:px-6">
             <ChartAreaInteractive />
           </div>
-          <DataTable data={data} />
+          {/* <DataTable data={data} /> */}
         </div>
       </div>
     </div>
