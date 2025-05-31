@@ -7,6 +7,8 @@ export interface User {
   address?: string;
   image?: string;
   role?: "User" | "Admin";
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AuthState {
@@ -56,4 +58,31 @@ export interface CurrentUserResponse {
 export interface AuthPayload {
   user: User | null;
   token: string;
+}
+
+// Get
+export interface GetAllUsersResponse {
+  message: string;
+  result: {
+    items: User[];
+    totalCount: number;
+  };
+}
+
+export interface GetAllUsersParams {
+  pageIndex?: number;
+  limit?: number;
+}
+
+// Create
+export interface CreateUserBody {
+  email: string;
+  fullName: string;
+  password: string;
+  phoneNumber?: string;
+  address?: string;
+}
+
+export interface CreateUserResponse {
+  message: string;
 }

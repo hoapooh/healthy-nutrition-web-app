@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useGetAllCategoriesQuery } from "@/services/category-services";
-import { CategoryParams } from "@/types/category";
-import { CategoriesDataTable } from "./components/categories-data-table";
+import { useGetAllAccountsQuery } from "@/services/user-services";
+import { GetAllUsersParams } from "@/types/auth";
+import { UsersDataTable } from "./components/users-data-table";
 import {
   Card,
   CardContent,
@@ -12,22 +12,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function CategoriesPageContent() {
-  const [filters, setFilters] = React.useState<CategoryParams>({
+export default function ManageUsersPageContent() {
+  const [filters, setFilters] = React.useState<GetAllUsersParams>({
     pageIndex: 1,
     limit: 10,
   });
 
   const {
-    data: categoriesResponse,
+    data: usersResponse,
     isLoading,
     refetch,
-  } = useGetAllCategoriesQuery(filters);
+  } = useGetAllAccountsQuery(filters);
 
-  const categories = categoriesResponse?.result?.items || [];
-  const totalCount = categoriesResponse?.result?.totalCount || 0;
+  const users = usersResponse?.result?.items || [];
+  const totalCount = usersResponse?.result?.totalCount || 0;
 
-  const handleFiltersChange = (newFilters: CategoryParams) => {
+  const handleFiltersChange = (newFilters: GetAllUsersParams) => {
     setFilters(newFilters);
   };
 
@@ -40,25 +40,25 @@ export default function CategoriesPageContent() {
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-primary text-3xl font-bold tracking-tight">
-            Categories
+            Users Management
           </h2>
           <p className="text-muted-foreground">
-            Manage your product categories here.
+            Manage user accounts and permissions here.
           </p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Categories Management</CardTitle>
+          <CardTitle>Users Management</CardTitle>
           <CardDescription>
-            View, create, edit, and delete product categories. Total:{" "}
-            {totalCount} categories
+            View, create, edit, and manage user accounts. Total:{" "}
+            {totalCount} users
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CategoriesDataTable
-            data={categories}
+          <UsersDataTable
+            data={users}
             totalCount={totalCount}
             isLoading={isLoading}
             filters={filters}
