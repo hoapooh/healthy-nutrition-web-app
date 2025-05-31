@@ -94,7 +94,7 @@ const AboutPage = ({
   achievementsTitle = "Our Achievements in Numbers",
   achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
   achievements = defaultAchievements,
-}: AboutPageProps = {}) => {
+}: AboutPageProps) => {
   return (
     <section className="px-2 pt-[68px] lg:px-0">
       <div className="container mx-auto">
