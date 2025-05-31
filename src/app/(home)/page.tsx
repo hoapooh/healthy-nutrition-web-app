@@ -13,7 +13,7 @@ export default function Home() {
         buttons={{
           primary: { text: "Shop Now", url: "/shop" },
           secondary: {
-            text: "View our news",
+            text: "View Our News",
             url: "/blog",
           },
         }}

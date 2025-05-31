@@ -6,7 +6,7 @@ import { propositions } from "../../../data/proposition-data";
 const HomeProposition = () => {
   return (
     <section className="relative py-16 lg:py-32 lg:pt-40">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="flex flex-col items-center">
           {/* Proposition */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:absolute lg:top-4 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0">
