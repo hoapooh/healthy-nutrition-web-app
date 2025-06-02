@@ -70,6 +70,7 @@ export function UsersDataTable({
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
 
+  // TODO: Implement editing and deleting user functionality but later
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [_editingUser, setEditingUser] = React.useState<User | null>(null);
   const [_deletingUser, setDeletingUser] = React.useState<User | null>(null);
