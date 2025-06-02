@@ -1,0 +1,190 @@
+"use client";
+
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { useUpdateCategoryMutation } from "@/services/category-services";
+import { Category, CATEGORY_TYPES } from "@/types/category";
+import { toast } from "react-hot-toast";
+
+const updateCategorySchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  type: z.string().min(1, "Type is required"),
+  description: z
+    .string()
+    .min(1, "Description is required")
+    .max(500, "Description must be less than 500 characters"),
+});
+
+type UpdateCategoryFormValues = z.infer<typeof updateCategorySchema>;
+
+interface EditCategoryModalProps {
+  category: Category;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess: () => void;
+}
+
+export function EditCategoryModal({
+  category,
+  open,
+  onOpenChange,
+  onSuccess,
+}: EditCategoryModalProps) {
+  const [updateCategory, { isLoading }] = useUpdateCategoryMutation();
+
+  const form = useForm<UpdateCategoryFormValues>({
+    resolver: zodResolver(updateCategorySchema),
+    defaultValues: {
+      name: category.name,
+      type: category.type,
+      description: category.description || "",
+    },
+  });
+
+  console.log({ category });
+
+  React.useEffect(() => {
+    if (category) {
+      form.reset({
+        name: category.name,
+        type: category.type,
+        description: category.description || "",
+      });
+    }
+  }, [category, form]);
+
+  const onSubmit = async (values: UpdateCategoryFormValues) => {
+    try {
+      await updateCategory({
+        id: category.id,
+        body: values,
+      }).unwrap();
+      toast.success("Category updated successfully!");
+      onOpenChange(false);
+      onSuccess();
+    } catch (error: unknown) {
+      console.error("Error updating category:", error);
+      toast.error("Failed to update category");
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Edit Category</DialogTitle>
+          <DialogDescription>
+            Update the category information.
+          </DialogDescription>
+        </DialogHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter category name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Type</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CATEGORY_TYPES.map((type) => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter category description"
+                      className="resize-none"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Updating..." : "Update Category"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}

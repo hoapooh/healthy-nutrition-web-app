@@ -7,7 +7,6 @@ import {
   RegisterResponse,
 } from "@/types/auth";
 
-// Auth API slice
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCurrentUser: builder.query<CurrentUserResponse, void>({

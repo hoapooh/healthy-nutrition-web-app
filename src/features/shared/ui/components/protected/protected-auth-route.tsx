@@ -4,19 +4,23 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import AppLoader from "../app-loader";
 
+interface ProtectedAuthRouteProps {
+  children: React.ReactNode;
+  redirectTo?: string;
+}
+
 export default function ProtectedAuthRoute({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  redirectTo = "/",
+}: ProtectedAuthRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.push("/"); // Redirect to home if authenticated
+      router.push(redirectTo); // Redirect to home if authenticated
     }
-  }, [isLoading, isAuthenticated, router]);
+  }, [isLoading, isAuthenticated, router, redirectTo]);
 
   if (isLoading) {
     return <AppLoader />;
