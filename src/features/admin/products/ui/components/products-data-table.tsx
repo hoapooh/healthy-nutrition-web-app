@@ -38,27 +38,35 @@ import {
   Edit,
   Trash2,
   ArrowUpDown,
+  DollarSign,
+  Package,
 } from "lucide-react";
-import { User, GetAllUsersParams } from "@/types/auth";
-import { CreateUserModal, DataTablePagination, UserDetailsDrawer } from "./";
+import { Product, GetProductsParams } from "@/types/product";
+import {
+  ProductFilters,
+  CreateProductModal,
+  UpdateProductModal,
+  DeleteProductDialog,
+  DataTablePagination,
+} from "./";
 
-interface UsersDataTableProps {
-  data: User[];
+interface ProductsDataTableProps {
+  data: Product[];
   totalCount: number;
   isLoading: boolean;
-  filters: GetAllUsersParams;
-  onFiltersChange: (filters: GetAllUsersParams) => void;
+  filters: GetProductsParams;
+  onFiltersChange: (filters: GetProductsParams) => void;
   onRefresh: () => void;
 }
 
-export function UsersDataTable({
+export function ProductsDataTable({
   data,
   totalCount,
   isLoading,
   filters,
   onFiltersChange,
   onRefresh,
-}: UsersDataTableProps) {
+}: ProductsDataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -66,18 +74,18 @@ export function UsersDataTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [deletingProduct, setDeletingProduct] = React.useState<Product | null>(
+    null,
+  );
+  const [editingProduct, setEditingProduct] = React.useState<Product | null>(
+    null,
+  );
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [_editingUser, setEditingUser] = React.useState<User | null>(null);
-  const [_deletingUser, setDeletingUser] = React.useState<User | null>(null);
-
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<Product>[] = [
     {
-      id: "fullName",
-      accessorKey: "fullName",
+      id: "name",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <Button
@@ -85,18 +93,18 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Full Name
+            Name
             <ArrowUpDown />
           </Button>
         );
       },
       cell: ({ row }) => (
-        <div className="font-medium">{row.getValue("fullName")}</div>
+        <div className="font-medium">{row.getValue("name")}</div>
       ),
     },
     {
-      id: "email",
-      accessorKey: "email",
+      id: "price",
+      accessorKey: "price",
       header: ({ column }) => {
         return (
           <Button
@@ -104,79 +112,78 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Email
-            <ArrowUpDown />
-          </Button>
-        );
-      },
-      cell: ({ row }) => (
-        <button
-          onClick={() => {
-            setSelectedUser(row.original);
-            setIsDrawerOpen(true);
-          }}
-          className="text-muted-foreground hover:text-primary cursor-pointer text-left hover:underline"
-        >
-          {row.getValue("email")}
-        </button>
-      ),
-    },
-    {
-      id: "role",
-      accessorKey: "role",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            className="hover:bg-gray-800"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Role
+            <DollarSign className="mr-1 h-4 w-4" />
+            Price
             <ArrowUpDown />
           </Button>
         );
       },
       cell: ({ row }) => {
-        const role = row.getValue("role") as string;
+        const price = parseFloat(row.getValue("price"));
+        const formatted = new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(price);
+        return <div className="font-medium text-green-600">{formatted}</div>;
+      },
+    },
+    {
+      id: "stockQuantity",
+      accessorKey: "stockQuantity",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="hover:bg-gray-800"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            <Package className="mr-1 h-4 w-4" />
+            Stock
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const stock = row.getValue("stockQuantity") as number;
         return (
           <Badge
-            variant={role === "Admin" ? "default" : "secondary"}
-            className="capitalize"
+            variant={
+              stock > 50 ? "default" : stock > 10 ? "secondary" : "destructive"
+            }
           >
-            {role}
+            {stock} units
           </Badge>
         );
       },
     },
     {
-      id: "phoneNumber",
-      accessorKey: "phoneNumber",
-      header: "Phone Number",
-      cell: ({ row }) => (
-        <div className="text-muted-foreground">
-          {row.getValue("phoneNumber") || "N/A"}
-        </div>
-      ),
-    },
-    {
-      id: "address",
-      accessorKey: "address",
-      header: "Address",
+      id: "description",
+      accessorKey: "description",
+      header: "Description",
       cell: ({ row }) => (
         <div className="text-muted-foreground max-w-[200px] truncate">
-          {row.getValue("address") || "N/A"}
+          {row.getValue("description")}
         </div>
       ),
     },
     {
-      id: "createdAt",
-      accessorKey: "createdAt",
-      header: "Created At",
+      id: "tags",
+      accessorKey: "tags",
+      header: "Tags",
       cell: ({ row }) => {
-        const date = row.getValue("createdAt") as string;
+        const tags = row.getValue("tags") as string[];
         return (
-          <div className="text-muted-foreground">
-            {date ? new Date(date).toLocaleDateString() : "N/A"}
+          <div className="flex flex-wrap gap-1">
+            {tags?.slice(0, 2).map((tag, index) => (
+              <Badge key={index} variant="outline" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+            {tags?.length > 2 && (
+              <Badge variant="outline" className="text-xs">
+                +{tags.length - 2}
+              </Badge>
+            )}
           </div>
         );
       },
@@ -185,7 +192,7 @@ export function UsersDataTable({
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const user = row.original;
+        const product = row.original;
 
         return (
           <DropdownMenu>
@@ -196,15 +203,18 @@ export function UsersDataTable({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {" "}
               <DropdownMenuCheckboxItem
-                onClick={() => setEditingUser(user)}
+                onClick={() => {
+                  setEditingProduct(product);
+                }}
                 className="cursor-pointer"
               >
                 <Edit className="mr-2 h-4 w-4" />
                 Edit
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
-                onClick={() => setDeletingUser(user)}
+                onClick={() => setDeletingProduct(product)}
                 className="text-destructive focus:text-destructive cursor-pointer"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
@@ -258,16 +268,19 @@ export function UsersDataTable({
           <div className="relative">
             <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
-              placeholder="Search users..."
-              value={
-                (table.getColumn("fullName")?.getFilterValue() as string) ?? ""
-              }
+              placeholder="Search products..."
+              value={filters.searchTerm || ""}
               onChange={(event) =>
-                table.getColumn("fullName")?.setFilterValue(event.target.value)
+                onFiltersChange({
+                  ...filters,
+                  searchTerm: event.target.value,
+                  pageIndex: 1,
+                })
               }
               className="max-w-sm pl-8"
             />
           </div>
+          <ProductFilters filters={filters} onFiltersChange={onFiltersChange} />
         </div>
         <div className="flex items-center space-x-2">
           <DropdownMenu>
@@ -290,13 +303,7 @@ export function UsersDataTable({
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id === "fullName"
-                        ? "Full Name"
-                        : column.id === "phoneNumber"
-                          ? "Phone Number"
-                          : column.id === "createdAt"
-                            ? "Created At"
-                            : column.id}
+                      {column.id}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
@@ -304,7 +311,7 @@ export function UsersDataTable({
           </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Create User
+            Create Product
           </Button>
         </div>
       </div>
@@ -374,16 +381,27 @@ export function UsersDataTable({
         pageSize={filters.limit || 10}
         onPaginationChange={handlePaginationChange}
       />{" "}
-      <CreateUserModal
+      <CreateProductModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}
         onSuccess={onRefresh}
       />
-      <UserDetailsDrawer
-        user={selectedUser}
-        open={isDrawerOpen}
-        onOpenChange={setIsDrawerOpen}
-      />
+      {editingProduct && (
+        <UpdateProductModal
+          product={editingProduct}
+          open={!!editingProduct}
+          onOpenChange={(open: boolean) => !open && setEditingProduct(null)}
+          onSuccess={onRefresh}
+        />
+      )}
+      {deletingProduct && (
+        <DeleteProductDialog
+          product={deletingProduct}
+          open={!!deletingProduct}
+          onOpenChange={(open: boolean) => !open && setDeletingProduct(null)}
+          onSuccess={onRefresh}
+        />
+      )}
     </div>
   );
 }

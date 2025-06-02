@@ -6,6 +6,8 @@ import {
   GetProductByIdResponse,
   GetProductsParams,
   GetProductsResponse,
+  UpdateProductRequest,
+  UpdateProductResponse,
 } from "@/types/product";
 
 const productApi = apiSlice.injectEndpoints({
@@ -37,21 +39,62 @@ const productApi = apiSlice.injectEndpoints({
           });
         }
 
+        // Create URLSearchParams to handle array serialization properly
+        const searchParams = new URLSearchParams();
+
+        // Handle arrays specially
+        Object.entries(params).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              searchParams.append(key, item.toString());
+            });
+          } else {
+            searchParams.append(key, value.toString());
+          }
+        });
+
         return {
-          url: "products",
+          url: `products?${searchParams.toString()}`,
           method: "POST",
-          params,
           body: formData,
         };
       },
       invalidatesTags: ["Product"],
     }),
-    updateProduct: builder.mutation({
-      query: ({ id, ...updatedProduct }) => ({
-        url: `products/${id}`,
-        method: "PUT",
-        body: updatedProduct,
-      }),
+    updateProduct: builder.mutation<
+      UpdateProductResponse,
+      UpdateProductRequest
+    >({
+      query: ({ id, params, body }) => {
+        const formData = new FormData();
+
+        // Add image files from body if provided
+        if (body?.imageProduct) {
+          body.imageProduct.forEach((file) => {
+            formData.append("imageProduct", file);
+          });
+        }
+
+        // Create URLSearchParams to handle array serialization properly
+        const searchParams = new URLSearchParams();
+
+        // Handle arrays specially
+        Object.entries(params).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              searchParams.append(key, item.toString());
+            });
+          } else {
+            searchParams.append(key, value.toString());
+          }
+        });
+
+        return {
+          url: `products/${id}?${searchParams.toString()}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
       invalidatesTags: (result, error, { id }) => [{ type: "Product", id }],
     }),
     deleteProduct: builder.mutation({
