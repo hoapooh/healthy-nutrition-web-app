@@ -1,7 +1,14 @@
 import HomeBlog from "@/features/client/home/ui/components/home-blog";
 import HomeHero from "@/features/client/home/ui/components/home-hero";
 import HomeProposition from "@/features/client/home/ui/components/home-proposition";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Welcome to Healthy Nutrition - Your source for healthy food and nutrition tips.",
+};
 
 export default function Home() {
   return (
@@ -13,7 +20,7 @@ export default function Home() {
         buttons={{
           primary: { text: "Shop Now", url: "/shop" },
           secondary: {
-            text: "View our news",
+            text: "View Our News",
             url: "/blog",
           },
         }}

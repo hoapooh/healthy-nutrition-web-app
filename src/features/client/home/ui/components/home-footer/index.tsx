@@ -36,7 +36,7 @@ interface HomeFooterProps {
 const HomeFooter = ({
   logo = {
     url: "https://www.shadcnblocks.com",
-    src: "https://www.shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
+    src: "/healthy-nutrition.png",
     alt: "logo",
     title: "Healthy Nutrition",
     titleSpecial: (
@@ -52,24 +52,23 @@ const HomeFooter = ({
   legalLinks = defaultLegalLinks,
 }: HomeFooterProps) => {
   return (
-    <section>
+    <section className="pt-32">
       <div className="container mx-auto px-2 lg:px-0">
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           {/* Left Section */}
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
             {/* Logo */}
             <div className="flex items-center gap-2 lg:justify-start">
-              <a href={logo.url}>
+              <Link href={logo.url}>
                 <Image
                   src={logo.src}
                   alt={logo.alt}
                   title={logo.title}
-                  width={32}
-                  height={32}
-                  className="h-8"
+                  width={200}
+                  height={50}
                 />
-              </a>
-              <h2 className="text-xl font-semibold">{logo.titleSpecial}</h2>
+              </Link>
+              {/* <h2 className="text-xl font-semibold">{logo.titleSpecial}</h2> */}
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
               {description}
