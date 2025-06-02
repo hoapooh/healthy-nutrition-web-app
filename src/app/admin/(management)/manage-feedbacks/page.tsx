@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Feedback Management",
+  description: "Manage user feedback effectively.",
+};
 
 const FeedbackPage = () => {
   return (

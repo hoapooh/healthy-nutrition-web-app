@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/store/hooks/use-auth";
 import { AuthStatus } from "@/lib/auth-utils";
-import { useAppDispatch } from "@/store/hooks";
-import { clearCredentials } from "@/store/slices/auth-slice";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,17 +14,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User, Settings, Loader2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import toast from "react-hot-toast";
+import useLogOut from "@/store/hooks/use-log-out";
 
 const NavAuthButton = () => {
-  const dispatch = useAppDispatch();
   const { authStatus, user } = useAuth();
-
-  // Handler for logout action
-  const handleLogout = () => {
-    dispatch(clearCredentials());
-    toast.success("Bye bye! 👋");
-  };
+  const { handleLogout } = useLogOut();
 
   // Use authStatus to determine what to render
   switch (authStatus) {

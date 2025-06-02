@@ -13,6 +13,7 @@ import {
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
+  IconPackages,
   IconReport,
   IconSearch,
   IconSettings,
@@ -32,13 +33,11 @@ import { NavMain } from "./navigation/nav-main";
 // import { NavDocuments } from "./navigation/nav-documents";
 // import { NavSecondary } from "./navigation/nav-secondary";
 import { NavUser } from "./navigation/nav-user";
+import { useAuth } from "@/store/hooks/use-auth";
+import { AuthStatus } from "@/lib/auth-utils";
+import AppLoader from "@/features/shared/ui/components/app-loader";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -52,17 +51,22 @@ const data = {
     },
     {
       title: "Feedbacks",
-      url: "/admin/feedbacks",
+      url: "/admin/manage-feedbacks",
       icon: IconListDetails,
     },
     {
       title: "Transactions",
-      url: "/admin/transactions",
+      url: "/admin/manage-transactions",
       icon: IconChartBar,
     },
     {
+      title: "Products",
+      url: "/admin/manage-products",
+      icon: IconPackages,
+    },
+    {
       title: "Categories",
-      url: "/admin/categories",
+      url: "/admin/manage-categories",
       icon: IconCategory2,
     },
   ],
@@ -151,6 +155,20 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { authStatus, user } = useAuth();
+
+  if (authStatus === AuthStatus.LOADING) {
+    return (
+      <Sidebar collapsible="offcanvas" {...props}>
+        <SidebarHeader>
+          <div className="flex h-full w-full items-center justify-center">
+            <AppLoader />
+          </div>
+        </SidebarHeader>
+      </Sidebar>
+    );
+  }
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -174,7 +192,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            email: user?.email,
+            avatar: user?.image,
+            name: user?.fullName,
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );

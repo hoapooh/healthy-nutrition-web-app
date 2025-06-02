@@ -1,7 +1,14 @@
 import { SectionCards } from "@/features/admin/dashboard/ui/components/section-cards";
 import { ChartAreaInteractive } from "@/features/admin/dashboard/ui/components/chart-area-interactive";
+import { Metadata } from "next";
 // import data from "./data.json";
 // import { DataTable } from "@/features/admin/main/ui/components/data-table";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  description:
+    "Welcome to the admin dashboard. Here you can manage your application, view statistics, and more.",
+};
 
 export default function Page() {
   return (

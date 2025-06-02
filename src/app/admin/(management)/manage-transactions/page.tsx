@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Transactions",
+  description: "Manage your transactions effectively and efficiently.",
+};
+
 export default function TransactionsPage() {
   return (
     <div className="container mx-auto p-6">
