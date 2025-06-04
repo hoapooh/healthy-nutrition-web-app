@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import {
   Dialog,
   DialogContent,
@@ -30,23 +27,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useCreateCategoryMutation } from "@/services/category-services";
-import { toast } from "react-hot-toast";
 import { CATEGORY_TYPES } from "@/types/category";
-
-const createCategorySchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  type: z.string().min(1, "Type is required"),
-  description: z
-    .string()
-    .min(1, "Description is required")
-    .max(500, "Description must be less than 500 characters"),
-});
-
-type CreateCategoryFormValues = z.infer<typeof createCategorySchema>;
+import { useCreateCategory } from "../../hooks/use-create-category";
 
 interface CreateCategoryModalProps {
   open: boolean;
@@ -59,36 +41,10 @@ export function CreateCategoryModal({
   onOpenChange,
   onSuccess,
 }: CreateCategoryModalProps) {
-  const [createCategory, { isLoading }] = useCreateCategoryMutation();
-
-  const form = useForm<CreateCategoryFormValues>({
-    resolver: zodResolver(createCategorySchema),
-    defaultValues: {
-      name: "",
-      type: "",
-      description: "",
-    },
+  const { form, isLoading, onSubmit, handleOpenChange } = useCreateCategory({
+    onSuccess,
+    onOpenChange,
   });
-
-  const onSubmit = async (values: CreateCategoryFormValues) => {
-    try {
-      await createCategory(values).unwrap();
-      toast.success("Category created successfully!");
-      form.reset();
-      onOpenChange(false);
-      onSuccess();
-    } catch (error: unknown) {
-      console.error("Error creating category:", error);
-      toast.error("Failed to create category");
-    }
-  };
-
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen) {
-      form.reset();
-    }
-    onOpenChange(newOpen);
-  };
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
