@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Filter, X } from "lucide-react";
 import { CategoryParams, CATEGORY_TYPES } from "@/types/category";
+import useCategoryFilters from "../../hooks/use-category-filters";
 
 interface CategoryFiltersProps {
   filters: CategoryParams;
@@ -28,31 +29,18 @@ export function CategoryFilters({
   filters,
   onFiltersChange,
 }: CategoryFiltersProps) {
-  const [localFilters, setLocalFilters] =
-    React.useState<CategoryParams>(filters);
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const hasActiveFilters = Boolean(filters.type || filters.description);
-
-  const handleApplyFilters = () => {
-    onFiltersChange({ ...localFilters, pageIndex: 1 });
-    setIsOpen(false);
-  };
-
-  const handleClearFilters = () => {
-    const clearedFilters = {
-      name: filters.name,
-      pageIndex: 1,
-      limit: filters.limit,
-    };
-    setLocalFilters(clearedFilters);
-    onFiltersChange(clearedFilters);
-    setIsOpen(false);
-  };
-
-  React.useEffect(() => {
-    setLocalFilters(filters);
-  }, [filters]);
+  const {
+    localFilters,
+    setLocalFilters,
+    isOpen,
+    setIsOpen,
+    hasActiveFilters,
+    handleApplyFilters,
+    handleClearFilters,
+  } = useCategoryFilters({
+    filters,
+    onFiltersChange,
+  });
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>

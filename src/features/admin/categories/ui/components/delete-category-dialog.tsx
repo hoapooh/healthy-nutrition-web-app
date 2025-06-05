@@ -11,9 +11,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useDeleteCategoryMutation } from "@/services/category-services";
 import { Category } from "@/types/category";
-import { toast } from "react-hot-toast";
+import { useDeleteCategory } from "../../hooks/use-delete-category";
 
 interface DeleteCategoryDialogProps {
   category: Category;
@@ -28,19 +27,11 @@ export function DeleteCategoryDialog({
   onOpenChange,
   onSuccess,
 }: DeleteCategoryDialogProps) {
-  const [deleteCategory, { isLoading }] = useDeleteCategoryMutation();
-
-  const handleDelete = async () => {
-    try {
-      await deleteCategory({ id: category.id }).unwrap();
-      toast.success("Category deleted successfully!");
-      onOpenChange(false);
-      onSuccess();
-    } catch (error: unknown) {
-      console.error("Error deleting category:", error);
-      toast.error("Failed to delete category");
-    }
-  };
+  const { isLoading, handleDelete } = useDeleteCategory({
+    category,
+    onSuccess,
+    onOpenChange,
+  });
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
