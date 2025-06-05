@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 interface HomeBlogCardProps {
   image?: {
@@ -14,6 +13,7 @@ interface HomeBlogCardProps {
   description: string;
   minutesToRead?: number;
   date?: string;
+  slug?: string;
 }
 
 const HomeBlogCard = ({
@@ -25,13 +25,17 @@ const HomeBlogCard = ({
   description,
   minutesToRead,
   date,
+  slug,
 }: HomeBlogCardProps) => {
+  // Tạo link href dựa trên slug, fallback về "/" nếu không có slug
+  const linkHref = slug ? `/blog/${slug}` : "/";
+
   return (
     <div className="rounded-md border border-gray-200 p-2 shadow-sm transition-shadow duration-200 hover:shadow-md">
       <div className="overflow-hidden rounded-md">
-        <Link href={"/"}>
+        <Link href={linkHref}>
           <Image
-            src={image.src}
+            src={image.src || "/placeholder.svg"}
             alt={image.alt}
             width={300}
             height={200}
@@ -40,7 +44,7 @@ const HomeBlogCard = ({
         </Link>
       </div>
       <div className="mt-2">
-        <Link href={"/"} className="block">
+        <Link href={linkHref} className="block">
           <h3 className="text-base font-semibold transition-colors duration-200 hover:text-green-600">
             {title}
           </h3>

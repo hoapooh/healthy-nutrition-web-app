@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/store-provider";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -32,13 +29,13 @@ export const metadata: Metadata = {
   creator: "WAG Team",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <StoreProvider>
           {children}
