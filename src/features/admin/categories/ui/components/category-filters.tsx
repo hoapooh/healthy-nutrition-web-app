@@ -42,6 +42,8 @@ export function CategoryFilters({
     onFiltersChange,
   });
 
+  console.log(localFilters);
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
