@@ -11,7 +11,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
         "Fusce vitae augue tortor. Integer ultrices vulputate nisl, nec suscipit leo aliquam vitae. Morbi est urna, tincidunt eget finibus eu, bibendum in mauris. Mauris varius augue non nisl ullamcorper, id fringilla est condimentum.",
       content: "Full content here...",
       image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lTBHtKcHjtOI9GcpqFUPGSaGfF9SMS.png",
+        src: "/images/blog/vegan-recipes.jpg",
         alt: "Delicious vegan burgers with spinach and vegetables",
       },
       date: "24th July 2018",
@@ -39,7 +39,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
         "Fusce vitae augue tortor. Integer ultrices vulputate nisl, nec suscipit leo aliquam vitae. Morbi est urna, tincidunt eget finibus eu, bibendum in mauris. Mauris varius augue non nisl ullamcorper, id fringilla est condimentum.",
       content: "Full content here...",
       image: {
-        src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-89ty4wtsMRzAFyWNDV7i013xqE9Mgo.png",
+        src: "/images/blog/cooking-with-kids.jpg",
         alt: "Father and daughter cooking together in kitchen",
       },
       date: "24th July 2018",
@@ -68,7 +68,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
         "Discover amazing smoothie recipes that are both nutritious and delicious. Perfect for breakfast or as a healthy snack throughout the day.",
       content: "Full content here...",
       image: {
-        src: "/placeholder.svg?height=300&width=400",
+        src: "/images/blog/smoothies.png",
         alt: "Colorful smoothies in glasses",
       },
       date: "20th July 2018",
