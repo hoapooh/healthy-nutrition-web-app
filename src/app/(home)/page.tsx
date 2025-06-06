@@ -33,7 +33,7 @@ export default function Home() {
       <HomeProposition />
 
       {/* Banner Decoration */}
-      <div>
+      <div className="container mx-auto mt-4 mb-8">
         <Image
           src="/banner-decor.jpg"
           alt="Banner Decoration"
