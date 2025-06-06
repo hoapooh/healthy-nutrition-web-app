@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  IconBrandBlogger,
   IconCamera,
   IconCategory2,
   IconChartBar,
@@ -68,6 +69,11 @@ const data = {
       title: "Categories",
       url: "/admin/manage-categories",
       icon: IconCategory2,
+    },
+    {
+      title: "Blogs",
+      url: "/admin/manage-blogs",
+      icon: IconBrandBlogger,
     },
   ],
   navClouds: [

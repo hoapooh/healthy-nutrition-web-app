@@ -28,23 +28,9 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, Upload, X } from "lucide-react";
 import { useUpdateProductMutation } from "@/services/product-services";
 import { useGetAllCategoriesQuery } from "@/services/category-services";
-import { Product } from "@/types/product";
 import toast from "react-hot-toast";
 import Image from "next/image";
-
-// Extended Product interface to include all necessary fields for editing
-interface ProductForEdit extends Product {
-  brand?: string;
-  images?: string[];
-  nutritionFact?: {
-    calories: number;
-    protein: number;
-    cholesterol: number;
-    lipid: number;
-    sugar: number;
-    carbs: number;
-  };
-}
+import { Product } from "@/types/product";
 
 // Form validation schema
 const updateProductSchema = z.object({
@@ -66,7 +52,7 @@ const updateProductSchema = z.object({
 type UpdateProductFormValues = z.infer<typeof updateProductSchema>;
 
 interface UpdateProductModalProps {
-  product: ProductForEdit | null;
+  product: Product | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
