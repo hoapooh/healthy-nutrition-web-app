@@ -8,6 +8,8 @@ const useCategoriesPageContent = () => {
     limit: 10,
   });
 
+  console.log(filters);
+
   const {
     data: categoriesResponse,
     isLoading,
