@@ -7,6 +7,14 @@ export interface Product {
   stockQuantity: number;
   categoryIds: string[];
   tags: string[];
+  nutritionFact: {
+    calories: number;
+    protein: number;
+    cholesterol: number;
+    lipid: number;
+    sugar: number;
+    carbs: number;
+  };
 }
 
 // GET
