@@ -29,28 +29,30 @@ const HomeNavbar = () => {
         paddingBlock: paddingBlock,
       }}
     >
-      <div className="flex w-full items-center gap-4">
-        {/* Menu and logo */}
-        <div className="flex shrink-0 items-center">
-          <Link href={"/"}>
-            <Image
-              src={"/healthy-nutrition.png"}
-              width={200}
-              height={50}
-              alt="Healthy Nutrition Logo"
-            />
+      <div className="container mx-auto flex w-full items-center justify-between">
+        <div className="flex w-full items-center gap-4">
+          {/* Menu and logo */}
+          <div className="flex shrink-0 items-center">
+            <Link href={"/"}>
+              <Image
+                src={"/healthy-nutrition.png"}
+                width={200}
+                height={50}
+                alt="Healthy Nutrition Logo"
+              />
 
-            {/*  <p className="text-xl font-semibold tracking-wide text-green-600">
-                Healthy<span className="text-black">Nutrition</span>
-              </p> */}
-          </Link>
-        </div>
+              {/*  <p className="text-xl font-semibold tracking-wide text-green-600">
+                  Healthy<span className="text-black">Nutrition</span>
+                </p> */}
+            </Link>
+          </div>
 
-        {/* Navigation Menu */}
-        <NavMenu menu={menuData} />
-      </div>{" "}
-      {/* Authentication Button */}
-      <NavAuthButton />
+          {/* Navigation Menu */}
+          <NavMenu menu={menuData} />
+        </div>{" "}
+        {/* Authentication Button */}
+        <NavAuthButton />
+      </div>
     </motion.nav>
   );
 };
