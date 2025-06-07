@@ -4,3 +4,4 @@ export interface IUser {
 }
 
 export * from "./blog";
+export * from "./cart";
