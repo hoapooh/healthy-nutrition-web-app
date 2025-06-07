@@ -8,7 +8,8 @@ export interface Product {
   categoryIds: string[];
   tags: string[];
   brand?: string;
-  images?: string[];
+  rating?: number;
+  imageUrls?: string[];
   nutritionFact: {
     calories: number;
     protein: number;
