@@ -50,17 +50,22 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
           )}
         >
           <Image
-            src="https://www.shadcnblocks.com/images/block/placeholder-1.svg"
+            src={
+              product!.imageUrls![0] ||
+              "https://www.shadcnblocks.com/images/block/placeholder-1.svg"
+            }
             alt={product.name}
             width={viewMode === "grid" ? 400 : 160}
             height={viewMode === "grid" ? 192 : 160}
             className={imageClass}
           />
 
-          <div className="bg-opacity-80 absolute bottom-2 left-2 flex items-center gap-2 rounded-full bg-white px-2 py-1 backdrop-blur-sm">
+          <div className="bg-opacity-80 absolute bottom-2 left-2 flex items-center gap-2 rounded-full bg-green-600/80 px-2 py-1 backdrop-blur-sm">
             <div className="flex items-center">
               <Star className="h-4 w-4 fill-current text-yellow-400" />
-              <span className="text-muted-foreground ml-1 text-sm">(4.5)</span>
+              <span className="ml-1 text-sm text-white">
+                ({product.rating})
+              </span>
             </div>
           </div>
         </div>

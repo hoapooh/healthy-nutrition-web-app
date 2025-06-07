@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="py-2 lg:p-8">
+    <div className="py-6 lg:p-8">
       {/* Hero */}
       <HomeHero
         heading="Welcome to Healthy Nutrition"

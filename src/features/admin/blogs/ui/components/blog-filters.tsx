@@ -39,8 +39,6 @@ export function BlogFilters({ filters, onFiltersChange }: BlogFiltersProps) {
     onFiltersChange,
   });
 
-  console.log(localFilters);
-
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>

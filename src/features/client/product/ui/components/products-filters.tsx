@@ -75,18 +75,22 @@ export const ProductsFilters = ({
               className="min-w-20"
               type="number"
             />
-          </div>
-
+          </div>{" "}
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Sort by:</span>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="min-w-40">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="name">Name</SelectItem>
-                <SelectItem value="price">Price</SelectItem>
-                <SelectItem value="stock">Stock</SelectItem>
+                <SelectItem value="name-asc">Name (A → Z)</SelectItem>
+                <SelectItem value="name-desc">Name (Z → A)</SelectItem>
+                <SelectItem value="price-desc">
+                  Price (Highest to Lowest)
+                </SelectItem>
+                <SelectItem value="price-asc">
+                  Price (Lowest to Highest)
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
