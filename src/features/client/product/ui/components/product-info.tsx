@@ -16,6 +16,12 @@ import {
 } from "lucide-react";
 import { Product } from "@/types/product";
 import { formatCurrency } from "@/utils/format-currency";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  addToCart,
+  selectCartItemByProductId,
+} from "@/store/slices/cart-slice";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface ProductInfoProps {
@@ -24,6 +30,10 @@ interface ProductInfoProps {
 }
 
 export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const cartItem = useAppSelector(selectCartItemByProductId(product.id));
+
   const [quantity, setQuantity] = useState(1);
   // const [isWishlisted, setIsWishlisted] = useState(false);
 
@@ -35,9 +45,32 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
   };
 
   const handleAddToCart = () => {
-    // Add to cart logic here
-    console.log(`Adding ${quantity} of ${product.name} to cart`);
+    if (product.stockQuantity === 0) {
+      toast.error("Product is out of stock");
+      return;
+    }
+
+    const imageUrl = product.imageUrls?.[0] || "";
+
+    dispatch(
+      addToCart({
+        productId: product.id,
+        name: product.name,
+        price: product.price,
+        quantity,
+        imageUrl,
+        stockQuantity: product.stockQuantity,
+      }),
+    );
+
+    toast.success(`${quantity} x ${product.name} added to cart!`);
   };
+
+  const handleViewCart = () => {
+    router.push("/cart");
+  };
+
+  const isInCart = !!cartItem;
 
   const handleShare = async () => {
     const currentUrl = window.location.href;
@@ -102,18 +135,17 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-
+        </div>{" "}
         <div className="flex gap-3">
           <Button
             className="flex-1"
             size="lg"
-            variant={"healthy"}
-            onClick={handleAddToCart}
+            variant={isInCart ? "outline" : "healthy"}
+            onClick={isInCart ? handleViewCart : handleAddToCart}
             disabled={product.stockQuantity === 0}
           >
             <ShoppingCart className="mr-2 h-5 w-5" />
-            Add to Cart
+            {isInCart ? "View Cart" : "Add to Cart"}
           </Button>
 
           {/* // TODO: this feature will be update later */}
