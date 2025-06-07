@@ -113,7 +113,7 @@ export function UpdateProductModal({
       };
 
       form.reset(defaultValues);
-      setExistingImages(product.images || []);
+      setExistingImages(product.imageUrls || []);
       setSelectedFiles([]);
     }
   }, [product, form]);
