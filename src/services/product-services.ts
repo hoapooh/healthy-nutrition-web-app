@@ -21,7 +21,7 @@ const productApi = apiSlice.injectEndpoints({
     }),
     getProductById: builder.query<GetProductByIdResponse, GetProductByIdParams>(
       {
-        query: (id) => `products/${id}`,
+        query: (params) => `products/${params.id}`,
         providesTags: (result, error, { id }) => [{ type: "Product", id }],
       },
     ),

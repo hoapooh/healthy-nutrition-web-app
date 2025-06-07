@@ -10,6 +10,7 @@ import {
   ProductsFilters,
   ProductsGrid,
   ProductsPagination,
+  ProductsCategorySidebar,
 } from "@/features/client/product/ui/components";
 
 const ProductsPage = () => {
@@ -26,6 +27,9 @@ const ProductsPage = () => {
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "name");
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
+  const [selectedCategoryId, setSelectedCategoryId] = useState(
+    searchParams.get("categoryId") || "",
+  );
   const [currentPage, setCurrentPage] = useState(
     parseInt(searchParams.get("page") || "1"),
   );
@@ -48,7 +52,6 @@ const ProductsPage = () => {
     },
     [router, searchParams],
   );
-
   // Update state when URL parameters change
   useEffect(() => {
     setSearchTerm(searchParams.get("search") || "");
@@ -56,11 +59,12 @@ const ProductsPage = () => {
     setSortBy(searchParams.get("sort") || "name");
     setMinPrice(searchParams.get("minPrice") || "");
     setMaxPrice(searchParams.get("maxPrice") || "");
+    setSelectedCategoryId(searchParams.get("categoryId") || "");
     setCurrentPage(parseInt(searchParams.get("page") || "1"));
   }, [searchParams]);
-
   const queryParams: GetProductsParams = {
     searchTerm: searchTerm || undefined,
+    categoryIds: selectedCategoryId ? [selectedCategoryId] : undefined,
     minPrice: minPrice ? Number(minPrice) : undefined,
     maxPrice: maxPrice ? Number(maxPrice) : undefined,
     pageIndex: currentPage,
@@ -107,15 +111,22 @@ const ProductsPage = () => {
     setMinPrice(value);
     updateSearchParams({ minPrice: value || null });
   };
-
   const handleMaxPriceChange = (value: string) => {
     setMaxPrice(value);
     updateSearchParams({ maxPrice: value || null });
   };
 
+  const handleCategoryChange = (categoryId: string | null) => {
+    setSelectedCategoryId(categoryId || "");
+    updateSearchParams({
+      categoryId: categoryId || null,
+      page: 1, // Reset to first page when changing category
+    });
+    setCurrentPage(1);
+  };
   return (
     <div className="container mx-auto px-4 py-8">
-      <ProductsHeader />{" "}
+      <ProductsHeader />
       <ProductsFilters
         searchTerm={searchTerm}
         setSearchTerm={handleSearchTermChange}
@@ -130,30 +141,36 @@ const ProductsPage = () => {
         onSearch={handleSearch}
       />
       <Separator className="mb-6" />
-      <ProductsGrid
-        products={products}
-        viewMode={viewMode}
-        isLoading={isLoading}
-        error={error}
-      />
-      {/* Pagination */}
-      {/* // TODO: This code will be used to fix the feedback of pagination error */}
-      {/* {!searchTerm && products.length > 0 && !isLoading && !error && (
-        <ProductsPagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-        />
-      )} */}
-      {products.length > 0 && !isLoading && !error && (
-        <ProductsPagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-        />
-      )}
+      {/* Main content with sidebar layout */}
+      <div className="flex flex-col gap-6 lg:flex-row">
+        {/* Category Sidebar */}
+        <div className="relative w-full lg:w-64 lg:flex-shrink-0">
+          <ProductsCategorySidebar
+            selectedCategoryId={selectedCategoryId || undefined}
+            onCategorySelect={handleCategoryChange}
+          />
+        </div>
+
+        {/* Products Content */}
+        <div className="min-w-0 flex-1">
+          <ProductsGrid
+            products={products}
+            viewMode={viewMode}
+            isLoading={isLoading}
+            error={error}
+          />
+
+          {/* Pagination */}
+          {products.length > 0 && !isLoading && !error && (
+            <ProductsPagination
+              currentPage={currentPage}
+              totalCount={totalCount}
+              pageSize={pageSize}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,3 +3,4 @@ export { ProductsFilters } from "./products-filters";
 export { ProductsGrid } from "./products-grid";
 export { ProductsHeader } from "./products-header";
 export { ProductsPagination } from "./products-pagination";
+export { ProductsCategorySidebar } from "./products-category-sidebar";

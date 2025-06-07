@@ -192,6 +192,8 @@ const ProductDetailPage = () => {
   const params = useParams();
   const productId = params.id as string;
 
+  console.log(productId);
+
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
@@ -470,7 +472,7 @@ const ProductDetailPage = () => {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Placeholder for related products */}
           {[...Array(4)].map((_, i) => (
-            <Card key={i} className="transition-shadow hover:shadow-md">
+            <Card key={i} className="p-0 transition-shadow hover:shadow-md">
               <div className="aspect-square">
                 <Image
                   src="https://www.shadcnblocks.com/images/block/placeholder-1.svg"

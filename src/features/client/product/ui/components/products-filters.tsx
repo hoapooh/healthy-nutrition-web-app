@@ -57,7 +57,7 @@ export const ProductsFilters = ({
       </div>
 
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
           <div className="flex items-center gap-2">
             <span className="shrink-0 text-sm font-medium">Price Range:</span>
             <Input

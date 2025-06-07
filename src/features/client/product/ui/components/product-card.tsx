@@ -12,6 +12,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
 import { formatCurrency } from "@/utils/format-currency";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+
+const MotionCard = motion(Card);
 
 interface ProductCardProps {
   product: Product;
@@ -32,12 +36,18 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
   const contentClass = viewMode === "grid" ? "p-4" : "flex-1";
 
   return (
-    <Card className={cardClass}>
+    <MotionCard
+      layout
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2 }}
+      className={cardClass}
+    >
       <div className={viewMode === "list" ? "contents" : ""}>
         <div
-          className={
-            viewMode === "list" ? "min-h-32 min-w-32 flex-shrink-0" : ""
-          }
+          className={cn(
+            "relative",
+            viewMode === "list" ? "min-h-32 min-w-32 flex-shrink-0" : "",
+          )}
         >
           <Image
             src="https://www.shadcnblocks.com/images/block/placeholder-1.svg"
@@ -46,10 +56,17 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
             height={viewMode === "grid" ? 192 : 160}
             className={imageClass}
           />
+
+          <div className="bg-opacity-80 absolute bottom-2 left-2 flex items-center gap-2 rounded-full bg-white px-2 py-1 backdrop-blur-sm">
+            <div className="flex items-center">
+              <Star className="h-4 w-4 fill-current text-yellow-400" />
+              <span className="text-muted-foreground ml-1 text-sm">(4.5)</span>
+            </div>
+          </div>
         </div>
 
         <div className={contentClass}>
-          <CardHeader className={viewMode === "list" ? "p-0 pb-2" : "mb-3 p-0"}>
+          <CardHeader className={viewMode === "list" ? "p-0 pb-2" : "p-0"}>
             <div className="flex items-start justify-between">
               <Link
                 href={`/products/${product.id}`}
@@ -59,16 +76,6 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                   {product.name}
                 </h3>
               </Link>
-            </div>
-
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 fill-current text-yellow-400"
-                />
-              ))}
-              <span className="text-muted-foreground ml-1 text-sm">(4.5)</span>
             </div>
           </CardHeader>
 
@@ -121,6 +128,6 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
           </CardFooter>
         </div>
       </div>
-    </Card>
+    </MotionCard>
   );
 };

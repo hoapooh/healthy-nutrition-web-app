@@ -2,6 +2,7 @@ import React from "react";
 import { Filter, LoaderCircle } from "lucide-react";
 import { Product } from "@/types/product";
 import { ProductCard } from "./product-card";
+import { motion, AnimatePresence } from "motion/react";
 
 interface ProductsGridProps {
   products: Product[];
@@ -48,16 +49,20 @@ export const ProductsGrid = ({
   }
 
   return (
-    <div
+    // TODO: consider if 3 or 4 columns is better for grid view
+    <motion.div
       className={
         viewMode === "grid"
-          ? "mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          ? "mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           : "mb-8 space-y-4"
       }
+      layout
     >
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} viewMode={viewMode} />
-      ))}
-    </div>
+      <AnimatePresence mode="popLayout">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} viewMode={viewMode} />
+        ))}
+      </AnimatePresence>
+    </motion.div>
   );
 };
