@@ -11,14 +11,23 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User, Settings, Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { LogOut, User, Settings, Loader2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import useLogOut from "@/store/hooks/use-log-out";
+import { useAppSelector } from "@/store/hooks";
+import { selectCartTotalItems } from "@/store/slices/cart-slice";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const NavAuthButton = () => {
   const { authStatus, user } = useAuth();
   const { handleLogout } = useLogOut();
+  const cartItemsCount = useAppSelector(selectCartTotalItems);
 
   // Use authStatus to determine what to render
   switch (authStatus) {
@@ -31,10 +40,32 @@ const NavAuthButton = () => {
           </div>
         </div>
       );
-
     case AuthStatus.AUTHENTICATED:
       return (
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-3">
+          {/* Cart Button */}
+          <Link href="/cart">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartItemsCount > 0 && (
+                    <Badge
+                      variant="destructive"
+                      className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full p-0 text-xs"
+                    >
+                      {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                    </Badge>
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>View Cart ({cartItemsCount})</span>
+              </TooltipContent>
+            </Tooltip>
+          </Link>
+
+          {/* User Avatar Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -84,10 +115,25 @@ const NavAuthButton = () => {
           </DropdownMenu>
         </div>
       );
-
     case AuthStatus.UNAUTHENTICATED:
       return (
         <div className="flex shrink-0 items-center gap-2">
+          {/* Cart Button */}
+          <Link href="/cart">
+            <Button variant="ghost" size="sm" className="relative">
+              <ShoppingCart className="h-5 w-5" />
+              {cartItemsCount > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-2 -right-2 flex h-5 w-5 min-w-[20px] items-center justify-center rounded-full p-0 text-xs"
+                >
+                  {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                </Badge>
+              )}
+            </Button>
+          </Link>
+
+          {/* Auth Buttons */}
           <Button
             asChild
             variant={"outline"}
