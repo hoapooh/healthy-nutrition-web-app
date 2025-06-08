@@ -19,7 +19,7 @@ const badgeVariants = cva(
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         calendar:
           "border-transparent bg-yellow-100 text-yellow-800 [a&]:hover:bg-yellow-100/90",
-        minutes:
+        healthy:
           "border-transparent bg-green-100 text-green-800 [a&]:hover:bg-green-100/90",
       },
     },

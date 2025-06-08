@@ -22,7 +22,7 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 interface ProductCardProps {
   product: Product;
@@ -156,6 +156,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                   size="sm"
                   variant={isInCart ? "outline" : "healthy"}
                   onClick={isInCart ? handleViewCart : handleAddToCart}
+                  className={cn("", isInCart ? "text-green-600" : "")}
                   disabled={product.stockQuantity === 0}
                 >
                   <ShoppingCart className="mr-1 h-4 w-4" />
@@ -174,6 +175,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                     size="sm"
                     variant={isInCart ? "outline" : "healthy"}
                     onClick={isInCart ? handleViewCart : handleAddToCart}
+                    className={cn("", isInCart ? "text-green-600" : "")}
                     disabled={product.stockQuantity === 0}
                   >
                     <ShoppingCart className="mr-1 h-4 w-4" />
