@@ -8,13 +8,13 @@ interface BlogRecentPostsProps {
 
 const BlogRecentPosts = ({ posts }: BlogRecentPostsProps) => {
   return (
-    <div>
-      <h2 className="mb-4 text-xl font-bold">Recent News</h2>
+    <div className="rounded-lg bg-white p-6 shadow-sm">
+      <h2 className="mb-4 text-xl font-bold text-gray-900">Recent News</h2>
       <div className="space-y-4">
         {posts.map((post) => (
           <article key={post.id} className="flex gap-3">
             <Link href={`/blog/${post.slug}`} className="shrink-0">
-              <div className="relative h-20 w-20 overflow-hidden rounded">
+              <div className="relative h-16 w-16 overflow-hidden rounded">
                 <Image
                   src={post.image.src || "/placeholder.svg"}
                   alt={post.image.alt}
@@ -23,9 +23,9 @@ const BlogRecentPosts = ({ posts }: BlogRecentPostsProps) => {
                 />
               </div>
             </Link>
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               <Link href={`/blog/${post.slug}`}>
-                <h3 className="mb-1 line-clamp-2 font-medium transition-colors hover:text-green-600">
+                <h3 className="mb-1 line-clamp-2 text-sm leading-tight font-medium transition-colors hover:text-green-600">
                   {post.title}
                 </h3>
               </Link>

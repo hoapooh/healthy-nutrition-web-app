@@ -27,7 +27,6 @@ const HomeBlogCard = ({
   date,
   slug,
 }: HomeBlogCardProps) => {
-  // Tạo link href dựa trên slug, fallback về "/" nếu không có slug
   const linkHref = slug ? `/blog/${slug}` : "/";
 
   return (
