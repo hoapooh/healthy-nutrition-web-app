@@ -8,7 +8,7 @@ import { Category } from "@/types/category";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
-const MotionButton = motion(Button);
+const MotionButton = motion.create(Button);
 
 interface ProductsCategorySidebarProps {
   selectedCategoryId?: string;
@@ -53,10 +53,10 @@ export const ProductsCategorySidebar = ({
   return (
     <Card className="h-fit gap-4 py-4 lg:sticky lg:top-4">
       <CardHeader className="px-4">
-        <CardTitle className="flex items-center justify-between">
+        <CardTitle className="flex flex-wrap items-center justify-between gap-1">
           Categories
           {selectedCategoryId && (
-            <Badge variant="secondary" className="text-xs">
+            <Badge variant="secondary" className="truncate text-xs">
               {categories.find((c) => c.id === selectedCategoryId)?.name ||
                 "Selected"}
             </Badge>

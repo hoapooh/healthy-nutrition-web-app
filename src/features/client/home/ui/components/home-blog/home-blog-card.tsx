@@ -57,7 +57,7 @@ const HomeBlogCard = ({
             </Badge>
           )}
           {minutesToRead && (
-            <Badge className="text-xs" variant={"minutes"}>
+            <Badge className="text-xs" variant={"healthy"}>
               <Clock className="size-3" /> {minutesToRead} Min Read
             </Badge>
           )}

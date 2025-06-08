@@ -23,6 +23,7 @@ import {
 } from "@/store/slices/cart-slice";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { cn } from "@/lib/utils";
 
 interface ProductInfoProps {
   product: Product;
@@ -138,7 +139,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
         </div>{" "}
         <div className="flex gap-3">
           <Button
-            className="flex-1"
+            className={cn("flex-1", isInCart ? "text-green-600" : "")}
             size="lg"
             variant={isInCart ? "outline" : "healthy"}
             onClick={isInCart ? handleViewCart : handleAddToCart}

@@ -13,7 +13,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { updateCartItem, removeFromCart } from "@/store/slices/cart-slice";
 import { motion } from "motion/react";
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 interface CartItemComponentProps {
   item: CartItem;

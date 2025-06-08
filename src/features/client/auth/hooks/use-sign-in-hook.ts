@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { toast } from "sonner";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -7,6 +6,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { setCredentials } from "@/store/slices/auth-slice";
 import { useLoginMutation } from "@/services/auth-services";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -46,12 +46,13 @@ const useSignInHook = () => {
             },
           }),
         );
-        toast.success(data.message || "Login successful!");
+        toast.success("Welcome 🍎🍏!");
         // Optionally redirect or perform other actions after successful login
         router.replace("/");
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        toast.error("Invalid credentials. Please try again.");
+        console.log("Login failed:", error);
       });
   };
 

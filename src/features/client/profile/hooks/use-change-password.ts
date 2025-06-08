@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useChangePasswordMutation } from "@/services/auth-services";
+import useLogOut from "@/store/hooks/use-log-out";
 
 const changePasswordSchema = z
   .object({
@@ -31,6 +32,7 @@ const useChangePassword = () => {
     newPassword: false,
     confirmPassword: false,
   });
+  const { handleLogout } = useLogOut();
 
   const form = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordSchema),
@@ -46,6 +48,7 @@ const useChangePassword = () => {
       await changePassword(values).unwrap();
       toast.success("Password changed successfully!");
       form.reset();
+      handleLogout(); // Log out user after password change
     } catch (error: unknown) {
       console.error("Error changing password:", error);
       toast.error("Failed to change password. Try again!");

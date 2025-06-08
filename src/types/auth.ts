@@ -86,3 +86,23 @@ export interface CreateUserBody {
 export interface CreateUserResponse {
   message: string;
 }
+
+// Update
+export interface UpdateUserResponse {
+  message: string;
+}
+
+export interface UpdateUserParams {
+  fullName?: string;
+  phoneNumber?: string;
+  address?: string;
+}
+
+export interface UpdateUserBody {
+  image?: File | null;
+}
+
+export interface UpdateUserRequest {
+  params: UpdateUserParams;
+  body: UpdateUserBody;
+}
