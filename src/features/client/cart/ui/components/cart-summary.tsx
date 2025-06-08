@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,6 +28,7 @@ export const CartSummary = ({
   className = "",
   showCheckout = true,
 }: CartSummaryProps) => {
+  const router = useRouter();
   const totalItems = useAppSelector(selectCartTotalItems);
   const totalPrice = useAppSelector(selectCartTotalPrice);
 
@@ -34,10 +36,8 @@ export const CartSummary = ({
   const shippingCost = totalPrice >= 50 ? 0 : 5.99;
   const subtotal = totalPrice;
   const finalTotal = subtotal + shippingCost;
-
   const handleCheckout = () => {
-    // TODO: Implement checkout functionality
-    console.log("Proceeding to checkout...");
+    router.push("/checkout");
   };
 
   if (totalItems === 0) {

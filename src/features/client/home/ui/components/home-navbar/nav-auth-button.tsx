@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { LogOut, User, Settings, Loader2, ShoppingCart } from "lucide-react";
+import { LogOut, User, Loader2, ShoppingCart, History } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import useLogOut from "@/store/hooks/use-log-out";
@@ -98,9 +98,9 @@ const NavAuthButton = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/settings" className="flex items-center">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                <Link href="/order-history" className="flex items-center">
+                  <History className="mr-2 h-4 w-4" />
+                  <span>Order History</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
