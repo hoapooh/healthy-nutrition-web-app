@@ -10,7 +10,7 @@ import { Product } from "@/types/product";
 import { formatCurrency } from "@/utils/format-currency";
 import { motion } from "motion/react";
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 interface RelatedProductsProps {
   currentProduct: Product;
