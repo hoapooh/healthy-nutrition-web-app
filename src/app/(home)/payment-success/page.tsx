@@ -6,7 +6,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { clearCart } from "@/store/slices/cart-slice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Home, ShoppingBag } from "lucide-react";
+import { CheckCircle, History, Home } from "lucide-react";
 import { toast } from "sonner";
 import ProtectedRoute from "@/features/shared/ui/components/protected/protected-route";
 
@@ -24,8 +24,8 @@ const PaymentSuccessPage = () => {
     router.push("/");
   };
 
-  const handleViewProducts = () => {
-    router.push("/products");
+  const handleViewOrderHistory = () => {
+    router.push("/order-history");
   };
 
   return (
@@ -63,12 +63,12 @@ const PaymentSuccessPage = () => {
                   Go to Homepage
                 </Button>
                 <Button
-                  onClick={handleViewProducts}
+                  onClick={handleViewOrderHistory}
                   variant="outline"
                   className="gap-2"
                 >
-                  <ShoppingBag className="h-4 w-4" />
-                  Continue Shopping
+                  <History className="h-4 w-4" />
+                  View Order History
                 </Button>
               </div>
 

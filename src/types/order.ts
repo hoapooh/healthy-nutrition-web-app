@@ -4,6 +4,7 @@ export interface OrderItemPayment {
   productName: string;
   quantity: number;
   pricePerUnit: number;
+  productImageUrl: string;
 }
 
 export interface OrderItemHistory {
@@ -32,6 +33,11 @@ export interface GetOrderByCodeResponse {
 
 export interface GetOrderByCodeParams {
   code: string;
+}
+
+export interface GetOrderByUserResponse {
+  items: OrderItemHistory[];
+  totalCount: number;
 }
 
 // POST

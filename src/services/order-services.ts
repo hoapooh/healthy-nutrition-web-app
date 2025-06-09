@@ -4,6 +4,7 @@ import {
   GetAllOrdersResponse,
   GetOrderByCodeParams,
   GetOrderByCodeResponse,
+  GetOrderByUserResponse,
 } from "@/types/order";
 
 const orderApi = apiSlice.injectEndpoints({
@@ -25,7 +26,17 @@ const orderApi = apiSlice.injectEndpoints({
         ],
       },
     ),
+    getOrderByUser: builder.query<GetOrderByUserResponse, void>({
+      query: () => ({
+        url: "orders/by-user",
+      }),
+      providesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useGetAllOrdersQuery, useGetOrderByCodeQuery } = orderApi;
+export const {
+  useGetAllOrdersQuery,
+  useGetOrderByCodeQuery,
+  useGetOrderByUserQuery,
+} = orderApi;
