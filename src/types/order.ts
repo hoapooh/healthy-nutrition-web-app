@@ -4,7 +4,7 @@ export interface OrderItemPayment {
   productName: string;
   quantity: number;
   pricePerUnit: number;
-  productImageUrl: string;
+  productImageUrl?: string;
 }
 
 export interface OrderItemHistory {
