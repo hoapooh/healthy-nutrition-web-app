@@ -34,7 +34,7 @@ export default function SignInForm({
           {/* Header */}
           <div className="flex flex-col items-center gap-2">
             <Link
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
@@ -178,10 +178,10 @@ export default function SignInForm({
       </Form>
 
       {/* Term and Service */}
-      <div className="text-muted-foreground hover:[&_a]:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4">
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our{" "}
-        <Link href="/">Terms of Service</Link> and{" "}
-        <Link href="/">Privacy Policy</Link>.
+        <Link href="#">Terms of Service</Link> and{" "}
+        <Link href="#">Privacy Policy</Link>.
       </div>
     </div>
   );
