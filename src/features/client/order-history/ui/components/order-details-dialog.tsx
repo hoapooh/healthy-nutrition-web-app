@@ -122,7 +122,7 @@ export const OrderDetailsDialog = ({
                       >
                         <div className="flex-shrink-0">
                           <Image
-                            src={item.productImageUrl}
+                            src={item!.productImageUrl!}
                             alt={item.productName}
                             width={64}
                             height={64}
