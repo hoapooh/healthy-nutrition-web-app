@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Link from "next/link";
 
 import {
@@ -29,6 +36,12 @@ export function SignUpForm({
     isLoading,
     passwordVisibility,
     togglePasswordVisibility,
+    provinces,
+    districts,
+    wards,
+    loadingProvinces,
+    loadingDistricts,
+    loadingWards,
   } = useSignUpHook();
 
   return (
@@ -38,7 +51,7 @@ export function SignUpForm({
           {/* Header */}
           <div className="flex flex-col items-center gap-2">
             <Link
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
@@ -82,8 +95,7 @@ export function SignUpForm({
                   </FormItem>
                 )}
               />
-            </div>
-
+            </div>{" "}
             {/* Email Field */}
             <div className="grid gap-2">
               <FormField
@@ -105,7 +117,169 @@ export function SignUpForm({
                 )}
               />
             </div>
-
+            {/* Address Fields */}
+            <div className="grid gap-4">
+              <FormLabel className="text-sm font-medium">Address</FormLabel>
+              {/* Address Number Field */}
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="addressNo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="addressNo">No.</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="addressNo"
+                          type="text"
+                          placeholder="123"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>{" "}
+              {/* City Field */}
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="city">City</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue
+                              placeholder={
+                                loadingProvinces
+                                  ? "Loading cities..."
+                                  : "Select city"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {provinces.length > 0 ? (
+                            provinces.map((province) => (
+                              <SelectItem
+                                key={province.code}
+                                value={province.name}
+                              >
+                                {province.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-city" disabled>
+                              No cities available
+                            </SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>{" "}
+              {/* District Field */}
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="district"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="district">District</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={!form.watch("city") || loadingDistricts}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue
+                              placeholder={
+                                !form.watch("city")
+                                  ? "Select city first"
+                                  : loadingDistricts
+                                    ? "Loading districts..."
+                                    : "Select district"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {districts.length > 0 ? (
+                            districts.map((district) => (
+                              <SelectItem
+                                key={district.code}
+                                value={district.name}
+                              >
+                                {district.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-district" disabled>
+                              No districts available
+                            </SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              {/* Ward Field */}
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="ward"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="ward">Ward</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={!form.watch("district") || loadingWards}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue
+                              placeholder={
+                                !form.watch("district")
+                                  ? "Select district first"
+                                  : loadingWards
+                                    ? "Loading wards..."
+                                    : "Select ward"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>{" "}
+                        <SelectContent>
+                          {wards.length > 0 ? (
+                            wards.map((ward) => (
+                              <SelectItem key={ward.code} value={ward.name}>
+                                {ward.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-ward" disabled>
+                              No wards available
+                            </SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
             {/* Password Field */}
             <div className="grid gap-2">
               <FormField
@@ -152,7 +326,6 @@ export function SignUpForm({
                 )}
               />
             </div>
-
             {/* Confirm Password Field */}
             <div className="grid gap-2">
               <FormField
@@ -197,7 +370,6 @@ export function SignUpForm({
                 )}
               />
             </div>
-
             <Button
               type="submit"
               disabled={isLoading}
@@ -244,10 +416,10 @@ export function SignUpForm({
       </Form>
 
       {/* Term and Service */}
-      <div className="text-muted-foreground hover:[&_a]:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4">
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our{" "}
-        <Link href="/">Terms of Service</Link> and{" "}
-        <Link href="/">Privacy Policy</Link>.
+        <Link href="#">Terms of Service</Link> and{" "}
+        <Link href="#">Privacy Policy</Link>.
       </div>
     </div>
   );

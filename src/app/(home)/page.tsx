@@ -18,7 +18,7 @@ export default function Home() {
         heading="Welcome to Healthy Nutrition"
         badge="🥕🫛 Your Healthy Friend"
         buttons={{
-          primary: { text: "Shop Now", url: "/shop" },
+          primary: { text: "Shop Now", url: "/products" },
           secondary: {
             text: "View Our News",
             url: "/blog",
