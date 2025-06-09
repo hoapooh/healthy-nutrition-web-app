@@ -15,6 +15,7 @@ import { formatCurrency } from "@/utils/format-currency";
 import { useOrderDetails } from "../../hooks/use-order-history";
 import { OrderItemPayment } from "@/types/order";
 import { Package, Receipt, Calendar, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface OrderDetailsDialogProps {
   orderCode: string;
@@ -78,7 +79,7 @@ export const OrderDetailsDialog = ({
           </div>
         ) : orderDetails ? (
           <div className="space-y-6">
-            <Card>
+            <Card className="py-0">
               <CardContent className="p-4">
                 <div className="mb-4 flex items-center justify-between">
                   <div>
@@ -106,20 +107,32 @@ export const OrderDetailsDialog = ({
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="py-0">
               <CardContent className="p-4">
                 <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
                   <Package className="h-5 w-5" />
                   Order Items ({orderDetails.items.length})
-                </h3>
-
+                </h3>{" "}
                 <div className="space-y-4">
                   {orderDetails.items.map(
                     (item: OrderItemPayment, index: number) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between rounded-lg border p-3"
+                        className="flex items-center gap-4 rounded-lg border p-3"
                       >
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={item!.productImageUrl!}
+                            alt={item.productName}
+                            width={64}
+                            height={64}
+                            className="h-16 w-16 rounded-md object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "/healthy-product.png"; // Fallback image
+                            }}
+                          />
+                        </div>
                         <div className="flex-1">
                           <h4 className="font-medium">{item.productName}</h4>
                           <p className="text-muted-foreground text-sm">
@@ -138,9 +151,7 @@ export const OrderDetailsDialog = ({
                     ),
                   )}
                 </div>
-
                 <Separator className="my-4" />
-
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal</span>

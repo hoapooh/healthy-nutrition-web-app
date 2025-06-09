@@ -1,11 +1,7 @@
-import React from "react";
+import ForgotPasswordForm from "@/features/client/auth/ui/components/forgot-password-form";
 
 const ForgotPasswordPage = () => {
-  return (
-    <div className="text-center text-2xl font-bold text-green-500 italic">
-      This page is coming soon
-    </div>
-  );
+  return <ForgotPasswordForm />;
 };
 
 export default ForgotPasswordPage;

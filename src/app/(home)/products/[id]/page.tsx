@@ -1,81 +1,48 @@
-"use client";
+import { Metadata } from "next";
+import ProductDetailClient from "./product-detail-client";
 
-import React from "react";
-import { useGetProductByIdQuery } from "@/services/product-services";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import {
-  ProductImageCarousel,
-  ProductInfo,
-  ProductDetailsTabs,
-  RelatedProducts,
-  ProductBreadcrumb,
-} from "@/features/client/product/ui/components";
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
-const ProductDetailPage = () => {
-  const params = useParams();
-  const productId = params.id as string;
+// Generate dynamic metadata for SEO
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  // In a real application, you would fetch the product data here
+  // For now, we'll create a basic metadata structure
+  const productId = (await params).id;
 
-  const { data, isLoading, error } = useGetProductByIdQuery({ id: productId });
-  const product = data?.product;
+  // You can fetch product data here for dynamic metadata
+  const product = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}products/${productId}`,
+  ).then((res) => res.json());
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="py-12 text-center">
-          <div className="border-primary inline-block h-8 w-8 animate-spin rounded-full border-b-2"></div>
-          <p className="text-muted-foreground mt-2">
-            Loading product details...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  return {
+    title: `${product.product.name}`,
+    description: `Discover the nutritional benefits and details of our healthy products. Shop premium quality organic and natural products for your wellness journey.`,
+    keywords: [
+      "product details",
+      "healthy food",
+      "organic products",
+      "nutrition information",
+      "wellness products",
+      "healthy lifestyle",
+    ],
+    openGraph: {
+      title: `Product Details - Healthy Nutrition`,
+      description: `Discover the nutritional benefits and details of our healthy products. Shop premium quality organic and natural products for your wellness journey.`,
+      type: "website",
+      url: `/products/${productId}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Product Details - Healthy Nutrition`,
+      description: `Discover the nutritional benefits and details of our healthy products.`,
+    },
+  };
+}
 
-  if (error || !product) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="py-12 text-center">
-          <p className="mb-4 text-red-500">
-            Product not found or error loading product.
-          </p>
-          <Link href="/products">
-            <Button>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Products
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumb and Back Button */}
-      <ProductBreadcrumb productName={product.name} />
-
-      {/* Main Product Content */}
-      <div className="mb-8 grid gap-8 lg:grid-cols-2">
-        {/* Product Images */}
-        <ProductImageCarousel
-          images={product.imageUrls || []}
-          productName={product.name}
-        />
-
-        {/* Product Info */}
-        <ProductInfo product={product} />
-      </div>
-
-      {/* Product Details Tabs */}
-      <ProductDetailsTabs product={product} />
-
-      {/* Related Products */}
-      <RelatedProducts currentProduct={product} />
-    </div>
-  );
-};
-
-export default ProductDetailPage;
+export default function ProductDetailPage() {
+  return <ProductDetailClient />;
+}

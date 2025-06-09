@@ -6,7 +6,7 @@ import { useOrderHistory } from "@/features/client/order-history/hooks/use-order
 import {
   EmptyOrderHistory,
   OrderHistoryList,
-  OrderHistoryPagination,
+  // OrderHistoryPagination, // Commented out since pagination is removed
 } from "@/features/client/order-history/ui/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -86,11 +86,15 @@ const OrderHistory = () => {
         {!error && (
           <Card>
             <CardHeader>
+              {" "}
               <CardTitle className="flex items-center justify-between">
-                <span>Your Orders</span>
+                <span className="font-bold text-green-600">Your Orders</span>
                 {pagination.totalItems > 0 && (
                   <span className="text-muted-foreground text-sm font-normal">
-                    {pagination.totalItems} order
+                    <span className="font-semibold text-green-600">
+                      {pagination.totalItems}
+                    </span>{" "}
+                    order
                     {pagination.totalItems !== 1 ? "s" : ""}
                   </span>
                 )}
@@ -119,7 +123,8 @@ const OrderHistory = () => {
               ) : (
                 <>
                   <OrderHistoryList orders={orders} />
-                  {pagination.totalPages > 1 && (
+                  {/* Pagination removed since useGetOrderByUserQuery returns all data */}
+                  {/* {pagination.totalPages > 1 && (
                     <div className="mt-8">
                       <OrderHistoryPagination
                         currentPage={pagination.currentPage}
@@ -130,7 +135,7 @@ const OrderHistory = () => {
                         hasPrevPage={pagination.hasPrevPage}
                       />
                     </div>
-                  )}
+                  )} */}
                 </>
               )}
             </CardContent>

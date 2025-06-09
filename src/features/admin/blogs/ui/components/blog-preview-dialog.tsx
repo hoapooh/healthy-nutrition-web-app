@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarDays, User, Eye } from "lucide-react";
 import { Blog } from "@/types/blog";
+import Image from "next/image";
 
 interface BlogPreviewDialogProps {
   blog: Blog | null;
@@ -89,9 +90,11 @@ export function BlogPreviewDialog({
 
             {blog.image && (
               <div className="overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={blog.image}
                   alt={blog.title}
+                  height={256}
+                  width={256}
                   className="h-64 w-full object-cover"
                 />
               </div>

@@ -193,7 +193,7 @@ export function UpdateProductModal({
       };
 
       const body =
-        selectedFiles.length > 0 ? { imageProduct: selectedFiles } : undefined;
+        selectedFiles.length > 0 ? { imageProduct: selectedFiles } : {};
 
       await updateProduct({
         id: product.id,
