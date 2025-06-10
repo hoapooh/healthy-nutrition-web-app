@@ -9,6 +9,7 @@ export interface Product {
   tags: string[];
   brand?: string;
   rating?: number;
+  weights?: number[];
   imageUrls?: string[];
   nutritionFact: {
     calories: number;

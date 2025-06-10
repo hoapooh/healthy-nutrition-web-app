@@ -10,29 +10,35 @@ import Link from "next/link";
 import { CartItem } from "@/types/cart";
 import { formatCurrency } from "@/utils/format-currency";
 import { useAppDispatch } from "@/store/hooks";
-import { updateCartItem, removeFromCart } from "@/store/slices/cart-slice";
+import {
+  updateCartItem,
+  removeFromCart,
+  updateCartItemWeight,
+} from "@/store/slices/cart-slice";
 import { motion } from "motion/react";
+import { formatWeight } from "@/utils/weight-utils";
 
 const MotionCard = motion.create(Card);
 
 interface CartItemComponentProps {
   item: CartItem;
   viewMode?: "full" | "compact";
+  availableWeights?: number[]; // Available weights for this product
 }
 
 export const CartItemComponent = ({
   item,
   viewMode = "full",
+  availableWeights = [300, 500, 1000], // Default common weights
 }: CartItemComponentProps) => {
   const dispatch = useAppDispatch();
-
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(
       0,
       Math.min(item.quantity + change, item.maxQuantity),
     );
     if (newQuantity === 0) {
-      dispatch(removeFromCart(item.productId));
+      dispatch(removeFromCart(item.id)); // Use item.id instead of productId
     } else {
       dispatch(
         updateCartItem({ productId: item.productId, quantity: newQuantity }),
@@ -41,7 +47,11 @@ export const CartItemComponent = ({
   };
 
   const handleRemove = () => {
-    dispatch(removeFromCart(item.productId));
+    dispatch(removeFromCart(item.id)); // Use item.id instead of productId
+  };
+
+  const handleWeightChange = (newWeight: number) => {
+    dispatch(updateCartItemWeight({ itemId: item.id, weight: newWeight }));
   };
 
   if (viewMode === "compact") {
@@ -74,9 +84,12 @@ export const CartItemComponent = ({
                 <h3 className="line-clamp-1 text-sm font-medium">
                   {item.name}
                 </h3>
-              </Link>
+              </Link>{" "}
               <p className="text-sm font-semibold text-green-600">
                 {formatCurrency(item.price)}
+              </p>
+              <p className="text-muted-foreground text-xs">
+                Weight: {formatWeight(item.weight)}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -144,16 +157,36 @@ export const CartItemComponent = ({
                   <h3 className="line-clamp-2 text-lg font-semibold">
                     {item.name}
                   </h3>
-                </Link>
+                </Link>{" "}
                 <div className="flex items-center gap-2">
                   <span className="text-xl font-bold text-green-600">
                     {formatCurrency(item.price)}
+                  </span>
+                  <span className="text-muted-foreground text-sm">
+                    for {formatWeight(item.weight)}
                   </span>
                   {item.quantity > 1 && (
                     <Badge variant="secondary" className="text-xs">
                       {formatCurrency(item.price * item.quantity)} total
                     </Badge>
                   )}
+                </div>
+                {/* Weight Selection */}
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">Weight:</span>
+                  <div className="flex gap-1">
+                    {availableWeights.map((weight) => (
+                      <Button
+                        key={weight}
+                        variant={item.weight === weight ? "healthy" : "outline"}
+                        size="sm"
+                        onClick={() => handleWeightChange(weight)}
+                        className="h-7 px-2 text-xs"
+                      >
+                        {formatWeight(weight)}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
               </div>
 

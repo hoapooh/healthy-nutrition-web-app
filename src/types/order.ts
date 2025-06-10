@@ -2,9 +2,9 @@
 export interface OrderItemPayment {
   productId: string;
   productName: string;
-  quantity: number;
-  pricePerUnit: number;
   productImageUrl?: string;
+  weight: number;
+  pricePerKilogram: number;
 }
 
 export interface OrderItemHistory {
