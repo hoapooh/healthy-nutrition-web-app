@@ -72,9 +72,9 @@ export const ProductDetailsTabs = ({
         <Card>
           <CardHeader>
             <CardTitle className="text-green-600">Customer Reviews</CardTitle>
-          </CardHeader>
+          </CardHeader>{" "}
           <CardContent>
-            <ProductReviewsSection />
+            <ProductReviewsSection productId={product.id} />
           </CardContent>
         </Card>
       </TabsContent>
