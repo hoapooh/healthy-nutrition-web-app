@@ -19,6 +19,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
     register: builder.mutation<RegisterResponse, RegisterRequest>({
       query: (userData) => ({
@@ -26,6 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: userData,
       }),
+      invalidatesTags: ["User", "Dashboard"],
     }),
     changePassword: builder.mutation<
       void,
