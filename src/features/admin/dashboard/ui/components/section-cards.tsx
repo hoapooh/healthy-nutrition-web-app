@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import useGetDashboardData from "@/features/admin/dashboard/hooks/use-get-dashboard-data";
+import { formatCurrency } from "@/utils/format-currency";
 
 export function SectionCards() {
   const { dashboardData } = useGetDashboardData();
@@ -22,7 +23,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Revenue</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {dashboardData?.totalCountRevenues ?? 0}
+            {formatCurrency(dashboardData?.totalCountRevenues ?? 0)}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">

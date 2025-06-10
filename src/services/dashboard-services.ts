@@ -1,5 +1,11 @@
 import { apiSlice } from "@/store/slices/api-slice";
-import { DashboardData } from "@/types/dashboard";
+import {
+  AccountRegisterCountParams,
+  AccountRegisterCountResponse,
+  DashboardData,
+  TransactionByDateParams,
+  TransactionByDateResponse,
+} from "@/types/dashboard";
 
 export const dashboardApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,7 +13,31 @@ export const dashboardApi = apiSlice.injectEndpoints({
       query: () => "dashboards",
       providesTags: ["Dashboard"],
     }),
+    getAccountRegisterCount: builder.query<
+      AccountRegisterCountResponse[],
+      AccountRegisterCountParams
+    >({
+      query: (params) => ({
+        url: "dashboards/account-register-counting",
+        params,
+      }),
+      providesTags: ["Dashboard"],
+    }),
+    getTransactionsByDate: builder.query<
+      TransactionByDateResponse[],
+      TransactionByDateParams
+    >({
+      query: (params) => ({
+        url: "dashboards/transactions-by-day",
+        params,
+      }),
+      providesTags: ["Dashboard"],
+    }),
   }),
 });
 
-export const { useGetDashboardDataQuery } = dashboardApi;
+export const {
+  useGetDashboardDataQuery,
+  useGetAccountRegisterCountQuery,
+  useGetTransactionsByDateQuery,
+} = dashboardApi;
