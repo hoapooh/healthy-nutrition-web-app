@@ -5,6 +5,7 @@ import {
   CartState,
   UpdateCartItemPayload,
 } from "@/types/cart";
+import { calculatePriceByWeight } from "@/utils/weight-utils";
 
 // Helper functions
 const calculateTotals = (items: CartItem[]) => {
@@ -50,17 +51,24 @@ const cartSlice = createSlice({
       state.totalItems = totals.totalItems;
       state.totalPrice = totals.totalPrice;
     },
-
     addToCart: (state, action: PayloadAction<AddToCartPayload>) => {
-      const { productId, name, price, quantity, imageUrl, stockQuantity } =
-        action.payload;
+      const {
+        productId,
+        name,
+        price,
+        quantity,
+        imageUrl,
+        stockQuantity,
+        weight,
+        pricePerKg,
+      } = action.payload;
 
       const existingItem = state.items.find(
-        (item) => item.productId === productId,
+        (item) => item.productId === productId && item.weight === weight,
       );
 
       if (existingItem) {
-        // Update quantity if item already exists
+        // Update quantity if item already exists with same weight
         const newQuantity = Math.min(
           existingItem.quantity + quantity,
           stockQuantity,
@@ -69,7 +77,7 @@ const cartSlice = createSlice({
       } else {
         // Add new item
         const newItem: CartItem = {
-          id: `cart_${Date.now()}_${productId}`,
+          id: `cart_${Date.now()}_${productId}_${weight}`,
           productId,
           name,
           price,
@@ -77,6 +85,8 @@ const cartSlice = createSlice({
           imageUrl,
           stockQuantity,
           maxQuantity: stockQuantity,
+          weight,
+          pricePerKg,
         };
         state.items.push(newItem);
       }
@@ -89,21 +99,63 @@ const cartSlice = createSlice({
       // Save to localStorage
       saveCartToStorage(state.items);
     },
-
     updateCartItem: (state, action: PayloadAction<UpdateCartItemPayload>) => {
-      const { productId, quantity } = action.payload;
-      const item = state.items.find((item) => item.productId === productId);
+      const { productId, quantity, weight } = action.payload;
+
+      if (weight !== undefined) {
+        // Find item by productId and weight for weight updates
+        const item = state.items.find((item) => item.productId === productId);
+        if (item) {
+          // Update weight and recalculate price
+          item.weight = weight;
+          item.price = calculatePriceByWeight(item.pricePerKg, weight);
+        }
+      } else if (quantity !== undefined) {
+        // Find item by productId for quantity updates
+        const item = state.items.find((item) => item.productId === productId);
+        if (item) {
+          if (quantity <= 0) {
+            // Remove item if quantity is 0 or less
+            state.items = state.items.filter(
+              (item) => item.productId !== productId,
+            );
+          } else {
+            // Update quantity (ensure it doesn't exceed stock)
+            item.quantity = Math.min(quantity, item.maxQuantity);
+          }
+        }
+      }
+
+      // Recalculate totals
+      const totals = calculateTotals(state.items);
+      state.totalItems = totals.totalItems;
+      state.totalPrice = totals.totalPrice;
+
+      // Save to localStorage
+      saveCartToStorage(state.items);
+    },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+
+      // Recalculate totals
+      const totals = calculateTotals(state.items);
+      state.totalItems = totals.totalItems;
+      state.totalPrice = totals.totalPrice;
+
+      // Save to localStorage
+      saveCartToStorage(state.items);
+    },
+
+    updateCartItemWeight: (
+      state,
+      action: PayloadAction<{ itemId: string; weight: number }>,
+    ) => {
+      const { itemId, weight } = action.payload;
+      const item = state.items.find((item) => item.id === itemId);
 
       if (item) {
-        if (quantity <= 0) {
-          // Remove item if quantity is 0 or less
-          state.items = state.items.filter(
-            (item) => item.productId !== productId,
-          );
-        } else {
-          // Update quantity (ensure it doesn't exceed stock)
-          item.quantity = Math.min(quantity, item.maxQuantity);
-        }
+        item.weight = weight;
+        item.price = calculatePriceByWeight(item.pricePerKg, weight);
 
         // Recalculate totals
         const totals = calculateTotals(state.items);
@@ -113,20 +165,6 @@ const cartSlice = createSlice({
         // Save to localStorage
         saveCartToStorage(state.items);
       }
-    },
-
-    removeFromCart: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(
-        (item) => item.productId !== action.payload,
-      );
-
-      // Recalculate totals
-      const totals = calculateTotals(state.items);
-      state.totalItems = totals.totalItems;
-      state.totalPrice = totals.totalPrice;
-
-      // Save to localStorage
-      saveCartToStorage(state.items);
     },
 
     clearCart: (state) => {
@@ -155,6 +193,7 @@ export const {
   addToCart,
   updateCartItem,
   removeFromCart,
+  updateCartItemWeight,
   clearCart,
   toggleCart,
   setCartOpen,

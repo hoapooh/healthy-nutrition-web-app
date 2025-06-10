@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/utils/format-currency";
+import { formatWeight } from "@/utils/weight-utils";
 import { ArrowLeft, CreditCard, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import ProtectedRoute from "@/features/shared/ui/components/protected/protected-route";
@@ -35,6 +36,8 @@ const CheckoutPage = () => {
     }
   }, [cartItems.length, router]);
 
+  console.log(cartItems);
+
   const handlePayment = async () => {
     try {
       // Convert cart items to OrderItemPayment format
@@ -42,7 +45,8 @@ const CheckoutPage = () => {
         productId: item.productId,
         productName: item.name,
         quantity: item.quantity,
-        pricePerUnit: item.price,
+        weight: item.quantity * (item.weight / 1000),
+        pricePerKilogram: item.pricePerKg,
       }));
       const paymentData = {
         orderInformation: {
@@ -101,12 +105,17 @@ const CheckoutPage = () => {
                         fill
                         className="object-cover"
                       />
-                    </div>
+                    </div>{" "}
                     <div className="flex-1">
                       <h3 className="font-medium">{item.name}</h3>
-                      <p className="text-muted-foreground text-sm">
-                        {formatCurrency(item.price)} × {item.quantity}
-                      </p>
+                      <div className="space-y-1">
+                        <p className="text-muted-foreground text-sm">
+                          {formatCurrency(item.price)} × {item.quantity}
+                        </p>
+                        <p className="text-muted-foreground text-sm">
+                          Weight: {formatWeight(item.weight)}
+                        </p>
+                      </div>
                     </div>
                     <div className="text-right">
                       <p className="font-medium">
