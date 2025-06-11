@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { Star, Send, Loader2 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star, Send, Loader2, User } from "lucide-react";
 import {
   useGetAllReviewsQuery,
   useConfirmReviewQuery,
@@ -46,7 +47,7 @@ interface Review {
   rating: number;
   date: string;
   comment: string;
-  helpful: number;
+  userImage?: string;
 }
 
 interface ProductReviewsSectionProps {
@@ -216,6 +217,7 @@ export const ProductReviewsSection = ({
   className = "",
 }: ProductReviewsSectionProps) => {
   const { user } = useAuth();
+  const [checkCurrentUser, setCheckCurrentUser] = useState(false);
 
   // Fetch reviews for this product
   const {
@@ -224,7 +226,7 @@ export const ProductReviewsSection = ({
     refetch: refetchReviews,
   } = useGetAllReviewsQuery({
     productId,
-    limit: 100, // Get all reviews for now
+    limit: 100,
   });
 
   // Check if current user can review this product
@@ -243,15 +245,23 @@ export const ProductReviewsSection = ({
   const reviews: Review[] = useMemo(() => {
     if (!reviewsData?.result?.items) return [];
 
-    return reviewsData.result.items.map((review: ReviewType) => ({
-      id: review.id,
-      author: "Anonymous User",
-      rating: review.rating,
-      date: new Date(review.createdAt).toLocaleDateString(),
-      comment: review.comment,
-      helpful: 0, // API doesn't provide helpful count
-    }));
-  }, [reviewsData?.result?.items]);
+    return reviewsData.result.items.map((review: ReviewType) => {
+      if (review.user.id === user?.id) setCheckCurrentUser(true);
+
+      return {
+        id: review.id,
+        author: review.user.fullName,
+        rating: review.rating,
+        date: new Date(review.createdAt).toLocaleDateString("vi-VN", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        comment: review.comment,
+        userImage: review.user!.image,
+      };
+    });
+  }, [reviewsData?.result?.items, user?.id]);
 
   // Calculate statistics from actual reviews
   const { averageRating, totalReviews, ratingDistribution } = useMemo(() => {
@@ -352,7 +362,7 @@ export const ProductReviewsSection = ({
         </div>
       </div>
       <Separator /> {/* Review Input Form - Show only if user can review */}
-      {user?.id && canUserReview && (
+      {user?.id && canUserReview && !checkCurrentUser && (
         <>
           <ReviewInputForm
             productId={productId}
@@ -366,15 +376,20 @@ export const ProductReviewsSection = ({
       <div className="space-y-6">
         {totalReviews === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-muted-foreground">No reviews yet.</p>
-            {user && canUserReview && (
+            <p className="font-semibold text-green-600">No reviews yet.</p>
+            {user && canUserReview && !checkCurrentUser && (
               <p className="text-muted-foreground mt-2 text-sm">
                 Be the first to review this product!
               </p>
             )}
-            {user && !canUserReview && (
+            {user && canUserReview && checkCurrentUser && (
               <p className="text-muted-foreground mt-2 text-sm">
                 You can only review products once per product.
+              </p>
+            )}
+            {user && !canUserReview && (
+              <p className="text-muted-foreground mt-2 text-sm">
+                Buy this product to leave a review.
               </p>
             )}
             {!user && (
@@ -386,32 +401,47 @@ export const ProductReviewsSection = ({
         ) : (
           reviews.map((review) => (
             <div key={review.id} className="border-b pb-6 last:border-b-0">
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <h4 className="font-semibold">{review.author}</h4>
-                  <div className="mt-1 flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${i < review.rating ? "fill-current text-yellow-400" : "text-gray-300"}`}
-                        />
-                      ))}
+              <div className="mb-3 flex items-start gap-4">
+                {/* User Avatar */}
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={review.userImage} alt={review.author} />
+                  <AvatarFallback className="bg-green-100 text-green-600">
+                    <User className="h-5 w-5" />
+                  </AvatarFallback>
+                </Avatar>
+
+                {/* Review Content */}
+                <div className="flex-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="font-semibold">{review.author}</h4>
+                      <div className="mt-1 flex items-center gap-2">
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-4 w-4 ${i < review.rating ? "fill-current text-yellow-400" : "text-gray-300"}`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-muted-foreground text-sm">
+                          {review.date}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-muted-foreground text-sm">
-                      {review.date}
-                    </span>
+                  </div>
+                  <p className="text-muted-foreground mt-2 mb-3">
+                    {review.comment}
+                  </p>
+                  <div className="flex items-center gap-4 text-sm">
+                    {/* <button className="text-muted-foreground hover:text-primary">
+                      Helpful ({review.helpful})
+                    </button>
+                    <button className="text-muted-foreground hover:text-primary">
+                      Reply
+                    </button> */}
                   </div>
                 </div>
-              </div>
-              <p className="text-muted-foreground mb-3">{review.comment}</p>
-              <div className="flex items-center gap-4 text-sm">
-                {/* <button className="text-muted-foreground hover:text-primary">
-                  Helpful ({review.helpful})
-                </button>
-                <button className="text-muted-foreground hover:text-primary">
-                  Reply
-                </button> */}
               </div>
             </div>
           ))
