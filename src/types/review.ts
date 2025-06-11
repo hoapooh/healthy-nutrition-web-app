@@ -1,6 +1,8 @@
+import { User } from "./auth";
+
 export interface Review {
   id: string;
-  userId: string;
+  user: User;
   productId: string;
   rating: number;
   comment: string;
