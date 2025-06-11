@@ -132,19 +132,24 @@ export const OrderDetailsDialog = ({
                               target.src = "/healthy-product.png"; // Fallback image
                             }}
                           />
-                        </div>
+                        </div>{" "}
                         <div className="flex-1">
                           <h4 className="font-medium">{item.productName}</h4>
-                          <p className="text-muted-foreground text-sm">
-                            Quantity: {item.quantity}
-                          </p>
-                          <p className="text-muted-foreground text-sm">
-                            Price per unit: {formatCurrency(item.pricePerUnit)}
-                          </p>
+                          <div className="space-y-1">
+                            <p className="text-muted-foreground text-sm">
+                              Total Weight: {item.weight}kg
+                            </p>
+                            <p className="text-muted-foreground text-sm">
+                              Price per kg:{" "}
+                              {formatCurrency(item.pricePerKilogram)}
+                            </p>
+                          </div>
                         </div>
                         <div className="text-right">
                           <p className="font-semibold">
-                            {formatCurrency(item.pricePerUnit * item.quantity)}
+                            {formatCurrency(
+                              item.pricePerKilogram * item.weight,
+                            )}
                           </p>
                         </div>
                       </div>
@@ -159,7 +164,7 @@ export const OrderDetailsDialog = ({
                       {formatCurrency(
                         orderDetails.items.reduce(
                           (sum: number, item: OrderItemPayment) =>
-                            sum + item.pricePerUnit * item.quantity,
+                            sum + item.pricePerKilogram * item.weight,
                           0,
                         ),
                       )}

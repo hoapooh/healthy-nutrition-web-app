@@ -7,6 +7,8 @@ export interface CartItem {
   imageUrl: string;
   stockQuantity: number;
   maxQuantity: number;
+  weight: number; // in grams
+  pricePerKg: number; // base price per kg
 }
 
 export interface CartState {
@@ -23,9 +25,12 @@ export interface AddToCartPayload {
   quantity: number;
   imageUrl: string;
   stockQuantity: number;
+  weight: number; // in grams
+  pricePerKg: number; // base price per kg
 }
 
 export interface UpdateCartItemPayload {
   productId: string;
-  quantity: number;
+  quantity?: number;
+  weight?: number; // in grams
 }

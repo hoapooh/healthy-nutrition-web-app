@@ -21,6 +21,11 @@ import {
 } from "@/store/slices/cart-slice";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import {
+  formatWeight,
+  calculatePriceByWeight,
+  getDefaultWeight,
+} from "@/utils/weight-utils";
 
 const MotionCard = motion.create(Card);
 
@@ -34,6 +39,11 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
   const router = useRouter();
   const cartItem = useAppSelector(selectCartItemByProductId(product.id));
 
+  // Use default weight (1kg if available, otherwise the largest weight)
+  const availableWeights = product.weights || [1000];
+  const defaultWeight = getDefaultWeight(availableWeights);
+  const defaultPrice = calculatePriceByWeight(product.price, defaultWeight);
+
   const cardClass =
     viewMode === "grid"
       ? "rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 p-0"
@@ -45,7 +55,6 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
       : "min-w-32 min-h-32 object-cover rounded-lg shrink-0";
 
   const contentClass = viewMode === "grid" ? "p-4" : "flex-1";
-
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -61,14 +70,18 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
       addToCart({
         productId: product.id,
         name: product.name,
-        price: product.price,
+        price: defaultPrice,
         quantity: 1,
         imageUrl,
         stockQuantity: product.stockQuantity,
+        weight: defaultWeight,
+        pricePerKg: product.price,
       }),
     );
 
-    toast.success(`${product.name} added to cart!`);
+    toast.success(
+      `${product.name} (${formatWeight(defaultWeight)}) added to cart!`,
+    );
   };
 
   const handleViewCart = (e: React.MouseEvent) => {
@@ -149,7 +162,10 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
               <div className="flex w-full flex-col gap-y-2">
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
-                    {formatCurrency(product.price)}
+                    {formatCurrency(defaultPrice)}
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    for {formatWeight(defaultWeight)}
                   </span>
                 </div>
                 <Button
@@ -167,7 +183,10 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
               <div className="flex w-full items-center justify-between">
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
-                    {formatCurrency(product.price)}
+                    {formatCurrency(defaultPrice)}
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    for {formatWeight(defaultWeight)}
                   </span>
                 </div>
                 <div className="flex gap-2">

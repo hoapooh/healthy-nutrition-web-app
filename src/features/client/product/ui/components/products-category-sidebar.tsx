@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 import { useGetAllCategoriesQuery } from "@/services/category-services";
 import { Category } from "@/types/category";
 import { cn } from "@/lib/utils";
@@ -19,12 +20,24 @@ export const ProductsCategorySidebar = ({
   selectedCategoryId,
   onCategorySelect,
 }: ProductsCategorySidebarProps) => {
-  const { data: categoriesResponse, isLoading } = useGetAllCategoriesQuery({
-    type: "Product", // Only get product categories
-    limit: 100, // Get all categories
-  });
+  // Fetch Product categories
+  const { data: productCategoriesResponse, isLoading: isLoadingProducts } =
+    useGetAllCategoriesQuery({
+      type: "Product",
+      limit: 100,
+    });
 
-  const categories = categoriesResponse?.result?.items || [];
+  // Fetch Goal categories
+  const { data: goalCategoriesResponse, isLoading: isLoadingGoals } =
+    useGetAllCategoriesQuery({
+      type: "Goal",
+      limit: 100,
+    });
+
+  const productCategories = productCategoriesResponse?.result?.items || [];
+  const goalCategories = goalCategoriesResponse?.result?.items || [];
+  const allCategories = [...productCategories, ...goalCategories];
+  const isLoading = isLoadingProducts || isLoadingGoals;
 
   if (isLoading) {
     return (
@@ -54,10 +67,10 @@ export const ProductsCategorySidebar = ({
     <Card className="h-fit gap-4 py-4 lg:sticky lg:top-4">
       <CardHeader className="px-4">
         <CardTitle className="flex flex-wrap items-center justify-between gap-1">
-          Categories
+          Categories{" "}
           {selectedCategoryId && (
             <Badge variant="secondary" className="truncate text-xs">
-              {categories.find((c) => c.id === selectedCategoryId)?.name ||
+              {allCategories.find((c) => c.id === selectedCategoryId)?.name ||
                 "Selected"}
             </Badge>
           )}
@@ -76,31 +89,73 @@ export const ProductsCategorySidebar = ({
           onClick={() => onCategorySelect(null)}
         >
           All Products
-        </MotionButton>
-
+        </MotionButton>{" "}
         {/* Category options - responsive layout */}
-        <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-0 lg:space-y-2">
-          {categories.map((category: Category) => (
-            <MotionButton
-              whileHover={{ x: 10 }}
-              transition={{ duration: 0.1 }}
-              key={category.id}
-              variant={selectedCategoryId === category.id ? "default" : "ghost"}
-              className={cn(
-                "justify-start text-left lg:w-full",
-                selectedCategoryId === category.id &&
-                  "bg-green-600 hover:bg-green-700",
-              )}
-              onClick={() => handleCategoryClick(category.id)}
-            >
-              <div className="flex w-full items-center justify-between">
-                <span className="truncate">{category.name}</span>
+        <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-0 lg:space-y-1">
+          {/* Product Categories Section */}
+          {productCategories.length > 0 && (
+            <>
+              <div className="text-muted-foreground mb-2 w-full text-xs font-medium lg:mb-1">
+                Product Categories
               </div>
-            </MotionButton>
-          ))}
-        </div>
+              {productCategories.map((category: Category) => (
+                <MotionButton
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.1 }}
+                  key={category.id}
+                  variant={
+                    selectedCategoryId === category.id ? "default" : "ghost"
+                  }
+                  className={cn(
+                    "justify-start text-left lg:w-full",
+                    selectedCategoryId === category.id &&
+                      "bg-green-600 hover:bg-green-700",
+                  )}
+                  onClick={() => handleCategoryClick(category.id)}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <span className="truncate">{category.name}</span>
+                  </div>
+                </MotionButton>
+              ))}
+            </>
+          )}
 
-        {categories.length === 0 && (
+          {/* Separator between categories if both exist */}
+          {productCategories.length > 0 && goalCategories.length > 0 && (
+            <Separator className="my-2 w-full lg:my-3" />
+          )}
+
+          {/* Goal Categories Section */}
+          {goalCategories.length > 0 && (
+            <>
+              <div className="text-muted-foreground mb-2 w-full text-xs font-medium lg:mb-1">
+                Goal Categories
+              </div>
+              {goalCategories.map((category: Category) => (
+                <MotionButton
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.1 }}
+                  key={category.id}
+                  variant={
+                    selectedCategoryId === category.id ? "default" : "ghost"
+                  }
+                  className={cn(
+                    "justify-start text-left lg:w-full",
+                    selectedCategoryId === category.id &&
+                      "bg-green-600 hover:bg-green-700",
+                  )}
+                  onClick={() => handleCategoryClick(category.id)}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <span className="truncate">{category.name}</span>
+                  </div>
+                </MotionButton>
+              ))}
+            </>
+          )}
+        </div>
+        {productCategories.length === 0 && goalCategories.length === 0 && (
           <div className="text-muted-foreground py-4 text-center text-sm">
             No categories found
           </div>

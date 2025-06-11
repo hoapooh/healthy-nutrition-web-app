@@ -24,6 +24,11 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
+import {
+  formatWeight,
+  calculatePriceByWeight,
+  getDefaultWeight,
+} from "@/utils/weight-utils";
 
 interface ProductInfoProps {
   product: Product;
@@ -33,9 +38,21 @@ interface ProductInfoProps {
 export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const cartItem = useAppSelector(selectCartItemByProductId(product.id));
 
+  // Initialize with default weight (1kg if available, otherwise the largest weight)
+  const availableWeights = product.weights || [1000]; // fallback to 1kg if no weights
+  const [selectedWeight, setSelectedWeight] = useState(() =>
+    getDefaultWeight(availableWeights),
+  );
   const [quantity, setQuantity] = useState(1);
+
+  // Calculate price based on selected weight
+  const currentPrice = calculatePriceByWeight(product.price, selectedWeight);
+
+  // Check if this specific product+weight combination is in cart
+  const cartItem = useAppSelector(selectCartItemByProductId(product.id));
+  const specificCartItem =
+    cartItem && cartItem.weight === selectedWeight ? cartItem : null;
   // const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleQuantityChange = (change: number) => {
@@ -44,7 +61,6 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
       setQuantity(newQuantity);
     }
   };
-
   const handleAddToCart = () => {
     if (product.stockQuantity === 0) {
       toast.error("Product is out of stock");
@@ -57,21 +73,25 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
       addToCart({
         productId: product.id,
         name: product.name,
-        price: product.price,
+        price: currentPrice,
         quantity,
         imageUrl,
         stockQuantity: product.stockQuantity,
+        weight: selectedWeight,
+        pricePerKg: product.price,
       }),
     );
 
-    toast.success(`${quantity} x ${product.name} added to cart!`);
+    toast.success(
+      `${quantity} x ${product.name} (${formatWeight(selectedWeight)}) added to cart!`,
+    );
   };
 
   const handleViewCart = () => {
     router.push("/cart");
   };
 
-  const isInCart = !!cartItem;
+  const isInCart = !!specificCartItem;
 
   const handleShare = async () => {
     const currentUrl = window.location.href;
@@ -95,12 +115,34 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
               (4.7) 127 reviews
             </span>
           </div>
-          <Badge variant="secondary">In Stock: {product.stockQuantity}</Badge>
+          <Badge variant="secondary">
+            In Stock: {product.stockQuantity}
+          </Badge>{" "}
         </div>
         {/* TODO: description need to be fixed here */}
         {/* <p className="text-muted-foreground mb-4">{product.description}</p> */}
         <div className="text-primary mb-6 text-3xl font-bold">
-          {formatCurrency(product.price)}
+          {formatCurrency(currentPrice)}
+          <span className="text-muted-foreground ml-2 text-sm">
+            for {formatWeight(selectedWeight)}
+          </span>
+        </div>
+      </div>
+
+      {/* Weight Selection */}
+      <div className="space-y-2">
+        <span className="font-medium">Weight:</span>
+        <div className="flex flex-wrap gap-2">
+          {availableWeights.map((weight) => (
+            <Button
+              key={weight}
+              variant={selectedWeight === weight ? "healthy" : "outline"}
+              size="sm"
+              onClick={() => setSelectedWeight(weight)}
+            >
+              {formatWeight(weight)}
+            </Button>
+          ))}
         </div>
       </div>
 
