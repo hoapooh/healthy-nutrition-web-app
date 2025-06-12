@@ -70,9 +70,9 @@ export function BlogsDataTable({
       <div className="flex items-center justify-between">
         <div className="flex flex-1 items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />{" "}
             <Input
-              placeholder="Search blogs..."
+              placeholder="Tìm kiếm blog..."
               value={filters.title || ""}
               onChange={(event) => handleSearchChange(event.target.value)}
               className="w-[250px] pl-9 lg:w-[300px]"
@@ -83,9 +83,10 @@ export function BlogsDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
+              {" "}
               <Button variant="outline" size="sm" className="ml-auto">
                 <Settings2 className="mr-2 h-4 w-4" />
-                View
+                Hiển thị
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[150px]">
@@ -138,11 +139,12 @@ export function BlogsDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
+                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Loading blogs...
+                  Đang tải blog...
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (

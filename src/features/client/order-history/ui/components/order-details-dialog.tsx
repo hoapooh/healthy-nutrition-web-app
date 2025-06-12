@@ -43,16 +43,15 @@ export const OrderDetailsDialog = ({
         return "bg-gray-100 text-gray-800";
     }
   };
-
   if (error) {
     return (
       <Dialog open={true} onOpenChange={() => onClose()}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Error</DialogTitle>
+            <DialogTitle>Lỗi</DialogTitle>
           </DialogHeader>
           <p className="text-red-600">
-            Failed to load order details. Please try again.
+            Không thể tải chi tiết đơn hàng. Vui lòng thử lại.
           </p>
         </DialogContent>
       </Dialog>
@@ -65,17 +64,17 @@ export const OrderDetailsDialog = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Receipt className="h-5 w-5" />
-            Order Details
+            Chi tiết đơn hàng
           </DialogTitle>
           <DialogDescription>
-            View complete details of your order
+            Xem chi tiết đầy đủ của đơn hàng của bạn
           </DialogDescription>
         </DialogHeader>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin" />
-            <span className="ml-2">Loading order details...</span>
+            <span className="ml-2">Đang tải chi tiết đơn hàng...</span>
           </div>
         ) : orderDetails ? (
           <div className="space-y-6">
@@ -84,7 +83,7 @@ export const OrderDetailsDialog = ({
                 <div className="mb-4 flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">
-                      Order #{orderDetails.orderCode}
+                      Đơn hàng #{orderDetails.orderCode}
                     </h3>
                     <p className="text-muted-foreground flex items-center gap-1 text-sm">
                       <Calendar className="h-4 w-4" />
@@ -95,11 +94,9 @@ export const OrderDetailsDialog = ({
                     {orderDetails.status}
                   </Badge>
                 </div>
-
-                <Separator className="my-4" />
-
+                <Separator className="my-4" />{" "}
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-semibold">Total Amount</span>
+                  <span className="text-lg font-semibold">Tổng tiền</span>
                   <span className="text-lg font-bold text-green-600">
                     {formatCurrency(orderDetails.totalAmount)}
                   </span>
@@ -109,9 +106,10 @@ export const OrderDetailsDialog = ({
 
             <Card className="py-0">
               <CardContent className="p-4">
+                {" "}
                 <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
                   <Package className="h-5 w-5" />
-                  Order Items ({orderDetails.items.length})
+                  Sản phẩm trong đơn hàng ({orderDetails.items.length})
                 </h3>{" "}
                 <div className="space-y-4">
                   {orderDetails.items.map(
@@ -134,13 +132,14 @@ export const OrderDetailsDialog = ({
                           />
                         </div>{" "}
                         <div className="flex-1">
+                          {" "}
                           <h4 className="font-medium">{item.productName}</h4>
                           <div className="space-y-1">
                             <p className="text-muted-foreground text-sm">
-                              Total Weight: {item.weight}kg
+                              Tổng trọng lượng: {item.weight}kg
                             </p>
                             <p className="text-muted-foreground text-sm">
-                              Price per kg:{" "}
+                              Giá trên kg:{" "}
                               {formatCurrency(item.pricePerKilogram)}
                             </p>
                           </div>
@@ -158,8 +157,9 @@ export const OrderDetailsDialog = ({
                 </div>
                 <Separator className="my-4" />
                 <div className="space-y-2">
+                  {" "}
                   <div className="flex justify-between text-sm">
-                    <span>Subtotal</span>
+                    <span>Tạm tính</span>
                     <span>
                       {formatCurrency(
                         orderDetails.items.reduce(
@@ -171,12 +171,12 @@ export const OrderDetailsDialog = ({
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
-                    <span className="text-green-600">Free</span>
+                    <span>Vận chuyển</span>
+                    <span className="text-green-600">Miễn phí</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold">
-                    <span>Total</span>
+                    <span>Tổng cộng</span>
                     <span className="text-green-600">
                       {formatCurrency(orderDetails.totalAmount)}
                     </span>
@@ -187,7 +187,9 @@ export const OrderDetailsDialog = ({
           </div>
         ) : (
           <div className="py-8 text-center">
-            <p className="text-muted-foreground">Order details not found.</p>
+            <p className="text-muted-foreground">
+              Không tìm thấy chi tiết đơn hàng.
+            </p>
           </div>
         )}
       </DialogContent>

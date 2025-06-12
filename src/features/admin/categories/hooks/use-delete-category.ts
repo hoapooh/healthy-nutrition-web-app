@@ -14,16 +14,15 @@ export const useDeleteCategory = ({
   onOpenChange,
 }: UseDeleteCategoryProps) => {
   const [deleteCategory, { isLoading }] = useDeleteCategoryMutation();
-
   const handleDelete = async () => {
     try {
       await deleteCategory({ id: category.id }).unwrap();
-      toast.success("Category deleted successfully!");
+      toast.success("Danh mục đã được xóa thành công!");
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error deleting category:", error);
-      toast.error("Failed to delete category");
+      toast.error("Xóa danh mục thất bại");
     }
   };
 

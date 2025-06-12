@@ -36,16 +36,15 @@ export const BlogsPageContent: React.FC = () => {
     handleRefresh,
     handleFilterChange,
   } = useBlogsPageContent();
-
   if (error) {
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
-          <p className="mb-2 text-red-500">Failed to load blogs</p>
+          <p className="mb-2 text-red-500">Không thể tải danh sách blog</p>
           <p className="text-muted-foreground text-sm">
             {typeof error === "object" && "message" in error
               ? error.message
-              : "An error occurred"}
+              : "Đã xảy ra lỗi"}
           </p>
         </div>
       </div>

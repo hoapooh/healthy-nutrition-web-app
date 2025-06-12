@@ -9,13 +9,13 @@ import { toast } from "react-hot-toast";
 const updateCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  type: z.string().min(1, "Type is required"),
+    .min(1, "Tên là bắt buộc")
+    .max(100, "Tên phải ít hơn 100 ký tự"),
+  type: z.string().min(1, "Loại là bắt buộc"),
   description: z
     .string()
-    .min(1, "Description is required")
-    .max(500, "Description must be less than 500 characters"),
+    .min(1, "Mô tả là bắt buộc")
+    .max(500, "Mô tả phải ít hơn 500 ký tự"),
 });
 
 export type UpdateCategoryFormValues = z.infer<typeof updateCategorySchema>;
@@ -51,19 +51,18 @@ export const useUpdateCategory = ({
       });
     }
   }, [category, form]);
-
   const onSubmit = async (values: UpdateCategoryFormValues) => {
     try {
       await updateCategory({
         id: category.id,
         body: values,
       }).unwrap();
-      toast.success("Category updated successfully!");
+      toast.success("Cập nhật danh mục thành công!");
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error updating category:", error);
-      toast.error("Failed to update category");
+      toast.error("Cập nhật danh mục thất bại");
     }
   };
 

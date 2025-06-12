@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Admin Login",
-  description: "Log in to your admin account",
+  title: "Đăng nhập Quản trị",
+  description: "Đăng nhập vào tài khoản quản trị của bạn",
 };
 
 const LoginPage = () => {

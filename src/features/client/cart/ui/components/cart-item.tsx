@@ -23,15 +23,16 @@ const MotionCard = motion.create(Card);
 interface CartItemComponentProps {
   item: CartItem;
   viewMode?: "full" | "compact";
-  availableWeights?: number[]; // Available weights for this product
 }
 
 export const CartItemComponent = ({
   item,
   viewMode = "full",
-  availableWeights = [300, 500, 1000], // Default common weights
 }: CartItemComponentProps) => {
   const dispatch = useAppDispatch();
+
+  // Use the available weights stored in the cart item
+  const availableWeights = item.availableWeights || [item.weight]; // fallback to current weight if not available
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(
       0,
@@ -87,9 +88,9 @@ export const CartItemComponent = ({
               </Link>{" "}
               <p className="text-sm font-semibold text-green-600">
                 {formatCurrency(item.price)}
-              </p>
+              </p>{" "}
               <p className="text-muted-foreground text-xs">
-                Weight: {formatWeight(item.weight)}
+                Trọng lượng: {formatWeight(item.weight)}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -161,19 +162,19 @@ export const CartItemComponent = ({
                 <div className="flex items-center gap-2">
                   <span className="text-xl font-bold text-green-600">
                     {formatCurrency(item.price)}
-                  </span>
+                  </span>{" "}
                   <span className="text-muted-foreground text-sm">
-                    for {formatWeight(item.weight)}
+                    cho {formatWeight(item.weight)}
                   </span>
                   {item.quantity > 1 && (
                     <Badge variant="secondary" className="text-xs">
-                      {formatCurrency(item.price * item.quantity)} total
+                      {formatCurrency(item.price * item.quantity)} tổng cộng
                     </Badge>
                   )}
                 </div>
                 {/* Weight Selection */}
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">Weight:</span>
+                  <span className="text-sm font-medium">Trọng lượng:</span>
                   <div className="flex gap-1">
                     {availableWeights.map((weight) => (
                       <Button
@@ -189,8 +190,7 @@ export const CartItemComponent = ({
                   </div>
                 </div>
               </div>
-
-              {/* Remove Button */}
+              {/* Remove Button */}{" "}
               <Button
                 variant="outline"
                 size="sm"
@@ -198,14 +198,14 @@ export const CartItemComponent = ({
                 className="mt-2 text-red-600 hover:bg-red-50 hover:text-red-700 sm:mt-0"
               >
                 <Trash2 className="h-4 w-4" />
-                <span className="ml-1 hidden sm:inline">Remove</span>
+                <span className="ml-1 hidden sm:inline">Xóa</span>
               </Button>
             </div>
 
             {/* Quantity Controls */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium">Quantity:</span>
+                <span className="text-sm font-medium">Số lượng:</span>
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
@@ -228,14 +228,13 @@ export const CartItemComponent = ({
                   </Button>
                 </div>
               </div>
-
-              {/* Stock Information */}
+              {/* Stock Information */}{" "}
               <div className="text-muted-foreground text-sm">
                 {item.stockQuantity > 0 ? (
-                  <span>{item.stockQuantity} in stock</span>
+                  <span>{item.stockQuantity} còn hàng</span>
                 ) : (
                   <Badge variant="destructive" className="text-xs">
-                    Out of stock
+                    Hết hàng
                   </Badge>
                 )}
               </div>

@@ -41,27 +41,28 @@ export const ProductsFilters = ({
     <div className="mb-6 space-y-4">
       <div className="flex flex-col items-center gap-4 md:flex-row">
         <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />{" "}
           <Input
-            placeholder="Search products..."
+            placeholder="Tìm kiếm sản phẩm..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyUp={(e) => e.key === "Enter" && onSearch()}
             className="pl-10"
           />
-        </div>
+        </div>{" "}
         <Button onClick={onSearch} variant={"healthy"}>
           <Search className="mr-2 h-4 w-4" />
-          Search
+          Tìm kiếm
         </Button>
       </div>
 
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex flex-col items-center gap-4 md:flex-row">
           <div className="flex items-center gap-2">
-            <span className="shrink-0 text-sm font-medium">Price Range:</span>
+            {" "}
+            <span className="shrink-0 text-sm font-medium">Khoảng giá:</span>
             <Input
-              placeholder="Min"
+              placeholder="Tối thiểu"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
               className="min-w-20"
@@ -69,7 +70,7 @@ export const ProductsFilters = ({
             />
             <span>-</span>
             <Input
-              placeholder="Max"
+              placeholder="Tối đa"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
               className="min-w-20"
@@ -77,27 +78,24 @@ export const ProductsFilters = ({
             />
           </div>{" "}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">Sort by:</span>
+            {" "}
+            <span className="text-sm font-medium">Sắp xếp theo:</span>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="min-w-40">
-                <SelectValue placeholder="Sort by" />
+                <SelectValue placeholder="Sắp xếp theo" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="name-asc">Name (A → Z)</SelectItem>
-                <SelectItem value="name-desc">Name (Z → A)</SelectItem>
-                <SelectItem value="price-desc">
-                  Price (Highest to Lowest)
-                </SelectItem>
-                <SelectItem value="price-asc">
-                  Price (Lowest to Highest)
-                </SelectItem>
+                <SelectItem value="name-asc">Tên (A → Z)</SelectItem>
+                <SelectItem value="name-desc">Tên (Z → A)</SelectItem>
+                <SelectItem value="price-desc">Giá (Cao đến thấp)</SelectItem>
+                <SelectItem value="price-asc">Giá (Thấp đến cao)</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">View:</span>
+          <span className="text-sm font-medium">Hiển thị:</span>
           <Button
             variant={viewMode === "grid" ? "healthy" : "outline"}
             size="sm"

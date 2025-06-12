@@ -56,7 +56,7 @@ const MobileNav = ({ menu }: MobileNavProps) => {
       <SheetTrigger asChild>
         <Button variant="ghost" size="sm" className="p-2 md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle Menu</span>
+          <span className="sr-only">Bật/Tắt Menu</span>
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -65,7 +65,7 @@ const MobileNav = ({ menu }: MobileNavProps) => {
       >
         {" "}
         <SheetHeader className="text-left">
-          <SheetTitle>Menu</SheetTitle>
+          <SheetTitle>Thực đơn</SheetTitle>
           {/* Logo */}
           <div className="flex justify-center py-4">
             <Link href="/" onClick={handleLinkClick}>

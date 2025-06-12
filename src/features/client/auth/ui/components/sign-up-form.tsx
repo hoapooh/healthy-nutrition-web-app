@@ -58,17 +58,15 @@ export function SignUpForm({
                 <GalleryVerticalEnd className="size-6" />
               </div>
               <span className="sr-only">HealthyNutrition.</span>
-            </Link>
-
-            <h1 className="text-xl font-bold">Create your account</h1>
-
+            </Link>{" "}
+            <h1 className="text-xl font-bold">Tạo tài khoản của bạn</h1>
             <div className="text-center text-sm">
-              Already have an account?{" "}
+              Đã có tài khoản?{" "}
               <Link
                 href="/sign-in"
                 className="underline underline-offset-4 hover:text-green-600"
               >
-                Sign in
+                Đăng nhập
               </Link>
             </div>
           </div>
@@ -77,17 +75,18 @@ export function SignUpForm({
           <div className="flex flex-col gap-6">
             {/* Full Name Field */}
             <div className="grid gap-2">
+              {" "}
               <FormField
                 control={form.control}
                 name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="fullName">Full Name</FormLabel>
+                    <FormLabel htmlFor="fullName">Họ và tên</FormLabel>
                     <FormControl>
                       <Input
                         id="fullName"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="Nguyễn Văn A"
                         {...field}
                       />
                     </FormControl>
@@ -119,7 +118,7 @@ export function SignUpForm({
             </div>
             {/* Address Fields */}
             <div className="grid gap-4">
-              <FormLabel className="text-sm font-medium">Address</FormLabel>
+              <FormLabel className="text-sm font-medium">Địa chỉ</FormLabel>
               {/* Address Number Field */}
               <div className="grid gap-2">
                 <FormField
@@ -127,7 +126,7 @@ export function SignUpForm({
                   name="addressNo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="addressNo">No.</FormLabel>
+                      <FormLabel htmlFor="addressNo">Số nhà</FormLabel>
                       <FormControl>
                         <Input
                           id="addressNo"
@@ -143,12 +142,13 @@ export function SignUpForm({
               </div>{" "}
               {/* City Field */}
               <div className="grid gap-2">
+                {" "}
                 <FormField
                   control={form.control}
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="city">City</FormLabel>
+                      <FormLabel htmlFor="city">Tỉnh/Thành phố</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -158,8 +158,8 @@ export function SignUpForm({
                             <SelectValue
                               placeholder={
                                 loadingProvinces
-                                  ? "Loading cities..."
-                                  : "Select city"
+                                  ? "Đang tải tỉnh/thành phố..."
+                                  : "Chọn tỉnh/thành phố"
                               }
                             />
                           </SelectTrigger>
@@ -176,7 +176,7 @@ export function SignUpForm({
                             ))
                           ) : (
                             <SelectItem value="no-city" disabled>
-                              No cities available
+                              Không có tỉnh/thành phố
                             </SelectItem>
                           )}
                         </SelectContent>
@@ -193,7 +193,7 @@ export function SignUpForm({
                   name="district"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="district">District</FormLabel>
+                      <FormLabel htmlFor="district">Quận/Huyện</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -204,10 +204,10 @@ export function SignUpForm({
                             <SelectValue
                               placeholder={
                                 !form.watch("city")
-                                  ? "Select city first"
+                                  ? "Chọn tỉnh/thành phố trước"
                                   : loadingDistricts
-                                    ? "Loading districts..."
-                                    : "Select district"
+                                    ? "Đang tải quận/huyện..."
+                                    : "Chọn quận/huyện"
                               }
                             />
                           </SelectTrigger>
@@ -224,7 +224,7 @@ export function SignUpForm({
                             ))
                           ) : (
                             <SelectItem value="no-district" disabled>
-                              No districts available
+                              Không có quận/huyện
                             </SelectItem>
                           )}
                         </SelectContent>
@@ -241,7 +241,7 @@ export function SignUpForm({
                   name="ward"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="ward">Ward</FormLabel>
+                      <FormLabel htmlFor="ward">Phường/Xã</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -252,10 +252,10 @@ export function SignUpForm({
                             <SelectValue
                               placeholder={
                                 !form.watch("district")
-                                  ? "Select district first"
+                                  ? "Chọn quận/huyện trước"
                                   : loadingWards
-                                    ? "Loading wards..."
-                                    : "Select ward"
+                                    ? "Đang tải phường/xã..."
+                                    : "Chọn phường/xã"
                               }
                             />
                           </SelectTrigger>
@@ -269,7 +269,7 @@ export function SignUpForm({
                             ))
                           ) : (
                             <SelectItem value="no-ward" disabled>
-                              No wards available
+                              Không có phường/xã
                             </SelectItem>
                           )}
                         </SelectContent>
@@ -282,18 +282,19 @@ export function SignUpForm({
             </div>
             {/* Password Field */}
             <div className="grid gap-2">
+              {" "}
               <FormField
                 control={form.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex justify-between">
-                      <FormLabel htmlFor="password">Password</FormLabel>
+                      <FormLabel htmlFor="password">Mật khẩu</FormLabel>
                       <Link
                         href="#"
                         className="inline-block text-xs underline-offset-4 hover:text-green-600 hover:underline"
                       >
-                        Forgot your password?
+                        Quên mật khẩu?
                       </Link>
                     </div>
                     <FormControl>
@@ -328,13 +329,14 @@ export function SignUpForm({
             </div>
             {/* Confirm Password Field */}
             <div className="grid gap-2">
+              {" "}
               <FormField
                 control={form.control}
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor="confirmPassword">
-                      Confirm Password
+                      Xác nhận mật khẩu
                     </FormLabel>
                     <FormControl>
                       <div className="relative">
@@ -375,10 +377,11 @@ export function SignUpForm({
               disabled={isLoading}
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
             >
+              {" "}
               {isLoading ? (
                 <LoaderCircle className="size-5 animate-spin" />
               ) : (
-                "Create account"
+                "Tạo tài khoản"
               )}
             </Button>
           </div>
@@ -414,12 +417,11 @@ export function SignUpForm({
             </div> */}
         </form>
       </Form>
-
-      {/* Term and Service */}
+      {/* Term and Service */}{" "}
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our{" "}
-        <Link href="#">Terms of Service</Link> and{" "}
-        <Link href="#">Privacy Policy</Link>.
+        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
+        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>
   );

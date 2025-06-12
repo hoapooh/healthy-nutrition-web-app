@@ -26,12 +26,10 @@ const ForgotPasswordForm = ({
                 <GalleryVerticalEnd className="size-6" />
               </div>
               <span className="sr-only">HealthyNutrition.</span>
-            </Link>
-
-            <h1 className="text-xl font-bold">Update Password</h1>
+            </Link>{" "}
+            <h1 className="text-xl font-bold">Cập nhật mật khẩu</h1>
             <div className="text-center text-sm">
-              We will send you an email with instructions on how to reset your
-              password.
+              Chúng tôi sẽ gửi cho bạn email hướng dẫn cách đặt lại mật khẩu.
             </div>
           </div>
           <div className="flex flex-col gap-6">
@@ -46,19 +44,19 @@ const ForgotPasswordForm = ({
             </div>
             <Button
               type="button"
-              onClick={() => toast.success("This feature is coming soon!")}
+              onClick={() => toast.success("Tính năng này sẽ sớm ra mắt!")}
               variant={"healthy"}
               className="w-full"
             >
-              Email Me
+              Gửi email cho tôi
             </Button>
           </div>
         </div>
-      </form>
+      </form>{" "}
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our{" "}
-        <Link href="#">Terms of Service</Link> and{" "}
-        <Link href="#">Privacy Policy</Link>.
+        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
+        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ export const OrderHistoryPagination: React.FC<OrderHistoryPaginationProps> = ({
   return (
     <div className="flex items-center justify-between px-2 py-4">
       <div className="text-sm text-gray-600">
-        Showing {startItem} to {endItem} of {totalItems} orders
+        Hiển thị {startItem} đến {endItem} của {totalItems} đơn hàng
       </div>
 
       <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export const OrderHistoryPagination: React.FC<OrderHistoryPaginationProps> = ({
           className="flex items-center gap-1"
         >
           <ChevronLeft className="h-4 w-4" />
-          Previous
+          Trước
         </Button>
 
         <div className="flex items-center gap-1">{renderPageNumbers()}</div>
@@ -139,7 +139,7 @@ export const OrderHistoryPagination: React.FC<OrderHistoryPaginationProps> = ({
           disabled={!hasNextPage}
           className="flex items-center gap-1"
         >
-          Next
+          Tiếp theo
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>

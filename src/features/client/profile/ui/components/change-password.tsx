@@ -33,13 +33,14 @@ const ChangePassword = () => {
   return (
     <Card className="w-full">
       <CardHeader>
+        {" "}
         <CardTitle className="flex items-center space-x-2">
           <Key className="h-5 w-5" />
-          <span>Change Password</span>
+          <span>Thay đổi mật khẩu</span>
         </CardTitle>
         <CardDescription>
-          Update your password to keep your account secure. Make sure to use a
-          strong password.
+          Cập nhật mật khẩu để giữ an toàn cho tài khoản của bạn. Hãy đảm bảo sử
+          dụng mật khẩu mạnh.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -51,9 +52,10 @@ const ChangePassword = () => {
               name="oldPassword"
               render={({ field }) => (
                 <FormItem>
+                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Shield className="h-4 w-4" />
-                    <span>Current Password</span>
+                    <span>Mật khẩu hiện tại</span>
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -61,7 +63,7 @@ const ChangePassword = () => {
                         type={
                           passwordVisibility.oldPassword ? "text" : "password"
                         }
-                        placeholder="Enter your current password"
+                        placeholder="Nhập mật khẩu hiện tại"
                         {...field}
                         className="pr-10"
                       />
@@ -84,16 +86,16 @@ const ChangePassword = () => {
                 </FormItem>
               )}
             />
-
             {/* New Password */}
             <FormField
               control={form.control}
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
+                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Key className="h-4 w-4" />
-                    <span>New Password</span>
+                    <span>Mật khẩu mới</span>
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -101,7 +103,7 @@ const ChangePassword = () => {
                         type={
                           passwordVisibility.newPassword ? "text" : "password"
                         }
-                        placeholder="Enter your new password"
+                        placeholder="Nhập mật khẩu mới"
                         {...field}
                         className="pr-10"
                       />
@@ -124,16 +126,16 @@ const ChangePassword = () => {
                 </FormItem>
               )}
             />
-
             {/* Confirm New Password */}
             <FormField
               control={form.control}
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
+                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Key className="h-4 w-4" />
-                    <span>Confirm New Password</span>
+                    <span>Xác nhận mật khẩu mới</span>
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
@@ -143,7 +145,7 @@ const ChangePassword = () => {
                             ? "text"
                             : "password"
                         }
-                        placeholder="Confirm your new password"
+                        placeholder="Xác nhận mật khẩu mới"
                         {...field}
                         className="pr-10"
                       />
@@ -168,22 +170,15 @@ const ChangePassword = () => {
                 </FormItem>
               )}
             />
-
-            {/* Password Requirements */}
+            {/* Password Requirements */}{" "}
             <div className="bg-muted/50 rounded-lg p-4">
-              <h4 className="mb-2 text-sm font-medium">
-                Password Requirements:
-              </h4>
+              <h4 className="mb-2 text-sm font-medium">Yêu cầu mật khẩu:</h4>
               <ul className="text-muted-foreground space-y-1 text-sm">
-                <li>• At least 3 characters long</li>
-                <li>• Different from your current password</li>
-                <li>
-                  • Use a combination of letters, numbers, and special
-                  characters
-                </li>
+                <li>• Ít nhất 3 ký tự</li>
+                <li>• Khác với mật khẩu hiện tại</li>
+                <li>• Sử dụng kết hợp chữ cái, số và ký tự đặc biệt</li>
               </ul>
             </div>
-
             {/* Submit Button */}
             <div className="flex justify-end pt-4">
               <Button
@@ -194,12 +189,12 @@ const ChangePassword = () => {
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
                     <LoaderCircle className="h-4 w-4 animate-spin" />
-                    <span>Updating Password...</span>
+                    <span>Đang cập nhật mật khẩu...</span>
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
                     <Shield className="h-4 w-4" />
-                    <span>Update Password</span>
+                    <span>Cập nhật mật khẩu</span>
                   </div>
                 )}
               </Button>

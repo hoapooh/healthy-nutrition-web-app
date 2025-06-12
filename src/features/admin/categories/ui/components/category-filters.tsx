@@ -75,7 +75,7 @@ export function CategoryFilters({
                 }
               >
                 <SelectTrigger id="type-filter">
-                  <SelectValue placeholder="Select type" />
+                  <SelectValue placeholder="Chọn loại" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All types</SelectItem>
@@ -89,10 +89,11 @@ export function CategoryFilters({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description-filter">Description</Label>
+              {" "}
+              <Label htmlFor="description-filter">Mô tả</Label>
               <Input
                 id="description-filter"
-                placeholder="Filter by description..."
+                placeholder="Lọc theo mô tả..."
                 value={localFilters.description || ""}
                 onChange={(e) =>
                   setLocalFilters({
@@ -105,6 +106,7 @@ export function CategoryFilters({
           </div>
 
           <div className="flex justify-between">
+            {" "}
             <Button
               variant="outline"
               size="sm"
@@ -112,10 +114,10 @@ export function CategoryFilters({
               disabled={!hasActiveFilters}
             >
               <X className="mr-2 h-4 w-4" />
-              Clear
+              Xóa
             </Button>
             <Button size="sm" onClick={handleApplyFilters}>
-              Apply Filters
+              Áp dụng bộ lọc
             </Button>
           </div>
         </div>

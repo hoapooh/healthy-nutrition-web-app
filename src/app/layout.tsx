@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { Inter } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/store-provider";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({
+const oswald = Oswald({
   subsets: ["latin"],
 });
 
@@ -39,7 +39,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${oswald.className} antialiased`}>
         <StoreProvider>
           {children}
           <Toaster position="top-center" toastOptions={{ duration: 2500 }} />

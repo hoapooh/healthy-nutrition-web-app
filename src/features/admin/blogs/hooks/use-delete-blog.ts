@@ -14,16 +14,15 @@ export const useDeleteBlog = ({
   onOpenChange,
 }: UseDeleteBlogProps) => {
   const [deleteBlog, { isLoading }] = useDeleteBlogMutation();
-
   const handleDelete = async () => {
     try {
       await deleteBlog({ id: blog.id }).unwrap();
-      toast.success("Blog deleted successfully!");
+      toast.success("Xóa blog thành công!");
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error deleting blog:", error);
-      toast.error("Failed to delete blog");
+      toast.error("Xóa blog thất bại");
     }
   };
 

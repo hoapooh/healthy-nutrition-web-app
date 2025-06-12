@@ -90,7 +90,9 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
           {/* Upload instructions */}
           <div className="mt-2 text-center">
             <p className="text-xs">
-              {isUploading ? "Uploading..." : "Click or drag to update photo"}
+              {isUploading
+                ? "Đang tải lên..."
+                : "Nhấn hoặc kéo để cập nhật ảnh"}
             </p>
             <p className="text-xs">PNG, JPG, GIF up to 5MB</p>
           </div>

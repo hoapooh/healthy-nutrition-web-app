@@ -94,7 +94,7 @@ export function CreateBlogModal({
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter blog title" {...field} />
+                      <Input placeholder="Nhập tiêu đề bài viết" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -113,7 +113,7 @@ export function CreateBlogModal({
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select status" />
+                          <SelectValue placeholder="Chọn trạng thái" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -138,7 +138,7 @@ export function CreateBlogModal({
                   <FormLabel>Excerpt</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Brief description of the blog post"
+                      placeholder="Mô tả ngắn gọn về bài viết"
                       className="resize-none"
                       rows={3}
                       {...field}
@@ -162,7 +162,7 @@ export function CreateBlogModal({
                     <RichTextEditor
                       value={field.value}
                       onChange={field.onChange}
-                      placeholder="Write your blog content here..."
+                      placeholder="Viết nội dung bài viết ở đây..."
                     />
                   </FormControl>
                   <FormMessage />
@@ -175,7 +175,7 @@ export function CreateBlogModal({
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Featured Image URL (Optional)</FormLabel>
+                  <FormLabel>URL Ảnh Nổi Bật (Tùy chọn)</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="https://example.com/image.jpg"
@@ -183,7 +183,7 @@ export function CreateBlogModal({
                     />
                   </FormControl>
                   <FormDescription>
-                    URL to the featured image for this blog post.
+                    URL đến ảnh nổi bật cho bài viết này.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -199,7 +199,7 @@ export function CreateBlogModal({
                   <FormControl>
                     <div className="space-y-2">
                       <Input
-                        placeholder="Type a tag and press Enter"
+                        placeholder="Nhập thẻ và nhấn Enter"
                         value={tagInput}
                         onChange={(e) => setTagInput(e.target.value)}
                         onKeyDown={handleTagInputKeyDown}

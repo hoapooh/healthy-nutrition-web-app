@@ -36,23 +36,23 @@ export function DeleteCategoryDialog({
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
+        {" "}
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            category{" "}
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn danh mục{" "}
             <span className="font-semibold">&quot;{category.name}&quot;</span>{" "}
-            and remove all associated data from our servers.
+            và xóa tất cả dữ liệu liên quan khỏi máy chủ của chúng tôi.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isLoading}>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isLoading}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? "Đang xóa..." : "Xóa"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

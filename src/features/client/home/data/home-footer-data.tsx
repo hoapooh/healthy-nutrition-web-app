@@ -2,30 +2,30 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const defaultSections = [
   {
-    title: "Product",
+    title: "Sản phẩm",
     links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
+      { name: "Tổng quan", href: "#" },
+      { name: "Bảng giá", href: "#" },
+      { name: "Thị trường", href: "#" },
+      { name: "Tính năng", href: "#" },
     ],
   },
   {
-    title: "Company",
+    title: "Công ty",
     links: [
-      { name: "About", href: "/about" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "/blog" },
-      { name: "Careers", href: "#" },
+      { name: "Về chúng tôi", href: "/about" },
+      { name: "Đội ngũ", href: "#" },
+      { name: "Bài viết", href: "/blog" },
+      { name: "Tuyển dụng", href: "#" },
     ],
   },
   {
-    title: "Resources",
+    title: "Tài nguyên",
     links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-      { name: "Privacy", href: "#" },
+      { name: "Trợ giúp", href: "#" },
+      { name: "Bán hàng", href: "#" },
+      { name: "Quảng cáo", href: "#" },
+      { name: "Bảo mật", href: "#" },
     ],
   },
 ];
@@ -58,8 +58,8 @@ const defaultSocialLinks = [
 ];
 
 const defaultLegalLinks = [
-  { name: "Terms and Conditions", href: "#" },
-  { name: "Privacy Policy", href: "#" },
+  { name: "Điều khoản và Điều kiện", href: "#" },
+  { name: "Chính sách Bảo mật", href: "#" },
 ];
 
 export { defaultSections, defaultSocialLinks, defaultLegalLinks };

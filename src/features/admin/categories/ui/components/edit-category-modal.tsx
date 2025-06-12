@@ -52,13 +52,11 @@ export function EditCategoryModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
+        {" "}
         <DialogHeader>
-          <DialogTitle>Edit Category</DialogTitle>
-          <DialogDescription>
-            Update the category information.
-          </DialogDescription>
+          <DialogTitle>Chỉnh sửa danh mục</DialogTitle>
+          <DialogDescription>Cập nhật thông tin danh mục.</DialogDescription>
         </DialogHeader>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -66,25 +64,24 @@ export function EditCategoryModal({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter category name" {...field} />
+                    <Input placeholder="Nhập tên danh mục" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>Loại</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select category type" />
+                        <SelectValue placeholder="Chọn loại danh mục" />
                       </SelectTrigger>
                       <SelectContent>
                         {CATEGORY_TYPES.map((type) => (
@@ -99,16 +96,15 @@ export function EditCategoryModal({
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Mô tả</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Enter category description"
+                      placeholder="Nhập mô tả danh mục"
                       className="resize-none"
                       {...field}
                       value={field.value || ""}
@@ -117,8 +113,7 @@ export function EditCategoryModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-
+            />{" "}
             <DialogFooter>
               <Button
                 type="button"
@@ -126,10 +121,10 @@ export function EditCategoryModal({
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Updating..." : "Update Category"}
+                {isLoading ? "Đang cập nhật..." : "Cập nhật danh mục"}
               </Button>
             </DialogFooter>
           </form>

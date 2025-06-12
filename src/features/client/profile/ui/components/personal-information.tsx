@@ -25,28 +25,27 @@ const PersonalInformation = () => {
     handleCancel,
     handleEdit,
   } = useUpdateProfile();
-
   if (!user) {
     return (
       <Card className="w-full">
         <CardContent className="flex items-center justify-center p-8">
-          <p className="text-muted-foreground">No user information available</p>
+          <p className="text-muted-foreground">Không có thông tin người dùng</p>
         </CardContent>
       </Card>
     );
   }
 
   const formatDate = (dateString?: string) => {
-    if (!dateString) return "Not provided";
+    if (!dateString) return "Chưa cung cấp";
 
     try {
-      return new Date(dateString).toLocaleDateString("en-US", {
+      return new Date(dateString).toLocaleDateString("vi-VN", {
         year: "numeric",
         month: "long",
         day: "numeric",
       });
     } catch {
-      return "Invalid date";
+      return "Ngày không hợp lệ";
     }
   };
 
@@ -72,9 +71,9 @@ const PersonalInformation = () => {
                     <span>{user.role}</span>
                   </Badge>
                 )}
-              </div>
+              </div>{" "}
               <p className="text-muted-foreground">
-                Member since {formatDate(user.createdAt)}
+                Thành viên từ {formatDate(user.createdAt)}
               </p>
             </div>
           </div>
@@ -87,10 +86,10 @@ const PersonalInformation = () => {
             <div>
               <CardTitle className="flex items-center space-x-2">
                 <User className="h-5 w-5" />
-                <span>Personal Details</span>
+                <span>Thông tin cá nhân</span>
               </CardTitle>
               <CardDescription>
-                Your personal information and account details
+                Thông tin cá nhân và chi tiết tài khoản của bạn
               </CardDescription>
             </div>
             {!isEditMode && (
@@ -119,38 +118,36 @@ const PersonalInformation = () => {
             <>
               {/* Basic Information */}
               <div className="grid gap-4 md:grid-cols-2">
+                {" "}
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <User className="h-4 w-4" />
-                    <span>Full Name</span>
+                    <span>Họ và tên</span>
                   </div>
                   <p className="text-sm font-medium">{user.fullName}</p>
                 </div>
-
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <Mail className="h-4 w-4" />
-                    <span>Email Address</span>
+                    <span>Địa chỉ Email</span>
                   </div>
                   <p className="text-sm font-medium">
-                    {user.email || "Not provided"}
+                    {user.email || "Chưa cung cấp"}
                   </p>
                 </div>
-
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <Phone className="h-4 w-4" />
-                    <span>Phone Number</span>
+                    <span>Số điện thoại</span>
                   </div>
                   <p className="text-sm font-medium">
-                    {user.phoneNumber || "Not provided"}
+                    {user.phoneNumber || "Chưa cung cấp"}
                   </p>
                 </div>
-
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <Shield className="h-4 w-4" />
-                    <span>Account Role</span>
+                    <span>Vai trò tài khoản</span>
                   </div>
                   <Badge
                     variant={user.role === "Admin" ? "destructive" : "healthy"}
@@ -159,18 +156,15 @@ const PersonalInformation = () => {
                   </Badge>
                 </div>
               </div>
-
-              <Separator />
-
-              {/* Address Information */}
+              <Separator /> {/* Address Information */}
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <MapPin className="h-4 w-4" />
-                    <span>Address</span>
+                    <span>Địa chỉ</span>
                   </div>
                   <p className="text-sm font-medium">
-                    {user.address || "No address provided"}
+                    {user.address || "Chưa cung cấp địa chỉ"}
                   </p>
                 </div>
               </div>
@@ -184,7 +178,7 @@ const PersonalInformation = () => {
             <div className="space-y-2">
               <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                 <Calendar className="h-4 w-4" />
-                <span>Account Created</span>
+                <span>Tài khoản được tạo</span>
               </div>
               <p className="text-sm font-medium">
                 {formatDate(user.createdAt)}
@@ -194,7 +188,7 @@ const PersonalInformation = () => {
             <div className="space-y-2">
               <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                 <Calendar className="h-4 w-4" />
-                <span>Last Updated</span>
+                <span>Cập nhật lần cuối</span>
               </div>
               <p className="text-sm font-medium">
                 {formatDate(user.updatedAt)}

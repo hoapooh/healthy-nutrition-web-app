@@ -85,11 +85,11 @@ export function TransactionsChart() {
       <Card className="@container/card">
         <CardHeader>
           <CardTitle>Transaction Amounts</CardTitle>
-          <CardDescription>Loading...</CardDescription>
+          <CardDescription>Đang tải...</CardDescription>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
           <div className="flex aspect-auto h-[250px] w-full items-center justify-center">
-            <p>Loading chart data...</p>
+            <p>Đang tải dữ liệu biểu đồ...</p>
           </div>
         </CardContent>
       </Card>
@@ -105,7 +105,7 @@ export function TransactionsChart() {
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
           <div className="flex aspect-auto h-[250px] w-full items-center justify-center">
-            <p>Failed to load chart data</p>
+            <p>Không thể tải dữ liệu biểu đồ</p>
           </div>
         </CardContent>
       </Card>
@@ -117,12 +117,13 @@ export function TransactionsChart() {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Transaction Amounts</CardTitle>
+        {" "}
+        <CardTitle>Số tiền giao dịch</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            Transaction amounts over time
+            Số tiền giao dịch theo thời gian
           </span>
-          <span className="@[540px]/card:hidden">Transaction amounts</span>
+          <span className="@[540px]/card:hidden">Số tiền giao dịch</span>
         </CardDescription>
         <CardAction>
           <ToggleGroup
@@ -141,7 +142,7 @@ export function TransactionsChart() {
               size="sm"
               aria-label="Select a value"
             >
-              <SelectValue placeholder="Last 30 days" />
+              <SelectValue placeholder="30 ngày qua" />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               <SelectItem value="30d" className="rounded-lg">
