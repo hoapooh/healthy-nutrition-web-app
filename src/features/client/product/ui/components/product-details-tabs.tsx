@@ -18,61 +18,59 @@ export const ProductDetailsTabs = ({
 }: ProductDetailsTabsProps) => {
   return (
     <Tabs defaultValue="nutrition" className={`mb-8 ${className}`}>
+      {" "}
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="nutrition" className="font-bold text-green-600">
-          Nutrition Facts
+          Thông tin dinh dưỡng
         </TabsTrigger>
         <TabsTrigger value="description" className="font-bold text-green-600">
-          Description
+          Mô tả
         </TabsTrigger>
         <TabsTrigger value="reviews" className="font-bold text-green-600">
-          Reviews
+          Đánh giá
         </TabsTrigger>
       </TabsList>
-
       <TabsContent value="nutrition" className="mt-6">
         <div className="w-full">
           <ProductNutritionFacts nutritionFact={product.nutritionFact} />
         </div>
       </TabsContent>
-
       <TabsContent value="description" className="mt-6">
         <Card>
+          {" "}
           <CardHeader>
-            <CardTitle className="text-green-600">
-              Product Description
-            </CardTitle>
+            <CardTitle className="text-green-600">Mô tả sản phẩm</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* TODO: description need to be fixed here */}
             {/* <p>{product.description}</p> */}
-
             <div>
-              <h4 className="mb-2 font-semibold">Key Features:</h4>
+              <h4 className="mb-2 font-semibold">Tính năng chính:</h4>
               <ul className="text-muted-foreground list-inside list-disc space-y-1">
-                <li>High quality, natural ingredients</li>
-                <li>Rich in essential nutrients</li>
-                <li>No artificial preservatives</li>
-                <li>Suitable for daily consumption</li>
-                <li>Environmentally friendly packaging</li>
+                <li>Thành phần tự nhiên chất lượng cao</li>
+                <li>Giàu chất dinh dưỡng thiết yếu</li>
+                <li>Không chất bảo quản nhân tạo</li>
+                <li>Phù hợp cho việc tiêu thụ hàng ngày</li>
+                <li>Bao bì thân thiện với môi trường</li>
               </ul>
             </div>
             <div>
-              <h4 className="mb-2 font-semibold">Ingredients:</h4>
+              <h4 className="mb-2 font-semibold">Thành phần:</h4>
               <p className="text-muted-foreground">
-                Natural ingredients carefully selected to provide optimal
-                nutrition and taste.
+                Các thành phần tự nhiên được lựa chọn cẩn thận để cung cấp dinh
+                dưỡng và hương vị tối ưu.
               </p>
-            </div>
+            </div>{" "}
           </CardContent>
         </Card>
       </TabsContent>
-
       <TabsContent value="reviews" className="mt-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-green-600">Customer Reviews</CardTitle>
-          </CardHeader>{" "}
+            <CardTitle className="text-green-600">
+              Đánh giá khách hàng
+            </CardTitle>
+          </CardHeader>
           <CardContent>
             <ProductReviewsSection productId={product.id} />
           </CardContent>

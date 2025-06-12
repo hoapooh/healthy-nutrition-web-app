@@ -150,7 +150,7 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
             name="rating"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Rating *</FormLabel>
+                <FormLabel>Đánh giá *</FormLabel>
                 <FormControl>
                   <StarRating
                     rating={field.value}
@@ -169,19 +169,20 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
             name="comment"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Comment *</FormLabel>
+                {" "}
+                <FormLabel>Nhận xét *</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Share your thoughts about this product..."
+                    placeholder="Chia sẻ suy nghĩ của bạn về sản phẩm này..."
                     className="min-h-[100px] resize-none"
                     disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
                 <div className="flex justify-between">
-                  <FormMessage />
+                  <FormMessage />{" "}
                   <span className="text-muted-foreground text-xs">
-                    {field.value.length}/500 characters
+                    {field.value.length}/500 ký tự
                   </span>
                 </div>
               </FormItem>

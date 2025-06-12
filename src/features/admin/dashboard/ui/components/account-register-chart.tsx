@@ -30,7 +30,7 @@ import { useGetAccountRegisterCountQuery } from "@/services/dashboard-services";
 
 const chartConfig = {
   signUpNumber: {
-    label: "Registrations",
+    label: "Đăng ký",
     color: "var(--primary)",
   },
 } satisfies ChartConfig;
@@ -84,12 +84,12 @@ export function AccountRegisterChart() {
     return (
       <Card className="@container/card">
         <CardHeader>
-          <CardTitle>Account Registrations</CardTitle>
-          <CardDescription>Loading...</CardDescription>
+          <CardTitle>Đăng ký tài khoản</CardTitle>
+          <CardDescription>Đang tải...</CardDescription>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
           <div className="flex aspect-auto h-[250px] w-full items-center justify-center">
-            <p>Loading chart data...</p>
+            <p>Đang tải dữ liệu biểu đồ...</p>
           </div>
         </CardContent>
       </Card>
@@ -100,12 +100,12 @@ export function AccountRegisterChart() {
     return (
       <Card className="@container/card">
         <CardHeader>
-          <CardTitle>Account Registrations</CardTitle>
-          <CardDescription>Error loading data</CardDescription>
+          <CardTitle>Đăng ký tài khoản</CardTitle>
+          <CardDescription>Lỗi tải dữ liệu</CardDescription>
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
           <div className="flex aspect-auto h-[250px] w-full items-center justify-center">
-            <p>Failed to load chart data</p>
+            <p>Không thể tải dữ liệu biểu đồ</p>
           </div>
         </CardContent>
       </Card>
@@ -116,13 +116,14 @@ export function AccountRegisterChart() {
 
   return (
     <Card className="@container/card">
+      {" "}
       <CardHeader>
-        <CardTitle>Account Registrations</CardTitle>
+        <CardTitle>Đăng ký tài khoản</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            New user registrations over time
+            Người dùng mới đăng ký theo thời gian
           </span>
-          <span className="@[540px]/card:hidden">User registrations</span>
+          <span className="@[540px]/card:hidden">Đăng ký người dùng</span>
         </CardDescription>
         <CardAction>
           <ToggleGroup
@@ -132,8 +133,8 @@ export function AccountRegisterChart() {
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
-            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
+            <ToggleGroupItem value="30d">30 ngày qua</ToggleGroupItem>
+            <ToggleGroupItem value="7d">7 ngày qua</ToggleGroupItem>
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
@@ -141,14 +142,14 @@ export function AccountRegisterChart() {
               size="sm"
               aria-label="Select a value"
             >
-              <SelectValue placeholder="Last 30 days" />
+              <SelectValue placeholder="30 ngày qua" />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               <SelectItem value="30d" className="rounded-lg">
-                Last 30 days
+                30 ngày qua
               </SelectItem>
               <SelectItem value="7d" className="rounded-lg">
-                Last 7 days
+                7 ngày qua
               </SelectItem>
             </SelectContent>
           </Select>

@@ -25,21 +25,23 @@ export default function CategoriesPageContent() {
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <div className="flex items-center justify-between space-y-2">
         <div>
+          {" "}
           <h2 className="text-primary text-3xl font-bold tracking-tight">
-            Categories
+            Danh mục
           </h2>
           <p className="text-muted-foreground">
-            Manage your product categories here.
+            Quản lý danh mục sản phẩm của bạn tại đây.
           </p>
         </div>
       </div>
 
       <Card>
+        {" "}
         <CardHeader>
-          <CardTitle>Categories Management</CardTitle>
+          <CardTitle>Quản lý danh mục</CardTitle>
           <CardDescription>
-            View, create, edit, and delete product categories. Total:{" "}
-            {totalCount} categories
+            Xem, tạo, chỉnh sửa và xóa danh mục sản phẩm. Tổng cộng:{" "}
+            {totalCount} danh mục
           </CardDescription>
         </CardHeader>
         <CardContent>

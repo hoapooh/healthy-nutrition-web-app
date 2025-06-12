@@ -19,24 +19,24 @@ export const EmptyCart = ({ className = "" }: EmptyCartProps) => {
         </div>
 
         <h2 className="mb-2 text-2xl font-bold text-gray-900">
-          Your cart is empty
+          Giỏ hàng trống
         </h2>
 
         <p className="mb-8 max-w-md text-gray-600">
-          Looks like you haven&apos;t added any healthy products to your cart
-          yet. Start shopping to fill it up!
+          Có vẻ như bạn chưa thêm sản phẩm dinh dưỡng nào vào giỏ hàng của mình.
+          Hãy bắt đầu mua sắm để làm đầy nó!
         </p>
 
         <div className="flex flex-col gap-y-3">
           <Link href="/products">
             <Button size="lg" variant="healthy" className="min-w-[200px]">
               <ShoppingCart className="mr-2 h-5 w-5" />
-              Continue Shopping
+              Tiếp tục mua sắm
             </Button>
           </Link>
 
           <div className="text-sm text-gray-500">
-            Discover our collection of healthy nutrition products
+            Khám phá bộ sưu tập sản phẩm dinh dưỡng lành mạnh của chúng tôi
           </div>
         </div>
       </CardContent>

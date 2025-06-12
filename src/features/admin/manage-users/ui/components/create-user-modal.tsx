@@ -62,15 +62,13 @@ export function CreateUserModal({
   const onSubmit = async (values: CreateUserFormValues) => {
     try {
       await createAccount(values).unwrap();
-      toast.success("User created successfully!");
+      toast.success("Người dùng được tạo thành công!");
       form.reset();
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
-      console.log(error);
-
-      // Handle error based on your API response structure
-      toast.error("Failed to create user");
+      console.log(error); // Handle error based on your API response structure
+      toast.error("Tạo người dùng thất bại");
     }
   };
 
@@ -78,9 +76,9 @@ export function CreateUserModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create New User</DialogTitle>
+          <DialogTitle>Tạo người dùng mới</DialogTitle>
           <DialogDescription>
-            Add a new user to the system. Fill in all the required information.
+            Thêm người dùng mới vào hệ thống. Điền tất cả thông tin bắt buộc.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -90,9 +88,9 @@ export function CreateUserModal({
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name *</FormLabel>
+                  <FormLabel>Họ và tên *</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter full name" {...field} />
+                    <Input placeholder="Nhập họ và tên" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,7 +105,7 @@ export function CreateUserModal({
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Enter email address"
+                      placeholder="Nhập địa chỉ email"
                       {...field}
                     />
                   </FormControl>
@@ -120,11 +118,11 @@ export function CreateUserModal({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password *</FormLabel>
+                  <FormLabel>Mật khẩu *</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Enter password"
+                      placeholder="Nhập mật khẩu"
                       {...field}
                     />
                   </FormControl>
@@ -137,22 +135,22 @@ export function CreateUserModal({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>Số điện thoại</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter phone number" {...field} />
+                    <Input placeholder="Nhập số điện thoại" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            />{" "}
             <FormField
               control={form.control}
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Địa chỉ</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter address" {...field} />
+                    <Input placeholder="Nhập địa chỉ" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,10 +162,10 @@ export function CreateUserModal({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create User"}
+                {isLoading ? "Đang tạo..." : "Tạo người dùng"}
               </Button>
             </DialogFooter>
           </form>

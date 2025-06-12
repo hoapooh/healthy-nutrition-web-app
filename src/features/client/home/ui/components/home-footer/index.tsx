@@ -46,7 +46,7 @@ const HomeFooter = ({
     ),
   },
   sections = defaultSections,
-  description = "A small company selling healthy products. We are committed to providing the best quality products to our customers.",
+  description = "Chúng tôi cung cấp các sản phẩm dinh dưỡng chất lượng cao, giúp bạn duy trì sức khỏe và năng lượng trong cuộc sống hàng ngày.",
   socialLinks = defaultSocialLinks,
   copyright = `© ${new Date().getFullYear()} HealthyNutrition. All rights reserved.`,
   legalLinks = defaultLegalLinks,

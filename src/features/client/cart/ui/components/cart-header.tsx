@@ -32,20 +32,22 @@ export const CartHeader = ({ className = "" }: CartHeaderProps) => {
   };
 
   return (
-    <div className={`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between ${className}`}>
+    <div
+      className={`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between ${className}`}
+    >
       <div className="flex items-center gap-4">
+        {" "}
         <Link href="/products">
           <Button variant="outline" size="sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Continue Shopping
+            Tiếp tục mua sắm
           </Button>
         </Link>
-        
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold sm:text-3xl">Shopping Cart</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">Giỏ hàng</h1>
           {totalItems > 0 && (
             <Badge variant="secondary" className="text-sm">
-              {totalItems} {totalItems === 1 ? 'item' : 'items'}
+              {totalItems} {totalItems === 1 ? "sản phẩm" : "sản phẩm"}
             </Badge>
           )}
         </div>
@@ -54,29 +56,32 @@ export const CartHeader = ({ className = "" }: CartHeaderProps) => {
       {totalItems > 0 && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
-              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-red-600 hover:bg-red-50 hover:text-red-700"
             >
+              {" "}
               <Trash2 className="mr-2 h-4 w-4" />
-              Clear Cart
+              Xóa giỏ hàng
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
+            {" "}
             <AlertDialogHeader>
-              <AlertDialogTitle>Clear Shopping Cart</AlertDialogTitle>
+              <AlertDialogTitle>Xóa giỏ hàng</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to remove all items from your cart? This action cannot be undone.
+                Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng? Hành
+                động này không thể hoàn tác.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction 
+              <AlertDialogCancel>Hủy</AlertDialogCancel>
+              <AlertDialogAction
                 onClick={handleClearCart}
                 className="bg-red-600 hover:bg-red-700"
               >
-                Clear Cart
+                Xóa giỏ hàng
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

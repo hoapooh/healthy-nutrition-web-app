@@ -37,9 +37,9 @@ const NavAuthButton = () => {
       return (
         <div className="flex shrink-0 items-center gap-2">
           <div className="flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" />{" "}
             {!isMobile && (
-              <span className="text-muted-foreground text-sm">Loading...</span>
+              <span className="text-muted-foreground text-sm">Đang tải...</span>
             )}
           </div>
         </div>
@@ -65,7 +65,7 @@ const NavAuthButton = () => {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <span>View Cart ({cartItemsCount})</span>
+                  <span>Xem giỏ hàng ({cartItemsCount})</span>
                 </TooltipContent>
               </Tooltip>
             </Link>
@@ -117,17 +117,17 @@ const NavAuthButton = () => {
                   {user?.email}
                 </p>
               </div>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator />{" "}
               <DropdownMenuItem asChild>
                 <Link href="/profile" className="flex items-center">
                   <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
+                  <span>Hồ sơ</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/order-history" className="flex items-center">
                   <History className="mr-2 h-4 w-4" />
-                  <span>Order History</span>
+                  <span>Lịch sử đơn hàng</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -136,7 +136,7 @@ const NavAuthButton = () => {
                 className="flex items-center hover:!bg-red-100"
               >
                 <LogOut className="mr-2 h-4 w-4 text-red-500" />
-                <span className="font-semibold text-red-500">Log out</span>
+                <span className="font-semibold text-red-500">Đăng xuất</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -191,14 +191,16 @@ const NavAuthButton = () => {
               className="rounded-sm"
               size={isMobile ? "sm" : "sm"}
             >
-              <Link href={"/sign-in"}>{isMobile ? "Login" : "Login"}</Link>
+              <Link href={"/sign-in"}>
+                {isMobile ? "Đăng nhập" : "Đăng nhập"}
+              </Link>
             </Button>
             <Button
               className="rounded-sm bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
               size={isMobile ? "sm" : "sm"}
               asChild
             >
-              <Link href={"/sign-up"}>{isMobile ? "Sign Up" : "Sign Up"}</Link>
+              <Link href={"/sign-up"}>{isMobile ? "Đăng ký" : "Đăng ký"}</Link>
             </Button>
           </div>
         </div>
@@ -208,10 +210,10 @@ const NavAuthButton = () => {
       return (
         <div className="flex shrink-0 items-center gap-2">
           <span className="text-sm text-red-600">
-            {isMobile ? "Error" : "Auth Error"}
+            {isMobile ? "Lỗi" : "Lỗi xác thực"}
           </span>
           <Button variant="outline" size="sm" asChild>
-            <Link href="/sign-in">Retry</Link>
+            <Link href="/sign-in">Thử lại</Link>
           </Button>
         </div>
       );

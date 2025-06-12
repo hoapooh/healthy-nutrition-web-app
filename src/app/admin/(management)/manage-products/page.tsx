@@ -3,8 +3,8 @@ import React from "react";
 import ProductsPageContent from "@/features/admin/products/ui/products-page-content";
 
 export const metadata: Metadata = {
-  title: "Product Management",
-  description: "Manage products effectively.",
+  title: "Quản lý sản phẩm",
+  description: "Quản lý sản phẩm một cách hiệu quả.",
 };
 
 const ProductPage = () => {

@@ -17,16 +17,14 @@ const useImageUpload = () => {
     if (acceptedFiles.length === 0) return;
 
     const file = acceptedFiles[0];
-    
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toast.error("Please select an image file");
-      return;
-    }
 
-    // Validate file size (max 5MB)
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Vui lòng chọn một tệp hình ảnh");
+      return;
+    } // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image size must be less than 5MB");
+      toast.error("Kích thước hình ảnh phải nhỏ hơn 5MB");
       return;
     }
 
@@ -38,20 +36,18 @@ const useImageUpload = () => {
     try {
       // Create FormData for file upload
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
       await updateAccount({
         params: {}, // No params for image upload
         body: { image: file },
-      }).unwrap();
-
-      // Update user image in store
+      }).unwrap(); // Update user image in store
       dispatch(updateUser({ image: previewUrl }));
-      
-      toast.success("Profile image updated successfully!");
+
+      toast.success("Cập nhật ảnh đại diện thành công!");
     } catch (error: unknown) {
       console.error("Error uploading image:", error);
-      toast.error("Failed to update profile image. Please try again.");
+      toast.error("Cập nhật ảnh đại diện thất bại. Vui lòng thử lại.");
       setPreviewImage(null);
     } finally {
       setIsUploading(false);
@@ -61,7 +57,7 @@ const useImageUpload = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp']
+      "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
     },
     multiple: false,
     maxSize: 5 * 1024 * 1024, // 5MB

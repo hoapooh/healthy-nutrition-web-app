@@ -44,8 +44,9 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
           onClick={handleEdit}
           className="flex items-center space-x-2"
         >
+          {" "}
           <Edit2 className="h-4 w-4" />
-          <span>Edit Profile</span>
+          <span>Chỉnh sửa thông tin</span>
         </Button>
       </div>
     );
@@ -61,10 +62,10 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>Họ và tên</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter your full name"
+                    placeholder="Nhập họ và tên của bạn"
                     {...field}
                     disabled={isLoading}
                   />
@@ -80,10 +81,10 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
             name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel>Số điện thoại</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter your phone number"
+                    placeholder="Nhập số điện thoại"
                     {...field}
                     disabled={isLoading}
                   />
@@ -99,10 +100,10 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>Địa chỉ</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Enter your address"
+                    placeholder="Nhập địa chỉ của bạn"
                     className="resize-none"
                     rows={3}
                     {...field}
@@ -125,7 +126,7 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
               className="flex items-center space-x-2"
             >
               <X className="h-4 w-4" />
-              <span>Cancel</span>
+              <span>Hủy</span>
             </Button>
             <Button
               type="submit"
@@ -139,7 +140,7 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
               ) : (
                 <Save className="h-4 w-4" />
               )}
-              <span>{isLoading ? "Saving..." : "Save Changes"}</span>
+              <span>{isLoading ? "Đang lưu..." : "Lưu thay đổi"}</span>
             </Button>
           </div>
         </form>

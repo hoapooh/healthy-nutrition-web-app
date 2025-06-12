@@ -107,7 +107,7 @@ export const useBlogsTable = ({
     {
       id: "author",
       accessorKey: "author",
-      header: "Author",
+      header: "Tác giả",
       cell: ({ row }) => (
         <div className="text-muted-foreground">{row.getValue("author")}</div>
       ),
@@ -115,7 +115,7 @@ export const useBlogsTable = ({
     {
       id: "excerpt",
       accessorKey: "excerpt",
-      header: "Excerpt",
+      header: "Trích đoạn",
       cell: ({ row }) => (
         <div className="text-muted-foreground max-w-[300px] truncate">
           {row.getValue("excerpt")}
@@ -125,7 +125,7 @@ export const useBlogsTable = ({
     {
       id: "tags",
       accessorKey: "tags",
-      header: "Tags",
+      header: "Thẻ",
       cell: ({ row }) => {
         const tags = row.getValue("tags") as string[];
         return (

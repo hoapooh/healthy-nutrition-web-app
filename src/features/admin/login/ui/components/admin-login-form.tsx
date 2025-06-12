@@ -32,18 +32,16 @@ const AdminLoginForm = ({
           <div className="flex flex-col items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-green-600 to-amber-600">
               <Shield className="h-8 w-8 text-white" />
-            </div>
-
+            </div>{" "}
             <div className="text-center">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Admin Portal
+                Cổng Quản Trị
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Sign in to access the admin dashboard
+                Đăng nhập để truy cập bảng điều khiển quản trị
               </p>
             </div>
           </div>
-
           {/* Form Fields */}
           <div className="flex flex-col gap-4">
             {/* Email Field */}
@@ -52,11 +50,12 @@ const AdminLoginForm = ({
               name="email"
               render={({ field }) => (
                 <FormItem>
+                  {" "}
                   <FormLabel
                     htmlFor="email"
                     className="font-medium text-gray-700 dark:text-gray-300"
                   >
-                    Email Address
+                    Địa chỉ Email
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -77,18 +76,19 @@ const AdminLoginForm = ({
               name="password"
               render={({ field }) => (
                 <FormItem>
+                  {" "}
                   <FormLabel
                     htmlFor="password"
                     className="font-medium text-gray-700 dark:text-gray-300"
                   >
-                    Password
+                    Mật khẩu
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                        placeholder="Nhập mật khẩu của bạn"
                         {...field}
                       />
                       <Button
@@ -117,21 +117,21 @@ const AdminLoginForm = ({
               className="mt-6 h-11 w-full bg-gradient-to-r from-green-600 to-amber-600 font-medium text-white hover:from-green-600/80 hover:to-amber-600/80"
               disabled={isLoading}
             >
+              {" "}
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <LoaderCircle className="h-4 w-4 animate-spin" />
-                  Signing in...
+                  Đang đăng nhập...
                 </div>
               ) : (
-                "Sign In"
+                "Đăng nhập"
               )}
             </Button>
-          </div>
-
+          </div>{" "}
           {/* Security Notice */}
           <div className="text-center">
             <p className="text-xs text-gray-500">
-              This is a secure admin area. Unauthorized access is prohibited.
+              Đây là khu vực quản trị an toàn. Nghiêm cấm truy cập trái phép.
             </p>
           </div>
         </form>

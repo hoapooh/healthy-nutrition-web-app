@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Sign In",
-  description: "Sign in to your account",
+  title: "Đăng nhập",
+  description: "Đăng nhập vào tài khoản của bạn",
 };
 
 const SignInPage = () => {

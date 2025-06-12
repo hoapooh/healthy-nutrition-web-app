@@ -57,14 +57,14 @@ const CheckoutPage = () => {
       };
 
       const paymentDataResponse = await createPaymentLink(paymentData).unwrap();
-      toast.success("Redirecting to payment...");
+      toast.success("Đang chuyển hướng đến thanh toán...");
 
       setTimeout(() => {
         window.location.href = paymentDataResponse.checkoutUrl;
       }, 1000);
     } catch (error) {
       console.error("Payment error:", error);
-      toast.error("Failed to create payment link. Please try again.");
+      toast.error("Không thể tạo liên kết thanh toán. Vui lòng thử lại.");
     }
   };
 
@@ -76,23 +76,25 @@ const CheckoutPage = () => {
     <ProtectedRoute requireAuth allowedRoles={["User"]} redirectTo="/">
       <div className="container mx-auto max-w-7xl min-w-4xl px-4 py-8">
         <div className="mb-6">
+          {" "}
           <Button
             variant="ghost"
             onClick={() => router.back()}
             className="mb-4 gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Cart
+            Quay lại giỏ hàng
           </Button>
-          <h1 className="text-3xl font-bold">Checkout</h1>
+          <h1 className="text-3xl font-bold">Thanh toán</h1>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Order Summary */}
           <div className="lg:col-span-2">
+            {" "}
             <Card>
               <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
+                <CardTitle>Tóm tắt đơn hàng</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {cartItems.map((item) => (
@@ -111,9 +113,9 @@ const CheckoutPage = () => {
                       <div className="space-y-1">
                         <p className="text-muted-foreground text-sm">
                           {formatCurrency(item.price)} × {item.quantity}
-                        </p>
+                        </p>{" "}
                         <p className="text-muted-foreground text-sm">
-                          Weight: {formatWeight(item.weight)}
+                          Trọng lượng: {formatWeight(item.weight)}
                         </p>
                       </div>
                     </div>
@@ -130,32 +132,34 @@ const CheckoutPage = () => {
 
           {/* Payment Summary */}
           <div>
+            {" "}
             <Card className="sticky top-4">
               <CardHeader>
-                <CardTitle>Payment Summary</CardTitle>
+                <CardTitle>Tóm tắt thanh toán</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Subtotal ({cartItems.length} items)</span>
+                    <span>Tạm tính ({cartItems.length} sản phẩm)</span>
                     <span>{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
+                    <span>Vận chuyển</span>
                     <span
                       className={
                         shippingCost === 0 ? "font-medium text-green-600" : ""
                       }
                     >
+                      {" "}
                       {shippingCost === 0
-                        ? "FREE"
+                        ? "MIỄN PHÍ"
                         : formatCurrency(shippingCost)}
                     </span>
                   </div>
                   {subtotal < 50 && subtotal > 0 && (
                     <div className="text-muted-foreground rounded bg-blue-50 p-2 text-xs">
-                      Add {formatCurrency(50 - subtotal)} more for free
-                      shipping!
+                      Thêm {formatCurrency(50 - subtotal)} để được miễn phí vận
+                      chuyển!
                     </div>
                   )}
                 </div>
@@ -163,7 +167,7 @@ const CheckoutPage = () => {
                 <Separator />
 
                 <div className="flex justify-between text-lg font-semibold">
-                  <span>Total</span>
+                  <span>Tổng cộng</span>
                   <span className="text-green-600">
                     {formatCurrency(total)}
                   </span>
@@ -179,18 +183,18 @@ const CheckoutPage = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Processing...
+                      Đang xử lý...
                     </>
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Pay Now
+                      Thanh toán ngay
                     </>
                   )}
                 </Button>
 
                 <p className="text-muted-foreground text-center text-xs">
-                  Your payment is secured with SSL encryption
+                  Thanh toán của bạn được bảo mật bằng mã hóa SSL
                 </p>
               </CardContent>
             </Card>

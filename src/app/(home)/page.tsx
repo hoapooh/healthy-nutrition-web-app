@@ -5,22 +5,23 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Trang chủ",
   description:
-    "Welcome to Healthy Nutrition - Your source for healthy food and nutrition tips.",
+    "Chào mừng đến với Healthy Nutrition - Nguồn thực phẩm lành mạnh và lời khuyên dinh dưỡng của bạn.",
 };
 
 export default function Home() {
   return (
     <div className="py-6 lg:p-8">
-      {/* Hero */}
+      {/* Hero */}{" "}
       <HomeHero
-        heading="Welcome to Healthy Nutrition"
-        badge="🥕🫛 Your Healthy Friend"
+        heading="Chào mừng bạn đến với Healthy Nutrition"
+        description="Khám phá các sản phẩm dinh dưỡng lành mạnh và mẹo ăn uống của chúng tôi để sống khỏe mạnh hơn mỗi ngày."
+        badge="🥕🫛 Người bạn sức khỏe của bạn"
         buttons={{
-          primary: { text: "Shop Now", url: "/products" },
+          primary: { text: "Mua sắm ngay", url: "/products" },
           secondary: {
-            text: "View Our News",
+            text: "Xem tin tức",
             url: "/blog",
           },
         }}
@@ -31,7 +32,6 @@ export default function Home() {
       />
       {/* Proposition */}
       <HomeProposition />
-
       {/* Banner Decoration */}
       <div className="container mx-auto mt-4 mb-8">
         <Image
@@ -42,11 +42,10 @@ export default function Home() {
           className="h-32 w-full object-cover lg:h-[400px] lg:rounded-md"
         />
       </div>
-
-      {/* Blog / News */}
+      {/* Blog / News */}{" "}
       <HomeBlog
-        heading="Latest News"
-        description="Check out our latest stories and articles"
+        heading="Tin tức mới nhất"
+        description="Xem những câu chuyện và bài viết mới nhất của chúng tôi"
       />
     </div>
   );

@@ -13,11 +13,10 @@ import ProtectedRoute from "@/features/shared/ui/components/protected/protected-
 const PaymentSuccessPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     // Clear the cart when user arrives on this page after successful payment
     dispatch(clearCart());
-    toast.success("Payment successful! Your order has been confirmed.");
+    toast.success("Thanh toán thành công! Đơn hàng của bạn đã được xác nhận.");
   }, [dispatch]);
 
   const handleGoHome = () => {
@@ -36,23 +35,21 @@ const PaymentSuccessPage = () => {
             <CardHeader className="pb-4">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
+              </div>{" "}
               <CardTitle className="text-2xl text-green-700">
-                Payment Successful!
+                Thanh toán thành công!
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
                 <p className="text-muted-foreground mb-2 text-lg">
-                  Thank you for your order!
+                  Cảm ơn bạn đã đặt hàng!
                 </p>
                 <p className="text-muted-foreground text-sm">
-                  Your payment has been processed successfully and your order is
-                  being prepared. You should receive a confirmation email
-                  shortly.
+                  Thanh toán của bạn đã được xử lý thành công và đơn hàng đang
+                  được chuẩn bị. Bạn sẽ nhận được email xác nhận sớm.
                 </p>
-              </div>
-
+              </div>{" "}
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Button
                   onClick={handleGoHome}
@@ -60,7 +57,7 @@ const PaymentSuccessPage = () => {
                   variant={"healthy"}
                 >
                   <Home className="h-4 w-4" />
-                  Go to Homepage
+                  Về trang chủ
                 </Button>
                 <Button
                   onClick={handleViewOrderHistory}
@@ -68,14 +65,13 @@ const PaymentSuccessPage = () => {
                   className="gap-2"
                 >
                   <History className="h-4 w-4" />
-                  View Order History
+                  Xem lịch sử đơn hàng
                 </Button>
               </div>
-
               <div className="border-t pt-4">
                 <p className="text-muted-foreground text-xs">
-                  If you have any questions about your order, please contact our
-                  support team.
+                  Nếu bạn có bất kỳ câu hỏi nào về đơn hàng, vui lòng liên hệ
+                  đội hỗ trợ của chúng tôi.
                 </p>
               </div>
             </CardContent>
