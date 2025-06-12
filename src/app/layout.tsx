@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 
-import { Inter, Oswald } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/store-provider";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/next";
-
-const inter = Inter({
-  subsets: ["latin"],
-});
 
 const oswald = Oswald({
   subsets: ["latin"],
