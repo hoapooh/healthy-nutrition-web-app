@@ -22,9 +22,9 @@ const getCartFromStorage = (): CartItem[] => {
   try {
     const storedCart = localStorage.getItem("healthy-nutrition-cart");
     const items = storedCart ? JSON.parse(storedCart) : [];
-    
+
     // Migrate legacy cart items that don't have availableWeights
-    return items.map((item: any) => ({
+    return items.map((item: CartItem) => ({
       ...item,
       availableWeights: item.availableWeights || [item.weight || 1000], // fallback to current weight or 1kg
     }));
@@ -56,7 +56,8 @@ const cartSlice = createSlice({
       const totals = calculateTotals(savedItems);
       state.totalItems = totals.totalItems;
       state.totalPrice = totals.totalPrice;
-    },    addToCart: (state, action: PayloadAction<AddToCartPayload>) => {
+    },
+    addToCart: (state, action: PayloadAction<AddToCartPayload>) => {
       const {
         productId,
         name,
