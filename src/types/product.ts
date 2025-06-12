@@ -63,6 +63,7 @@ export interface CreateProductParams {
   price: number;
   categoryIds: string[];
   tags: string[];
+  weights: number[];
   brand: string;
   stockQuantity: number;
   "nutritionFact.calories": number;
@@ -102,6 +103,7 @@ export interface UpdateProductParams {
   price: number;
   categoryIds: string[];
   tags: string[];
+  weights: number[];
   brand: string;
   stockQuantity: number;
   "nutritionFact.calories": number;

@@ -41,6 +41,7 @@ const updateProductSchema = z.object({
   stockQuantity: z.number().min(0, "Số lượng tồn kho phải từ 0 trở lên"),
   categoryIds: z.array(z.string()).min(1, "Cần ít nhất một danh mục"),
   tags: z.array(z.string()).min(1, "Cần ít nhất một thẻ"),
+  weights: z.array(z.number()).min(1, "Cần ít nhất 1 giá trị trọng lượng"),
   calories: z.number().min(0, "Calo phải từ 0 trở lên"),
   protein: z.number().min(0, "Protein phải từ 0 trở lên"),
   cholesterol: z.number().min(0, "Cholesterol phải từ 0 trở lên"),
@@ -68,11 +69,11 @@ export function UpdateProductModal({
   const { data: categoriesResponse } = useGetAllCategoriesQuery({
     limit: 100,
   });
-
   const categories = categoriesResponse?.result?.items || [];
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+  const [newWeight, setNewWeight] = useState("");
 
   const form = useForm<UpdateProductFormValues>({
     resolver: zodResolver(updateProductSchema),
@@ -84,6 +85,7 @@ export function UpdateProductModal({
       stockQuantity: 0,
       categoryIds: [],
       tags: [],
+      weights: [],
       calories: 0,
       protein: 0,
       cholesterol: 0,
@@ -104,6 +106,7 @@ export function UpdateProductModal({
         stockQuantity: product.stockQuantity || 0,
         categoryIds: product.categoryIds || [],
         tags: product.tags || [],
+        weights: product.weights || [],
         calories: product.nutritionFact?.calories || 0,
         protein: product.nutritionFact?.protein || 0,
         cholesterol: product.nutritionFact?.cholesterol || 0,
@@ -117,7 +120,6 @@ export function UpdateProductModal({
       setSelectedFiles([]);
     }
   }, [product, form]);
-
   // Reset form when modal closes
   useEffect(() => {
     if (!open) {
@@ -125,6 +127,7 @@ export function UpdateProductModal({
       setSelectedFiles([]);
       setExistingImages([]);
       setNewTag("");
+      setNewWeight("");
     }
   }, [open, form]);
 
@@ -163,12 +166,32 @@ export function UpdateProductModal({
       setNewTag("");
     }
   };
-
   const removeTag = (tagToRemove: string) => {
     const currentTags = form.getValues("tags");
     form.setValue(
       "tags",
       currentTags.filter((tag) => tag !== tagToRemove),
+    );
+  };
+  const addWeight = () => {
+    const weightNumber = parseFloat(newWeight.trim());
+    if (
+      newWeight.trim() &&
+      !isNaN(weightNumber) &&
+      weightNumber > 0 &&
+      !form.getValues("weights").includes(weightNumber)
+    ) {
+      const currentWeights = form.getValues("weights");
+      form.setValue("weights", [...currentWeights, weightNumber]);
+      setNewWeight("");
+    }
+  };
+
+  const removeWeight = (weightToRemove: number) => {
+    const currentWeights = form.getValues("weights");
+    form.setValue(
+      "weights",
+      currentWeights.filter((weight) => weight !== weightToRemove),
     );
   };
 
@@ -184,6 +207,7 @@ export function UpdateProductModal({
         stockQuantity: values.stockQuantity,
         categoryIds: values.categoryIds,
         tags: values.tags,
+        weights: values.weights,
         "nutritionFact.calories": values.calories,
         "nutritionFact.protein": values.protein,
         "nutritionFact.cholesterol": values.cholesterol,
@@ -320,8 +344,7 @@ export function UpdateProductModal({
 
               {/* Categories and Tags */}
               <div className="space-y-4">
-                {" "}
-                <h3 className="text-lg font-semibold">Danh mục & Thẻ</h3>
+                <h3 className="text-lg font-semibold">Danh mục, Thẻ, Trọng lượng</h3>
                 <FormField
                   control={form.control}
                   name="categoryIds"
@@ -402,6 +425,55 @@ export function UpdateProductModal({
                               <X
                                 className="h-3 w-3 cursor-pointer"
                                 onClick={() => removeTag(tag)}
+                              />
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="weights"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Weights (grams)</FormLabel>
+                      <div className="space-y-2">
+                        {" "}
+                        <div className="flex gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Enter weight (e.g. 250)"
+                            value={newWeight}
+                            onChange={(e) => setNewWeight(e.target.value)}
+                            onKeyPress={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                addWeight();
+                              }
+                            }}
+                          />
+                          <Button
+                            type="button"
+                            onClick={addWeight}
+                            variant="outline"
+                          >
+                            Add
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {field.value.map((weight) => (
+                            <Badge
+                              key={weight}
+                              variant="secondary"
+                              className="flex items-center gap-1"
+                            >
+                              {weight}g
+                              <X
+                                className="h-3 w-3 cursor-pointer"
+                                onClick={() => removeWeight(weight)}
                               />
                             </Badge>
                           ))}

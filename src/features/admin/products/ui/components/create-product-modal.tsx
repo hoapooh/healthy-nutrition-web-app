@@ -48,6 +48,7 @@ const createProductSchema = z.object({
   stockQuantity: z.number().min(0, "Số lượng tồn kho phải từ 0 trở lên"),
   categoryIds: z.array(z.string()).min(1, "Cần ít nhất một danh mục"),
   tags: z.array(z.string()).min(1, "Cần ít nhất một thẻ"),
+  weights: z.array(z.number()).min(1, "Cần ít nhất 1 giá trị trọng lượng"),
   calories: z.number().min(0, "Calo phải từ 0 trở lên"),
   protein: z.number().min(0, "Protein phải từ 0 trở lên"),
   cholesterol: z.number().min(0, "Cholesterol phải từ 0 trở lên"),
@@ -73,10 +74,10 @@ export function CreateProductModal({
   const { data: categoriesResponse } = useGetAllCategoriesQuery({
     limit: 100,
   });
-
   const categories = categoriesResponse?.result?.items || [];
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [newTag, setNewTag] = useState("");
+  const [newWeight, setNewWeight] = useState("");
 
   const form = useForm<CreateProductFormValues>({
     resolver: zodResolver(createProductSchema),
@@ -88,6 +89,7 @@ export function CreateProductModal({
       stockQuantity: 0,
       categoryIds: [],
       tags: [],
+      weights: [],
       calories: 0,
       protein: 0,
       cholesterol: 0,
@@ -123,12 +125,32 @@ export function CreateProductModal({
       setNewTag("");
     }
   };
-
   const removeTag = (tagToRemove: string) => {
     const currentTags = form.getValues("tags");
     form.setValue(
       "tags",
       currentTags.filter((tag) => tag !== tagToRemove),
+    );
+  };
+  const addWeight = () => {
+    const weightNumber = parseFloat(newWeight.trim());
+    if (
+      newWeight.trim() &&
+      !isNaN(weightNumber) &&
+      weightNumber > 0 &&
+      !form.getValues("weights").includes(weightNumber)
+    ) {
+      const currentWeights = form.getValues("weights");
+      form.setValue("weights", [...currentWeights, weightNumber]);
+      setNewWeight("");
+    }
+  };
+
+  const removeWeight = (weightToRemove: number) => {
+    const currentWeights = form.getValues("weights");
+    form.setValue(
+      "weights",
+      currentWeights.filter((weight) => weight !== weightToRemove),
     );
   };
 
@@ -153,13 +175,13 @@ export function CreateProductModal({
         toast.error("Vui lòng chọn ít nhất một hình ảnh sản phẩm");
         return;
       }
-
       const params: CreateProductParams = {
         name: data.name,
         description: data.description,
         price: data.price,
         categoryIds: data.categoryIds,
         tags: data.tags,
+        weights: data.weights,
         brand: data.brand,
         stockQuantity: data.stockQuantity,
         "nutritionFact.calories": data.calories,
@@ -186,18 +208,19 @@ export function CreateProductModal({
       toast.error("Tạo sản phẩm thất bại");
     }
   };
-
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen) {
       form.reset();
       setSelectedFiles([]);
       setNewTag("");
+      setNewWeight("");
     }
     onOpenChange(newOpen);
   };
 
   const watchedCategories = form.watch("categoryIds");
   const watchedTags = form.watch("tags");
+  const watchedWeights = form.watch("weights");
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -387,10 +410,52 @@ export function CreateProductModal({
                         </Badge>
                       ))}
                     </div>
-                  )}
+                  )}{" "}
                   {form.formState.errors.tags && (
                     <p className="text-destructive mt-1 text-sm font-medium">
                       {form.formState.errors.tags.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <FormLabel>Weights (grams)</FormLabel>{" "}
+                  <div className="mt-2 flex gap-2">
+                    <Input
+                      type="number"
+                      placeholder="Add weight (e.g. 250)"
+                      value={newWeight}
+                      onChange={(e) => setNewWeight(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          addWeight();
+                        }
+                      }}
+                    />
+                    <Button type="button" onClick={addWeight} variant="outline">
+                      Add
+                    </Button>
+                  </div>
+                  {watchedWeights.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {watchedWeights.map((weight) => (
+                        <Badge key={weight} variant="secondary">
+                          {weight}g
+                          <button
+                            type="button"
+                            onClick={() => removeWeight(weight)}
+                            className="ml-1 rounded-full p-0.5 hover:bg-gray-200"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                  {form.formState.errors.weights && (
+                    <p className="text-destructive mt-1 text-sm font-medium">
+                      {form.formState.errors.weights.message}
                     </p>
                   )}
                 </div>
