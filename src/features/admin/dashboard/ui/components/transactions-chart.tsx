@@ -89,7 +89,7 @@ export function TransactionsChart() {
         </CardHeader>
         <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
           <div className="flex aspect-auto h-[250px] w-full items-center justify-center">
-            <p>Loading chart data...</p>
+            <p>Đang tải dữ liệu biểu đồ...</p>
           </div>
         </CardContent>
       </Card>

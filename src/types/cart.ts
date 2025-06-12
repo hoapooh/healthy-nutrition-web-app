@@ -9,6 +9,7 @@ export interface CartItem {
   maxQuantity: number;
   weight: number; // in grams
   pricePerKg: number; // base price per kg
+  availableWeights: number[]; // available weights for this product
 }
 
 export interface CartState {
@@ -27,6 +28,7 @@ export interface AddToCartPayload {
   stockQuantity: number;
   weight: number; // in grams
   pricePerKg: number; // base price per kg
+  availableWeights: number[]; // available weights for this product
 }
 
 export interface UpdateCartItemPayload {

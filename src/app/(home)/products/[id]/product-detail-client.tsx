@@ -27,7 +27,7 @@ const ProductDetailClient = () => {
         <div className="py-12 text-center">
           <div className="border-primary inline-block h-8 w-8 animate-spin rounded-full border-b-2"></div>
           <p className="text-muted-foreground mt-2">
-            Loading product details...
+            Đang tải sản phẩm, vui lòng đợi...
           </p>
         </div>
       </div>

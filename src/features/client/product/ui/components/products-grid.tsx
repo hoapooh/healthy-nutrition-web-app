@@ -21,7 +21,9 @@ export const ProductsGrid = ({
     return (
       <div className="py-8 text-center">
         <LoaderCircle className="inline-block size-8 animate-spin text-green-600" />
-        <p className="text-muted-foreground mt-2">Loading products...</p>
+        <p className="text-muted-foreground mt-2">
+          Đang tải sản phẩm, vui lòng đợi...
+        </p>
       </div>
     );
   }
@@ -29,9 +31,7 @@ export const ProductsGrid = ({
   if (error) {
     return (
       <div className="py-8 text-center">
-        <p className="text-red-500">
-          Error loading products. Please try again.
-        </p>
+        <p className="text-red-500">Lỗi khi tải sản phẩm. Vui lòng thử lại.</p>
       </div>
     );
   }
@@ -40,9 +40,10 @@ export const ProductsGrid = ({
     return (
       <div className="py-12 text-center">
         <Filter className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
-        <h3 className="mb-2 text-lg font-semibold">No products found</h3>
+        <h3 className="mb-2 text-lg font-semibold">Không tìm thấy sản phẩm</h3>
         <p className="text-muted-foreground">
-          Try adjusting your search criteria or filters
+          Vui lòng điều chỉnh tiêu chí tìm kiếm hoặc bộ lọc phù hợp để xem sản
+          phẩm.
         </p>
       </div>
     );
