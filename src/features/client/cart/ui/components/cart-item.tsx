@@ -23,15 +23,16 @@ const MotionCard = motion.create(Card);
 interface CartItemComponentProps {
   item: CartItem;
   viewMode?: "full" | "compact";
-  availableWeights?: number[]; // Available weights for this product
 }
 
 export const CartItemComponent = ({
   item,
   viewMode = "full",
-  availableWeights = [300, 500, 1000], // Default common weights
 }: CartItemComponentProps) => {
   const dispatch = useAppDispatch();
+
+  // Use the available weights stored in the cart item
+  const availableWeights = item.availableWeights || [item.weight]; // fallback to current weight if not available
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(
       0,

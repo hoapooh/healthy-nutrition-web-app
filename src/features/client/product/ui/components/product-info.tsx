@@ -68,7 +68,6 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
     }
 
     const imageUrl = product.imageUrls?.[0] || "";
-
     dispatch(
       addToCart({
         productId: product.id,
@@ -79,6 +78,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
         stockQuantity: product.stockQuantity,
         weight: selectedWeight,
         pricePerKg: product.price,
+        availableWeights: availableWeights,
       }),
     );
 

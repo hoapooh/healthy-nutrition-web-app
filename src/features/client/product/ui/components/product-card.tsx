@@ -64,7 +64,6 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
     }
 
     const imageUrl = product.imageUrls?.[0] || "";
-
     dispatch(
       addToCart({
         productId: product.id,
@@ -75,6 +74,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
         stockQuantity: product.stockQuantity,
         weight: defaultWeight,
         pricePerKg: product.price,
+        availableWeights: availableWeights,
       }),
     );
     toast.success(

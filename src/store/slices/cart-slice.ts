@@ -21,7 +21,13 @@ const getCartFromStorage = (): CartItem[] => {
   if (typeof window === "undefined") return [];
   try {
     const storedCart = localStorage.getItem("healthy-nutrition-cart");
-    return storedCart ? JSON.parse(storedCart) : [];
+    const items = storedCart ? JSON.parse(storedCart) : [];
+
+    // Migrate legacy cart items that don't have availableWeights
+    return items.map((item: CartItem) => ({
+      ...item,
+      availableWeights: item.availableWeights || [item.weight || 1000], // fallback to current weight or 1kg
+    }));
   } catch {
     return [];
   }
@@ -61,6 +67,7 @@ const cartSlice = createSlice({
         stockQuantity,
         weight,
         pricePerKg,
+        availableWeights,
       } = action.payload;
 
       const existingItem = state.items.find(
@@ -87,6 +94,7 @@ const cartSlice = createSlice({
           maxQuantity: stockQuantity,
           weight,
           pricePerKg,
+          availableWeights,
         };
         state.items.push(newItem);
       }

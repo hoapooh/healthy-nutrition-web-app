@@ -42,6 +42,7 @@ export const CartPageContent = ({ className = "" }: CartPageContentProps) => {
         <div className="lg:col-span-2">
           <div className="space-y-4">
             <AnimatePresence mode="popLayout">
+              {" "}
               {cartItems.map((item) => (
                 <CartItemComponent key={item.id} item={item} viewMode="full" />
               ))}
