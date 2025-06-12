@@ -9,8 +9,8 @@ import { useLoginMutation } from "@/services/auth-services";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(3, "Password must be at least 3 characters long"),
+  email: z.string().email("Địa chỉ email không hợp lệ"),
+  password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -46,12 +46,12 @@ const useSignInHook = () => {
             },
           }),
         );
-        toast.success("Welcome 🍎🍏!");
+        toast.success("Chào mừng 🍎🍏!");
         // Optionally redirect or perform other actions after successful login
         router.replace("/");
       })
       .catch((error) => {
-        toast.error("Invalid credentials. Please try again.");
+        toast.error("Thông tin đăng nhập không hợp lệ. Vui lòng thử lại.");
         console.log("Login failed:", error);
       });
   };

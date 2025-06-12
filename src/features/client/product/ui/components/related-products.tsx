@@ -38,7 +38,7 @@ export const RelatedProducts = ({
   if (isLoading) {
     return (
       <div className={`border-t pt-8 ${className}`}>
-        <h2 className="mb-6 text-2xl font-bold">You might also like</h2>
+        <h2 className="mb-6 text-2xl font-bold">Có thể bạn sẽ thích</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[...Array(4)].map((_, i) => (
             <Card key={i} className="p-0 transition-shadow hover:shadow-md">
@@ -60,9 +60,11 @@ export const RelatedProducts = ({
   if (relatedProducts.length === 0) {
     return (
       <div className={`border-t pt-8 ${className}`}>
-        <h2 className="mb-6 text-2xl font-bold">You might also like</h2>
+        <h2 className="mb-6 text-2xl font-bold">Có thể bạn sẽ thích</h2>
         <div className="py-8 text-center">
-          <p className="text-muted-foreground">No related products found.</p>
+          <p className="text-muted-foreground">
+            Không tìm thấy sản phẩm liên quan.
+          </p>
         </div>
       </div>
     );
@@ -70,7 +72,7 @@ export const RelatedProducts = ({
 
   return (
     <div className={`border-t pt-8 ${className}`}>
-      <h2 className="mb-6 text-2xl font-bold">You might also like</h2>
+      <h2 className="mb-6 text-2xl font-bold">Có thể bạn sẽ thích</h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {relatedProducts.map((product) => (
           <Link key={product.id} href={`/products/${product.id}`}>

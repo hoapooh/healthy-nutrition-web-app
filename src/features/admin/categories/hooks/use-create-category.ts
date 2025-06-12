@@ -7,13 +7,13 @@ import { toast } from "react-hot-toast";
 const createCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  type: z.string().min(1, "Type is required"),
+    .min(1, "Tên là bắt buộc")
+    .max(100, "Tên phải ít hơn 100 ký tự"),
+  type: z.string().min(1, "Loại là bắt buộc"),
   description: z
     .string()
-    .min(1, "Description is required")
-    .max(500, "Description must be less than 500 characters"),
+    .min(1, "Mô tả là bắt buộc")
+    .max(500, "Mô tả phải ít hơn 500 ký tự"),
 });
 
 export type CreateCategoryFormValues = z.infer<typeof createCategorySchema>;
@@ -37,17 +37,16 @@ export const useCreateCategory = ({
       description: "",
     },
   });
-
   const onSubmit = async (values: CreateCategoryFormValues) => {
     try {
       await createCategory(values).unwrap();
-      toast.success("Category created successfully!");
+      toast.success("Tạo danh mục thành công!");
       form.reset();
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error creating category:", error);
-      toast.error("Failed to create category");
+      toast.error("Tạo danh mục thất bại");
     }
   };
 

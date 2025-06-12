@@ -114,9 +114,10 @@ export function ProductFilters({
     <div className="flex items-center space-x-2">
       <Popover>
         <PopoverTrigger asChild>
+          {" "}
           <Button variant="outline" size="sm" className="border-dashed">
             <Filter className="mr-2 h-4 w-4" />
-            Filter
+            Lọc
             {hasActiveFilters && (
               <Badge
                 variant="secondary"
@@ -138,17 +139,19 @@ export function ProductFilters({
         <PopoverContent className="min-w-80" align="start">
           <div className="grid w-full gap-4">
             <div className="space-y-2">
-              <h4 className="leading-none font-medium">Filter Products</h4>
+              {" "}
+              <h4 className="leading-none font-medium">Lọc sản phẩm</h4>
               <p className="text-muted-foreground text-sm">
-                Set filters to narrow down your search.
+                Đặt bộ lọc để thu hẹp kết quả tìm kiếm.
               </p>
             </div>
             <div className="grid gap-2">
               <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="brand">Brand</Label>
+                {" "}
+                <Label htmlFor="brand">Thương hiệu</Label>
                 <Input
                   id="brand"
-                  placeholder="Enter brand"
+                  placeholder="Nhập thương hiệu"
                   value={filters.brand || ""}
                   onChange={(e) =>
                     onFiltersChange({
@@ -161,10 +164,11 @@ export function ProductFilters({
                 />
               </div>
               <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="category">Categories</Label>
+                {" "}
+                <Label htmlFor="category">Danh mục</Label>
                 <Select onValueChange={(value) => addCategoryFilter(value)}>
                   <SelectTrigger className="col-span-2 h-8">
-                    <SelectValue placeholder="Select category" />
+                    <SelectValue placeholder="Chọn danh mục" />
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((category) => (
@@ -202,10 +206,11 @@ export function ProductFilters({
             </div>
             <div className="grid gap-2">
               <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="tags">Tags</Label>
+                {" "}
+                <Label htmlFor="tags">Thẻ</Label>
                 <Input
                   id="tags"
-                  placeholder="Add tag"
+                  placeholder="Thêm thẻ"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
@@ -233,10 +238,11 @@ export function ProductFilters({
               )}
             </div>
             <div className="grid gap-2">
-              <Label>Price Range</Label>
+              {" "}
+              <Label>Khoảng giá</Label>
               <div className="grid grid-cols-2 gap-2">
                 <Input
-                  placeholder="Min price"
+                  placeholder="Giá tối thiểu"
                   type="number"
                   value={filters.minPrice || ""}
                   onChange={(e) =>
@@ -249,9 +255,9 @@ export function ProductFilters({
                     })
                   }
                   className="h-8"
-                />
+                />{" "}
                 <Input
-                  placeholder="Max price"
+                  placeholder="Giá tối đa"
                   type="number"
                   value={filters.maxPrice || ""}
                   onChange={(e) =>
@@ -268,10 +274,11 @@ export function ProductFilters({
               </div>
             </div>
             <div className="grid gap-2">
-              <Label>Stock Quantity Range</Label>
+              {" "}
+              <Label>Khoảng số lượng tồn kho</Label>
               <div className="grid grid-cols-2 gap-2">
                 <Input
-                  placeholder="Min stock"
+                  placeholder="Tồn kho tối thiểu"
                   type="number"
                   value={filters.minStockQuantity || ""}
                   onChange={(e) =>
@@ -284,9 +291,9 @@ export function ProductFilters({
                     })
                   }
                   className="h-8"
-                />
+                />{" "}
                 <Input
-                  placeholder="Max stock"
+                  placeholder="Tồn kho tối đa"
                   type="number"
                   value={filters.maxStockQuantity || ""}
                   onChange={(e) =>
@@ -308,7 +315,7 @@ export function ProductFilters({
                 variant="ghost"
                 className="h-8 px-2 lg:px-3"
               >
-                Clear filters
+                Xóa bộ lọc
               </Button>
             )}
           </div>

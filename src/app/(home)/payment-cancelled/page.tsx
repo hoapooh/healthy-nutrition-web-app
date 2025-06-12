@@ -17,20 +17,20 @@ const PaymentCancelledPage = () => {
           <CardHeader className="space-y-4">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
               <AlertCircle className="h-8 w-8 text-red-600" />
-            </div>
+            </div>{" "}
             <CardTitle className="text-2xl font-bold">
-              Payment Cancelled
+              Thanh toán đã bị hủy
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
               {" "}
               <p className="text-muted-foreground">
-                Your payment process has been cancelled. Don&apos;t worry, no
-                charges were made to your account.
+                Quá trình thanh toán của bạn đã bị hủy. Đừng lo, không có khoản
+                phí nào được tính vào tài khoản của bạn.
               </p>
               <p className="text-muted-foreground text-sm">
-                You can continue shopping or return to your cart to try again.
+                Bạn có thể tiếp tục mua sắm hoặc quay lại giỏ hàng để thử lại.
               </p>
             </div>
 
@@ -41,7 +41,7 @@ const PaymentCancelledPage = () => {
                 className="gap-2"
               >
                 <Home className="h-4 w-4" />
-                Return to Home
+                Về trang chủ
               </Button>
               <Button
                 onClick={() => router.push("/cart")}
@@ -49,12 +49,14 @@ const PaymentCancelledPage = () => {
                 className="gap-2"
               >
                 <ShoppingCart className="h-4 w-4" />
-                Back to Cart
+                Quay lại giỏ hàng
               </Button>
             </div>
 
             <div className="text-muted-foreground text-xs">
-              <p>Need help? Contact our support team for assistance.</p>
+              <p>
+                Cần trợ giúp? Liên hệ đội hỗ trợ của chúng tôi để được hỗ trợ.
+              </p>
             </div>
           </CardContent>
         </Card>

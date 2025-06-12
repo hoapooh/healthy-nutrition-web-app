@@ -13,11 +13,12 @@ const ProfilePage = () => {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
+          {" "}
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Profile Settings
+            Cài đặt hồ sơ
           </h1>
           <p className="text-muted-foreground mt-2">
-            Manage your account settings and preferences
+            Quản lý cài đặt tài khoản và tùy chọn của bạn
           </p>
         </div>
 

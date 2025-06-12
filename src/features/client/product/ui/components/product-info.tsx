@@ -63,7 +63,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
   };
   const handleAddToCart = () => {
     if (product.stockQuantity === 0) {
-      toast.error("Product is out of stock");
+      toast.error("Sản phẩm hết hàng");
       return;
     }
 
@@ -83,7 +83,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
     );
 
     toast.success(
-      `${quantity} x ${product.name} (${formatWeight(selectedWeight)}) added to cart!`,
+      `${quantity} x ${product.name} (${formatWeight(selectedWeight)}) đã thêm vào giỏ hàng!`,
     );
   };
 
@@ -92,11 +92,10 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
   };
 
   const isInCart = !!specificCartItem;
-
   const handleShare = async () => {
     const currentUrl = window.location.href;
     await navigator.clipboard.writeText(currentUrl);
-    toast.success("Product link copied to clipboard!", {
+    toast.success("Liên kết sản phẩm đã được sao chép vào clipboard!", {
       duration: 3000,
       position: "top-center",
     });
@@ -110,13 +109,13 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
-            ))}
+            ))}{" "}
             <span className="text-muted-foreground ml-1 text-sm">
-              (4.7) 127 reviews
+              (4.7) 127 đánh giá
             </span>
           </div>
           <Badge variant="secondary">
-            In Stock: {product.stockQuantity}
+            Còn hàng: {product.stockQuantity}
           </Badge>{" "}
         </div>
         {/* TODO: description need to be fixed here */}
@@ -124,14 +123,13 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
         <div className="text-primary mb-6 text-3xl font-bold">
           {formatCurrency(currentPrice)}
           <span className="text-muted-foreground ml-2 text-sm">
-            for {formatWeight(selectedWeight)}
+            cho {formatWeight(selectedWeight)}
           </span>
         </div>
-      </div>
-
+      </div>{" "}
       {/* Weight Selection */}
       <div className="space-y-2">
-        <span className="font-medium">Weight:</span>
+        <span className="font-medium">Trọng lượng:</span>
         <div className="flex flex-wrap gap-2">
           {availableWeights.map((weight) => (
             <Button
@@ -145,7 +143,6 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
           ))}
         </div>
       </div>
-
       {/* Tags */}
       <div className="flex flex-wrap gap-2">
         {product.tags.map((tag) => (
@@ -153,12 +150,11 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             {tag}
           </Badge>
         ))}
-      </div>
-
+      </div>{" "}
       {/* Quantity and Actions */}
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <span className="font-medium">Quantity:</span>
+          <span className="font-medium">Số lượng:</span>
           <div className="flex items-center rounded-lg border">
             <Button
               variant="ghost"
@@ -187,8 +183,9 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             onClick={isInCart ? handleViewCart : handleAddToCart}
             disabled={product.stockQuantity === 0}
           >
+            {" "}
             <ShoppingCart className="mr-2 h-5 w-5" />
-            {isInCart ? "View Cart" : "Add to Cart"}
+            {isInCart ? "Xem giỏ hàng" : "Thêm vào giỏ hàng"}
           </Button>
 
           {/* // TODO: this feature will be update later */}
@@ -206,26 +203,25 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             <Share2 className="h-5 w-5" />
           </Button>
         </div>
-      </div>
-
+      </div>{" "}
       {/* Features */}
       <div className="grid grid-cols-3 gap-4 border-t pt-6">
         <div className="text-center">
           <Truck className="mx-auto mb-2 h-6 w-6 text-green-600" />
-          <div className="text-sm font-medium">Free Shipping</div>
-          <div className="text-muted-foreground text-xs">Orders over $50</div>
-        </div>
-        <div className="text-center">
-          <RotateCcw className="mx-auto mb-2 h-6 w-6 text-green-600" />
-          <div className="text-sm font-medium">30-Day Returns</div>
+          <div className="text-sm font-medium">Miễn phí vận chuyển</div>
           <div className="text-muted-foreground text-xs">
-            Money back guarantee
+            Đơn hàng trên {formatCurrency(1000)}
           </div>
         </div>
         <div className="text-center">
+          <RotateCcw className="mx-auto mb-2 h-6 w-6 text-green-600" />
+          <div className="text-sm font-medium">Đổi trả trong 30 ngày</div>
+          <div className="text-muted-foreground text-xs">Bảo đảm hoàn tiền</div>
+        </div>
+        <div className="text-center">
           <Shield className="mx-auto mb-2 h-6 w-6 text-green-600" />
-          <div className="text-sm font-medium">Secure Payment</div>
-          <div className="text-muted-foreground text-xs">SSL encrypted</div>
+          <div className="text-sm font-medium">Thanh toán an toàn</div>
+          <div className="text-muted-foreground text-xs">Mã hóa SSL</div>
         </div>
       </div>
     </div>

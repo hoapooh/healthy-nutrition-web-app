@@ -57,7 +57,7 @@ export interface DeleteBlogParams {
 
 // Blog status options for forms
 export const BLOG_STATUSES = [
-  { value: "draft", label: "Draft" },
-  { value: "published", label: "Published" },
-  { value: "archived", label: "Archived" },
+  { value: "draft", label: "Bản nháp" },
+  { value: "published", label: "Đã xuất bản" },
+  { value: "archived", label: "Đã lưu trữ" },
 ] as const;

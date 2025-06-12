@@ -69,9 +69,9 @@ export function CategoriesDataTable({
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
+            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />{" "}
             <Input
-              placeholder="Search categories..."
+              placeholder="Tìm kiếm danh mục..."
               value={filters.name || ""}
               onChange={(event) => handleSearchChange(event.target.value)}
               className="max-w-sm pl-8"
@@ -85,8 +85,9 @@ export function CategoriesDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
+              {" "}
               <Button variant="outline" className="ml-auto">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -108,10 +109,10 @@ export function CategoriesDataTable({
                   );
                 })}
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu>{" "}
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Create Category
+            Tạo danh mục
           </Button>
         </div>
       </div>
@@ -138,11 +139,12 @@ export function CategoriesDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
+                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Loading...
+                  Đang tải...
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
@@ -163,11 +165,12 @@ export function CategoriesDataTable({
               ))
             ) : (
               <TableRow>
+                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Không có kết quả.
                 </TableCell>
               </TableRow>
             )}

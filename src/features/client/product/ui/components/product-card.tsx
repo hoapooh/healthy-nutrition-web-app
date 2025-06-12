@@ -58,9 +58,8 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
     if (product.stockQuantity === 0) {
-      toast.error("Product is out of stock");
+      toast.error("Sản phẩm hết hàng");
       return;
     }
 
@@ -78,9 +77,8 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
         pricePerKg: product.price,
       }),
     );
-
     toast.success(
-      `${product.name} (${formatWeight(defaultWeight)}) added to cart!`,
+      `${product.name} (${formatWeight(defaultWeight)}) đã thêm vào giỏ hàng!`,
     );
   };
 
@@ -150,8 +148,9 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
             </div>
 
             <div className="text-muted-foreground text-sm">
+              {" "}
               <div className="flex flex-wrap gap-2 text-xs">
-                <span>Calories: {product.nutritionFact.calories}</span>
+                <span>Calo: {product.nutritionFact.calories}</span>
                 <span>Protein: {product.nutritionFact.protein}g</span>
                 <span>Carbs: {product.nutritionFact.carbs}g</span>
               </div>
@@ -163,9 +162,9 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
                     {formatCurrency(defaultPrice)}
-                  </span>
+                  </span>{" "}
                   <span className="text-muted-foreground text-xs">
-                    for {formatWeight(defaultWeight)}
+                    cho {formatWeight(defaultWeight)}
                   </span>
                 </div>
                 <Button
@@ -176,7 +175,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                   disabled={product.stockQuantity === 0}
                 >
                   <ShoppingCart className="mr-1 h-4 w-4" />
-                  {isInCart ? "View Cart" : "Add to Cart"}
+                  {isInCart ? "Xem giỏ hàng" : "Thêm vào giỏ hàng"}
                 </Button>
               </div>
             ) : (
@@ -184,9 +183,9 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
                     {formatCurrency(defaultPrice)}
-                  </span>
+                  </span>{" "}
                   <span className="text-muted-foreground text-xs">
-                    for {formatWeight(defaultWeight)}
+                    cho {formatWeight(defaultWeight)}
                   </span>
                 </div>
                 <div className="flex gap-2">
@@ -198,7 +197,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                     disabled={product.stockQuantity === 0}
                   >
                     <ShoppingCart className="mr-1 h-4 w-4" />
-                    {isInCart ? "View Cart" : "Add to Cart"}
+                    {isInCart ? "Xem giỏ hàng" : "Thêm vào giỏ hàng"}
                   </Button>
                 </div>
               </div>

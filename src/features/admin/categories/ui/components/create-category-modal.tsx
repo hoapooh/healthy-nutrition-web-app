@@ -49,13 +49,13 @@ export function CreateCategoryModal({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
+        {" "}
         <DialogHeader>
-          <DialogTitle>Create New Category</DialogTitle>
+          <DialogTitle>Tạo danh mục mới</DialogTitle>
           <DialogDescription>
-            Add a new category to organize your products.
+            Thêm danh mục mới để sắp xếp sản phẩm của bạn.
           </DialogDescription>
         </DialogHeader>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -63,28 +63,27 @@ export function CreateCategoryModal({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter category name" {...field} />
+                    <Input placeholder="Nhập tên danh mục" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>Loại</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select category type" />
+                        <SelectValue placeholder="Chọn loại danh mục" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -99,16 +98,15 @@ export function CreateCategoryModal({
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Mô tả</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Enter category description"
+                      placeholder="Nhập mô tả danh mục"
                       className="resize-none"
                       {...field}
                     />
@@ -116,8 +114,7 @@ export function CreateCategoryModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-
+            />{" "}
             <DialogFooter>
               <Button
                 type="button"
@@ -125,10 +122,10 @@ export function CreateCategoryModal({
                 onClick={() => handleOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create Category"}
+                {isLoading ? "Đang tạo..." : "Tạo danh mục"}
               </Button>
             </DialogFooter>
           </form>

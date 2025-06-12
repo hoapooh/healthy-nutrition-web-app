@@ -103,13 +103,14 @@ export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
+                  {" "}
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => handleViewDetails(order.orderCode)}
                     className="hover:text-primary-foreground hover:bg-green-600"
                   >
-                    View Details
+                    Xem chi tiết
                   </Button>
                 </div>
               </div>

@@ -14,19 +14,17 @@ import {
 
 const formSchema = z
   .object({
-    fullName: z.string().min(2, "Full name must be at least 2 characters long"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(3, "Password must be at least 3 characters long"),
-    confirmPassword: z
-      .string()
-      .min(3, "Password must be at least 3 characters long"),
-    addressNo: z.string().min(1, "Address number is required"),
-    ward: z.string().min(1, "Ward is required"),
-    district: z.string().min(1, "District is required"),
-    city: z.string().min(1, "City is required"),
+    fullName: z.string().min(2, "Họ và tên phải có ít nhất 2 ký tự"),
+    email: z.string().email("Địa chỉ email không hợp lệ"),
+    password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
+    confirmPassword: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
+    addressNo: z.string().min(1, "Số nhà là bắt buộc"),
+    ward: z.string().min(1, "Phường/Xã là bắt buộc"),
+    district: z.string().min(1, "Quận/Huyện là bắt buộc"),
+    city: z.string().min(1, "Tỉnh/Thành phố là bắt buộc"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: "Mật khẩu không khớp",
     path: ["confirmPassword"],
   });
 
@@ -72,7 +70,7 @@ const useSignUpHook = () => {
         setProvinces(data);
       } catch (error) {
         console.error("Failed to fetch provinces:", error);
-        toast.error("Failed to load provinces");
+        toast.error("Không thể tải tỉnh/thành phố");
       } finally {
         setLoadingProvinces(false);
       }
@@ -99,7 +97,7 @@ const useSignUpHook = () => {
           }
         } catch (error) {
           console.error("Failed to fetch districts:", error);
-          toast.error("Failed to load districts");
+          toast.error("Không thể tải quận/huyện");
         } finally {
           setLoadingDistricts(false);
         }
@@ -130,7 +128,7 @@ const useSignUpHook = () => {
           }
         } catch (error) {
           console.error("Failed to fetch wards:", error);
-          toast.error("Failed to load wards");
+          toast.error("Không thể tải phường/xã");
         } finally {
           setLoadingWards(false);
         }
@@ -154,16 +152,15 @@ const useSignUpHook = () => {
       phoneNumber: "",
       address: fullAddress,
     };
-
     register(registrationData)
       .unwrap()
       .then((data) => {
-        toast.success(data.message || "Registration successful!");
+        toast.success(data.message || "Đăng ký thành công!");
         router.push("/sign-in");
       })
       .catch((error) => {
         console.error("Registration failed:", error);
-        toast.error("Invalid credentials or user already exists.");
+        toast.error("Thông tin không hợp lệ hoặc người dùng đã tồn tại.");
       });
   }
 

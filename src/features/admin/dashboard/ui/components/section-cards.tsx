@@ -65,7 +65,7 @@ export function SectionCards() {
 
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Users</CardDescription>
+          <CardDescription>Người dùng</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {dashboardData?.totalCountUsers ?? 0}
           </CardTitle>
@@ -88,7 +88,7 @@ export function SectionCards() {
 
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Transactions</CardDescription>
+          <CardDescription>Giao dịch</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {dashboardData?.totalCountTransactions ?? 0}
           </CardTitle>

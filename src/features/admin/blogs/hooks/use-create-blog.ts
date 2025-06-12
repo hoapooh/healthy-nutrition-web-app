@@ -7,20 +7,20 @@ import { toast } from "react-hot-toast";
 const createBlogSchema = z.object({
   title: z
     .string()
-    .min(1, "Title is required")
-    .max(200, "Title must be less than 200 characters"),
+    .min(1, "Tiêu đề là bắt buộc")
+    .max(200, "Tiêu đề phải ít hơn 200 ký tự"),
   content: z
     .string()
-    .min(1, "Content is required")
-    .min(10, "Content must be at least 10 characters"),
+    .min(1, "Nội dung là bắt buộc")
+    .min(10, "Nội dung phải có ít nhất 10 ký tự"),
   excerpt: z
     .string()
-    .min(1, "Excerpt is required")
-    .max(500, "Excerpt must be less than 500 characters"),
+    .min(1, "Tóm tắt là bắt buộc")
+    .max(500, "Tóm tắt phải ít hơn 500 ký tự"),
   tags: z
     .array(z.string())
-    .min(1, "At least one tag is required")
-    .max(10, "Maximum 10 tags allowed"),
+    .min(1, "Cần ít nhất một thẻ")
+    .max(10, "Tối đa 10 thẻ"),
   status: z.enum(["draft", "published"]),
   image: z.string().optional(),
 });
@@ -49,17 +49,16 @@ export const useCreateBlog = ({
       image: "",
     },
   });
-
   const onSubmit = async (values: CreateBlogFormValues) => {
     try {
       await createBlog(values).unwrap();
-      toast.success("Blog created successfully!");
+      toast.success("Tạo blog thành công!");
       form.reset();
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error creating blog:", error);
-      toast.error("Failed to create blog");
+      toast.error("Tạo blog thất bại");
     }
   };
 

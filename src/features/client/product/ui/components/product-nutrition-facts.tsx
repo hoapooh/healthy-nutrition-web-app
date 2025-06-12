@@ -21,18 +21,21 @@ export const ProductNutritionFacts = ({
   className = "",
 }: ProductNutritionFactsProps) => {
   const facts = [
-    { label: "Calories", value: nutritionFact.calories, unit: "" },
+    { label: "Calo", value: nutritionFact.calories, unit: "" },
     { label: "Protein", value: nutritionFact.protein, unit: "g" },
-    { label: "Carbohydrates", value: nutritionFact.carbs, unit: "g" },
-    { label: "Total Fat (Lipid)", value: nutritionFact.lipid, unit: "g" },
-    { label: "Sugar", value: nutritionFact.sugar, unit: "g" },
+    { label: "Carbohydrate", value: nutritionFact.carbs, unit: "g" },
+    { label: "Tổng chất béo (Lipid)", value: nutritionFact.lipid, unit: "g" },
+    { label: "Đường", value: nutritionFact.sugar, unit: "g" },
     { label: "Cholesterol", value: nutritionFact.cholesterol, unit: "mg" },
   ];
 
   return (
-    <div className={`w-full rounded-lg border border-gray-300 bg-white p-6 ${className}`}>
+    <div
+      className={`w-full rounded-lg border border-gray-300 bg-white p-6 ${className}`}
+    >
+      {" "}
       <h3 className="mb-4 border-b-2 border-black pb-2 text-lg font-bold text-green-600">
-        Nutrition Facts
+        Thông tin dinh dưỡng
       </h3>
       <div className="space-y-3">
         {facts.map((fact, index) => (
@@ -46,10 +49,10 @@ export const ProductNutritionFacts = ({
               {fact.unit}
             </span>
           </div>
-        ))}
+        ))}{" "}
       </div>
       <div className="text-muted-foreground mt-4 text-xs">
-        * Percent Daily Values are based on a 2,000 calorie diet.
+        * Giá trị hàng ngày phần trăm dựa trên chế độ ăn 2.000 calo.
       </div>
     </div>
   );

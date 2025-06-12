@@ -8,18 +8,16 @@ import useLogOut from "@/store/hooks/use-log-out";
 
 const changePasswordSchema = z
   .object({
-    oldPassword: z.string().min(3, "Current password is required"),
-    newPassword: z
-      .string()
-      .min(3, "New password must be at least 3 characters long"),
-    confirmPassword: z.string().min(3, "Please confirm your new password"),
+    oldPassword: z.string().min(3, "Mật khẩu hiện tại là bắt buộc"),
+    newPassword: z.string().min(3, "Mật khẩu mới phải có ít nhất 3 ký tự"),
+    confirmPassword: z.string().min(3, "Vui lòng xác nhận mật khẩu mới"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "New passwords don't match",
+    message: "Mật khẩu mới không khớp",
     path: ["confirmPassword"],
   })
   .refine((data) => data.oldPassword !== data.newPassword, {
-    message: "New password must be different from current password",
+    message: "Mật khẩu mới phải khác mật khẩu hiện tại",
     path: ["newPassword"],
   });
 

@@ -38,22 +38,23 @@ export default function ManageUsersPageContent() {
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <div className="flex items-center justify-between space-y-2">
+        {" "}
         <div>
           <h2 className="text-primary text-3xl font-bold tracking-tight">
-            Users Management
+            Quản lý người dùng
           </h2>
           <p className="text-muted-foreground">
-            Manage user accounts and permissions here.
+            Quản lý tài khoản người dùng và quyền hạn tại đây.
           </p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Users Management</CardTitle>
+          <CardTitle>Quản lý người dùng</CardTitle>
           <CardDescription>
-            View, create, edit, and manage user accounts. Total:{" "}
-            {totalCount} users
+            Xem, tạo, sửa và quản lý tài khoản người dùng. Tổng số: {totalCount}{" "}
+            người dùng
           </CardDescription>
         </CardHeader>
         <CardContent>

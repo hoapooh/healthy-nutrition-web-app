@@ -3,8 +3,8 @@ import CategoriesPageContent from "@/features/admin/categories/ui/categories-pag
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Categories Management",
-  description: "Manage your categories effectively and efficiently.",
+  title: "Quản lý danh mục",
+  description: "Quản lý danh mục của bạn một cách hiệu quả và hiệu quả.",
 };
 
 const CategoriesPage = () => {

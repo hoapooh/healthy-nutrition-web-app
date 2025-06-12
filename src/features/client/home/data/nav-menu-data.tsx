@@ -1,37 +1,38 @@
 import { Building2, Sunset, Zap } from "lucide-react";
 
 export const menuData = [
-  { title: "Home", url: "/" },
+  { title: "Trang chủ", url: "/" },
   {
-    title: "Shop",
+    title: "Cửa hàng",
     url: "/products",
   },
   {
-    title: "Company",
+    title: "Công ty",
     url: "#",
     items: [
       {
-        title: "About Us",
-        description: "Learn more about our mission and values",
+        title: "Về chúng tôi",
+        description: "Tìm hiểu thêm về sứ mệnh và giá trị của chúng tôi",
         icon: <Sunset className="size-5 shrink-0" />,
         url: "/about",
       },
       {
-        title: "Careers",
-        description: "Browse job listing and discover our workplace",
+        title: "Tuyển dụng",
+        description:
+          "Xem danh sách việc làm và khám phá nơi làm việc của chúng tôi",
         icon: <Building2 className="size-5 shrink-0" />,
         url: "#",
       },
       {
-        title: "Support",
-        description: "Get in touch with our support team ",
+        title: "Hỗ trợ",
+        description: "Liên hệ với đội ngũ hỗ trợ của chúng tôi",
         icon: <Zap className="size-5 shrink-0" />,
         url: "#",
       },
     ],
   },
   {
-    title: "Blog",
+    title: "Bài viết",
     url: "/blog",
   },
 ];
