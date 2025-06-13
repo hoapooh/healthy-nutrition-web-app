@@ -46,11 +46,10 @@ export function DataTablePagination<TData>({
 
   return (
     <div className="flex items-center justify-between px-2 py-4">
-      {" "}
       <div className="text-muted-foreground flex-1 text-sm">
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} của{" "}
+            {table.getFilteredSelectedRowModel().rows.length} của
             {table.getFilteredRowModel().rows.length} hàng được chọn.
           </>
         )}
@@ -70,7 +69,7 @@ export function DataTablePagination<TData>({
               ))}
             </SelectContent>
           </Select>
-        </div>{" "}
+        </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           {totalCount > 0 ? (
             <>
@@ -96,7 +95,6 @@ export function DataTablePagination<TData>({
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 0}
           >
-            {" "}
             <span className="sr-only">Đi đến trang trước</span>
             <ChevronLeft className="h-4 w-4" />
           </Button>

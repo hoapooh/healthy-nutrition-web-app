@@ -33,7 +33,6 @@ export const ProductNutritionFacts = ({
     <div
       className={`w-full rounded-lg border border-gray-300 bg-white p-6 ${className}`}
     >
-      {" "}
       <h3 className="mb-4 border-b-2 border-black pb-2 text-lg font-bold text-green-600">
         Thông tin dinh dưỡng
       </h3>
@@ -49,7 +48,7 @@ export const ProductNutritionFacts = ({
               {fact.unit}
             </span>
           </div>
-        ))}{" "}
+        ))}
       </div>
       <div className="text-muted-foreground mt-4 text-xs">
         * Giá trị hàng ngày phần trăm dựa trên chế độ ăn 2.000 calo.

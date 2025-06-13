@@ -37,7 +37,7 @@ const NavAuthButton = () => {
       return (
         <div className="flex shrink-0 items-center gap-2">
           <div className="flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />{" "}
+            <Loader2 className="h-4 w-4 animate-spin" />
             {!isMobile && (
               <span className="text-muted-foreground text-sm">Đang tải...</span>
             )}
@@ -117,7 +117,7 @@ const NavAuthButton = () => {
                   {user?.email}
                 </p>
               </div>
-              <DropdownMenuSeparator />{" "}
+              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/profile" className="flex items-center">
                   <User className="mr-2 h-4 w-4" />

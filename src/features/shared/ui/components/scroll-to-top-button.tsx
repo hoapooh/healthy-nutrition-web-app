@@ -44,7 +44,6 @@ const ScrollToTop = ({ className, showAfter = 900 }: ScrollToTopProps) => {
         )}
         aria-label="Scroll to top"
       >
-        {" "}
         <ChevronUp className="size-6 text-white" />
       </Button>
     </motion.div>

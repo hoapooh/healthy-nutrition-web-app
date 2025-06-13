@@ -371,7 +371,7 @@ const ProductDetailPage = () => {
         </Link>
       </div>
       <div className="mb-8 grid gap-8 lg:grid-cols-2">
-        {" "}
+        
         {/* Product Images */}
         <div className="space-y-4">
           {/* Main product image */}
@@ -424,7 +424,7 @@ const ProductDetailPage = () => {
                 </Button>
               </>
             )}
-          </div>{" "}
+          </div>
           {/* Carousel for thumbnail images - only show if there are multiple images */}
           {productImages.length > 1 && (
             <div className="relative">
@@ -643,7 +643,7 @@ const ProductDetailPage = () => {
             </CardContent>
           </Card>
         </TabsContent>
-      </Tabs>{" "}
+      </Tabs>
       {/* Related Products */}
       <div className="border-t pt-8">
         <h2 className="mb-6 text-2xl font-bold">You might also like</h2>

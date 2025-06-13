@@ -225,7 +225,6 @@ export function CreateProductModal({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-7xl min-w-5xl overflow-y-auto">
-        {" "}
         <DialogHeader>
           <DialogTitle>Tạo sản phẩm mới</DialogTitle>
           <DialogDescription>
@@ -237,7 +236,6 @@ export function CreateProductModal({
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {/* Basic Information */}
               <div className="space-y-4">
-                {" "}
                 <h3 className="text-lg font-semibold">Thông tin cơ bản</h3>
                 <FormField
                   control={form.control}
@@ -330,7 +328,6 @@ export function CreateProductModal({
 
               {/* Categories and Tags */}
               <div className="space-y-4">
-                {" "}
                 <h3 className="text-lg font-semibold">Danh mục & Thẻ</h3>
                 <div>
                   <FormLabel>Danh mục</FormLabel>
@@ -376,7 +373,7 @@ export function CreateProductModal({
                       {form.formState.errors.categoryIds.message}
                     </p>
                   )}
-                </div>{" "}
+                </div>
                 <div>
                   <FormLabel>Thẻ</FormLabel>
                   <div className="mt-2 flex gap-2">
@@ -410,7 +407,7 @@ export function CreateProductModal({
                         </Badge>
                       ))}
                     </div>
-                  )}{" "}
+                  )}
                   {form.formState.errors.tags && (
                     <p className="text-destructive mt-1 text-sm font-medium">
                       {form.formState.errors.tags.message}
@@ -419,7 +416,7 @@ export function CreateProductModal({
                 </div>
 
                 <div>
-                  <FormLabel>Weights (grams)</FormLabel>{" "}
+                  <FormLabel>Weights (grams)</FormLabel>
                   <div className="mt-2 flex gap-2">
                     <Input
                       type="number"
@@ -463,7 +460,6 @@ export function CreateProductModal({
             </div>
             {/* Nutrition Facts */}
             <div className="space-y-4">
-              {" "}
               <h3 className="text-lg font-semibold">
                 Thông tin dinh dưỡng (trên 100g)
               </h3>
@@ -602,7 +598,6 @@ export function CreateProductModal({
             </div>
             {/* Image Upload */}
             <div className="space-y-4">
-              {" "}
               <h3 className="text-lg font-semibold">Hình ảnh sản phẩm</h3>
               <div
                 {...getRootProps()}
@@ -650,7 +645,7 @@ export function CreateProductModal({
                   ))}
                 </div>
               )}
-            </div>{" "}
+            </div>
             <DialogFooter>
               <Button
                 type="button"

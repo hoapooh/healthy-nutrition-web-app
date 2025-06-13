@@ -44,7 +44,6 @@ const EditableProfileFields: React.FC<EditableProfileFieldsProps> = ({
           onClick={handleEdit}
           className="flex items-center space-x-2"
         >
-          {" "}
           <Edit2 className="h-4 w-4" />
           <span>Chỉnh sửa thông tin</span>
         </Button>

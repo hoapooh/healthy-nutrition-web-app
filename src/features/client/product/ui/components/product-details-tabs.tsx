@@ -18,7 +18,6 @@ export const ProductDetailsTabs = ({
 }: ProductDetailsTabsProps) => {
   return (
     <Tabs defaultValue="nutrition" className={`mb-8 ${className}`}>
-      {" "}
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="nutrition" className="font-bold text-green-600">
           Thông tin dinh dưỡng
@@ -37,7 +36,6 @@ export const ProductDetailsTabs = ({
       </TabsContent>
       <TabsContent value="description" className="mt-6">
         <Card>
-          {" "}
           <CardHeader>
             <CardTitle className="text-green-600">Mô tả sản phẩm</CardTitle>
           </CardHeader>
@@ -60,7 +58,7 @@ export const ProductDetailsTabs = ({
                 Các thành phần tự nhiên được lựa chọn cẩn thận để cung cấp dinh
                 dưỡng và hương vị tối ưu.
               </p>
-            </div>{" "}
+            </div>
           </CardContent>
         </Card>
       </TabsContent>

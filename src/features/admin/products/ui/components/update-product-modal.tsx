@@ -238,7 +238,6 @@ export function UpdateProductModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-7xl min-w-5xl overflow-y-auto">
-        {" "}
         <DialogHeader>
           <DialogTitle>Cập nhật sản phẩm</DialogTitle>
           <DialogDescription>
@@ -250,7 +249,6 @@ export function UpdateProductModal({
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Basic Information */}
               <div className="space-y-4">
-                {" "}
                 <h3 className="text-lg font-semibold">Thông tin cơ bản</h3>
                 <FormField
                   control={form.control}
@@ -297,7 +295,6 @@ export function UpdateProductModal({
                   )}
                 />
                 <div className="grid grid-cols-2 gap-4">
-                  {" "}
                   <FormField
                     control={form.control}
                     name="price"
@@ -344,7 +341,9 @@ export function UpdateProductModal({
 
               {/* Categories and Tags */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Danh mục, Thẻ, Trọng lượng</h3>
+                <h3 className="text-lg font-semibold">
+                  Danh mục, Thẻ, Trọng lượng
+                </h3>
                 <FormField
                   control={form.control}
                   name="categoryIds"
@@ -441,7 +440,6 @@ export function UpdateProductModal({
                     <FormItem>
                       <FormLabel>Weights (grams)</FormLabel>
                       <div className="space-y-2">
-                        {" "}
                         <div className="flex gap-2">
                           <Input
                             type="number"
@@ -484,7 +482,7 @@ export function UpdateProductModal({
                   )}
                 />
               </div>
-            </div>{" "}
+            </div>
             {/* Nutrition Facts */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">
@@ -532,7 +530,7 @@ export function UpdateProductModal({
                       <FormMessage />
                     </FormItem>
                   )}
-                />{" "}
+                />
                 <FormField
                   control={form.control}
                   name="carbs"
@@ -553,7 +551,7 @@ export function UpdateProductModal({
                       <FormMessage />
                     </FormItem>
                   )}
-                />{" "}
+                />
                 <FormField
                   control={form.control}
                   name="lipid"
@@ -621,7 +619,6 @@ export function UpdateProductModal({
             </div>
             {/* Images */}
             <div className="space-y-4">
-              {" "}
               <h3 className="text-lg font-semibold">Hình ảnh sản phẩm</h3>
               {/* Existing Images */}
               {existingImages.length > 0 && (
@@ -653,7 +650,6 @@ export function UpdateProductModal({
               )}
               {/* New Images Upload */}
               <div className="space-y-2">
-                {" "}
                 <p className="text-muted-foreground text-sm">
                   {selectedFiles.length > 0
                     ? "Hình ảnh mới:"
@@ -707,7 +703,6 @@ export function UpdateProductModal({
               )}
             </div>
             <DialogFooter>
-              {" "}
               <Button
                 type="button"
                 variant="outline"
@@ -717,7 +712,6 @@ export function UpdateProductModal({
                 Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {" "}
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

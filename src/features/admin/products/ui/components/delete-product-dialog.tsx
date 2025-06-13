@@ -46,11 +46,10 @@ export function DeleteProductDialog({
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
-        {" "}
         <AlertDialogHeader>
           <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
           <AlertDialogDescription>
-            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn sản phẩm{" "}
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn sản phẩm
             <strong>&quot;{product.name}&quot;</strong> và xóa tất cả dữ liệu
             liên quan khỏi máy chủ của chúng tôi.
           </AlertDialogDescription>

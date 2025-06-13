@@ -86,7 +86,6 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {" "}
             Họ và tên
             <ArrowUpDown />
           </Button>
@@ -133,7 +132,6 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {" "}
             Vai trò
             <ArrowUpDown />
           </Button>
@@ -199,7 +197,6 @@ export function UsersDataTable({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {" "}
               <DropdownMenuCheckboxItem
                 onClick={() => setEditingUser(user)}
                 className="cursor-pointer"
@@ -260,7 +257,7 @@ export function UsersDataTable({
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />{" "}
+            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
               placeholder="Tìm kiếm người dùng..."
               value={
@@ -276,7 +273,6 @@ export function UsersDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              {" "}
               <Button variant="outline" className="ml-auto">
                 Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
@@ -295,7 +291,6 @@ export function UsersDataTable({
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {" "}
                       {column.id === "fullName"
                         ? "Họ và tên"
                         : column.id === "phoneNumber"
@@ -307,7 +302,7 @@ export function UsersDataTable({
                   );
                 })}
             </DropdownMenuContent>
-          </DropdownMenu>{" "}
+          </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Tạo người dùng
@@ -337,7 +332,6 @@ export function UsersDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -363,7 +357,6 @@ export function UsersDataTable({
               ))
             ) : (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -381,7 +374,7 @@ export function UsersDataTable({
         currentPage={(filters.pageIndex || 1) - 1} // Convert 1-based pageIndex to 0-based for pagination component
         pageSize={filters.limit || 10}
         onPaginationChange={handlePaginationChange}
-      />{" "}
+      />
       <CreateUserModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}

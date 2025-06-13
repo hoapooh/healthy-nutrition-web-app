@@ -85,10 +85,10 @@ export const CartItemComponent = ({
                 <h3 className="line-clamp-1 text-sm font-medium">
                   {item.name}
                 </h3>
-              </Link>{" "}
+              </Link>
               <p className="text-sm font-semibold text-green-600">
                 {formatCurrency(item.price)}
-              </p>{" "}
+              </p>
               <p className="text-muted-foreground text-xs">
                 Trọng lượng: {formatWeight(item.weight)}
               </p>
@@ -158,11 +158,11 @@ export const CartItemComponent = ({
                   <h3 className="line-clamp-2 text-lg font-semibold">
                     {item.name}
                   </h3>
-                </Link>{" "}
+                </Link>
                 <div className="flex items-center gap-2">
                   <span className="text-xl font-bold text-green-600">
                     {formatCurrency(item.price)}
-                  </span>{" "}
+                  </span>
                   <span className="text-muted-foreground text-sm">
                     cho {formatWeight(item.weight)}
                   </span>
@@ -190,7 +190,7 @@ export const CartItemComponent = ({
                   </div>
                 </div>
               </div>
-              {/* Remove Button */}{" "}
+              {/* Remove Button */}
               <Button
                 variant="outline"
                 size="sm"
@@ -228,7 +228,7 @@ export const CartItemComponent = ({
                   </Button>
                 </div>
               </div>
-              {/* Stock Information */}{" "}
+              {/* Stock Information */}
               <div className="text-muted-foreground text-sm">
                 {item.stockQuantity > 0 ? (
                   <span>{item.stockQuantity} còn hàng</span>

@@ -33,7 +33,6 @@ const OrderHistory = () => {
     <ProtectedRoute requireAuth redirectTo="/" allowedRoles={["User"]}>
       <div className="container mx-auto px-4 py-8">
         <div className="mx-auto max-w-7xl min-w-4xl">
-          {" "}
           {/* Header */}
           <div className="mb-8">
             <h1 className="flex items-center gap-2 text-3xl font-bold">
@@ -48,7 +47,6 @@ const OrderHistory = () => {
           {/* Error State */}
           {error && (
             <Card className="mb-6">
-              {" "}
               <CardContent className="p-6">
                 <div className="text-center text-red-600">
                   <p className="font-semibold">Lỗi khi tải đơn hàng</p>
@@ -64,7 +62,6 @@ const OrderHistory = () => {
           {!error && (
             <Card>
               <CardHeader>
-                {" "}
                 <CardTitle className="flex items-center justify-between">
                   <span className="font-bold text-green-600">
                     Đơn hàng của bạn
@@ -73,7 +70,7 @@ const OrderHistory = () => {
                     <span className="text-muted-foreground text-sm font-normal">
                       <span className="font-semibold text-green-600">
                         {pagination.totalItems}
-                      </span>{" "}
+                      </span>
                       đơn hàng
                     </span>
                   )}

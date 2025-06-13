@@ -93,13 +93,12 @@ export function UserDetailsDrawer({
 
           {/* Contact Information */}
           <div className="space-y-4">
-            {" "}
             <h4 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
               Thông tin liên hệ
             </h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <Mail className="text-muted-foreground h-4 w-4" />{" "}
+                <Mail className="text-muted-foreground h-4 w-4" />
                 <div>
                   <p className="text-sm font-medium">Email</p>
                   <p className="text-muted-foreground text-sm">
@@ -134,13 +133,12 @@ export function UserDetailsDrawer({
 
           {/* Account Information */}
           <div className="space-y-4">
-            {" "}
             <h4 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
               Thông tin tài khoản
             </h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <UserIcon className="text-muted-foreground h-4 w-4" />{" "}
+                <UserIcon className="text-muted-foreground h-4 w-4" />
                 <div>
                   <p className="text-sm font-medium">ID Người dùng</p>
                   <p className="text-muted-foreground font-mono text-sm">

@@ -47,7 +47,7 @@ export function BlogFilters({ filters, onFiltersChange }: BlogFiltersProps) {
           Filters
           {hasActiveFilters && (
             <div className="bg-primary text-primary-foreground ml-2 rounded-full px-2 py-0.5 text-xs">
-              {Object.values(filters).filter(Boolean).length - 2}{" "}
+              {Object.values(filters).filter(Boolean).length - 2}
               {/* Exclude pageIndex and limit */}
             </div>
           )}

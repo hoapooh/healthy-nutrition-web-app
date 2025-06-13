@@ -109,14 +109,12 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
-            ))}{" "}
+            ))}
             <span className="text-muted-foreground ml-1 text-sm">
               (4.7) 127 đánh giá
             </span>
           </div>
-          <Badge variant="secondary">
-            Còn hàng: {product.stockQuantity}
-          </Badge>{" "}
+          <Badge variant="secondary">Còn hàng: {product.stockQuantity}</Badge>
         </div>
         {/* TODO: description need to be fixed here */}
         {/* <p className="text-muted-foreground mb-4">{product.description}</p> */}
@@ -126,7 +124,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             cho {formatWeight(selectedWeight)}
           </span>
         </div>
-      </div>{" "}
+      </div>
       {/* Weight Selection */}
       <div className="space-y-2">
         <span className="font-medium">Trọng lượng:</span>
@@ -150,7 +148,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             {tag}
           </Badge>
         ))}
-      </div>{" "}
+      </div>
       {/* Quantity and Actions */}
       <div className="space-y-4">
         <div className="flex items-center gap-4">
@@ -174,7 +172,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-        </div>{" "}
+        </div>
         <div className="flex gap-3">
           <Button
             className={cn("flex-1", isInCart ? "text-green-600" : "")}
@@ -183,7 +181,6 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             onClick={isInCart ? handleViewCart : handleAddToCart}
             disabled={product.stockQuantity === 0}
           >
-            {" "}
             <ShoppingCart className="mr-2 h-5 w-5" />
             {isInCart ? "Xem giỏ hàng" : "Thêm vào giỏ hàng"}
           </Button>
@@ -203,7 +200,7 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
             <Share2 className="h-5 w-5" />
           </Button>
         </div>
-      </div>{" "}
+      </div>
       {/* Features */}
       <div className="grid grid-cols-3 gap-4 border-t pt-6">
         <div className="text-center">

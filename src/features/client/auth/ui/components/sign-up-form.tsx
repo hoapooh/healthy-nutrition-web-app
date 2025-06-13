@@ -58,10 +58,10 @@ export function SignUpForm({
                 <GalleryVerticalEnd className="size-6" />
               </div>
               <span className="sr-only">HealthyNutrition.</span>
-            </Link>{" "}
+            </Link>
             <h1 className="text-xl font-bold">Tạo tài khoản của bạn</h1>
             <div className="text-center text-sm">
-              Đã có tài khoản?{" "}
+              Đã có tài khoản?
               <Link
                 href="/sign-in"
                 className="underline underline-offset-4 hover:text-green-600"
@@ -75,7 +75,6 @@ export function SignUpForm({
           <div className="flex flex-col gap-6">
             {/* Full Name Field */}
             <div className="grid gap-2">
-              {" "}
               <FormField
                 control={form.control}
                 name="fullName"
@@ -94,7 +93,7 @@ export function SignUpForm({
                   </FormItem>
                 )}
               />
-            </div>{" "}
+            </div>
             {/* Email Field */}
             <div className="grid gap-2">
               <FormField
@@ -139,10 +138,9 @@ export function SignUpForm({
                     </FormItem>
                   )}
                 />
-              </div>{" "}
+              </div>
               {/* City Field */}
               <div className="grid gap-2">
-                {" "}
                 <FormField
                   control={form.control}
                   name="city"
@@ -185,7 +183,7 @@ export function SignUpForm({
                     </FormItem>
                   )}
                 />
-              </div>{" "}
+              </div>
               {/* District Field */}
               <div className="grid gap-2">
                 <FormField
@@ -259,7 +257,7 @@ export function SignUpForm({
                               }
                             />
                           </SelectTrigger>
-                        </FormControl>{" "}
+                        </FormControl>
                         <SelectContent>
                           {wards.length > 0 ? (
                             wards.map((ward) => (
@@ -282,7 +280,6 @@ export function SignUpForm({
             </div>
             {/* Password Field */}
             <div className="grid gap-2">
-              {" "}
               <FormField
                 control={form.control}
                 name="password"
@@ -329,7 +326,6 @@ export function SignUpForm({
             </div>
             {/* Confirm Password Field */}
             <div className="grid gap-2">
-              {" "}
               <FormField
                 control={form.control}
                 name="confirmPassword"
@@ -377,7 +373,6 @@ export function SignUpForm({
               disabled={isLoading}
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
             >
-              {" "}
               {isLoading ? (
                 <LoaderCircle className="size-5 animate-spin" />
               ) : (
@@ -417,10 +412,10 @@ export function SignUpForm({
             </div> */}
         </form>
       </Form>
-      {/* Term and Service */}{" "}
+      {/* Term and Service */}
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
-        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        Bằng việc nhấp tiếp tục, bạn đồng ý với
+        <Link href="#">Điều khoản dịch vụ</Link> và
         <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>

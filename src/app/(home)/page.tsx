@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="py-6 lg:p-8">
-      {/* Hero */}{" "}
+      {/* Hero */}
       <HomeHero
         heading="Chào mừng bạn đến với Healthy Nutrition"
         description="Khám phá các sản phẩm dinh dưỡng lành mạnh và mẹo ăn uống của chúng tôi để sống khỏe mạnh hơn mỗi ngày."
@@ -42,7 +42,7 @@ export default function Home() {
           className="h-32 w-full object-cover lg:h-[400px] lg:rounded-md"
         />
       </div>
-      {/* Blog / News */}{" "}
+      {/* Blog / News */}
       <HomeBlog
         heading="Tin tức mới nhất"
         description="Xem những câu chuyện và bài viết mới nhất của chúng tôi"

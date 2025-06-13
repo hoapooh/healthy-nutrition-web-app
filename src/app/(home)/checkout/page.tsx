@@ -76,7 +76,6 @@ const CheckoutPage = () => {
     <ProtectedRoute requireAuth allowedRoles={["User"]} redirectTo="/">
       <div className="container mx-auto max-w-7xl min-w-4xl px-4 py-8">
         <div className="mb-6">
-          {" "}
           <Button
             variant="ghost"
             onClick={() => router.back()}
@@ -91,7 +90,6 @@ const CheckoutPage = () => {
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Order Summary */}
           <div className="lg:col-span-2">
-            {" "}
             <Card>
               <CardHeader>
                 <CardTitle>Tóm tắt đơn hàng</CardTitle>
@@ -99,7 +97,6 @@ const CheckoutPage = () => {
               <CardContent className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center gap-4">
-                    {" "}
                     <div className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100">
                       <Image
                         src={item.imageUrl}
@@ -107,13 +104,13 @@ const CheckoutPage = () => {
                         fill
                         className="object-cover"
                       />
-                    </div>{" "}
+                    </div>
                     <div className="flex-1">
                       <h3 className="font-medium">{item.name}</h3>
                       <div className="space-y-1">
                         <p className="text-muted-foreground text-sm">
                           {formatCurrency(item.price)} × {item.quantity}
-                        </p>{" "}
+                        </p>
                         <p className="text-muted-foreground text-sm">
                           Trọng lượng: {formatWeight(item.weight)}
                         </p>
@@ -132,7 +129,6 @@ const CheckoutPage = () => {
 
           {/* Payment Summary */}
           <div>
-            {" "}
             <Card className="sticky top-4">
               <CardHeader>
                 <CardTitle>Tóm tắt thanh toán</CardTitle>
@@ -150,7 +146,6 @@ const CheckoutPage = () => {
                         shippingCost === 0 ? "font-medium text-green-600" : ""
                       }
                     >
-                      {" "}
                       {shippingCost === 0
                         ? "MIỄN PHÍ"
                         : formatCurrency(shippingCost)}

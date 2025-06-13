@@ -41,7 +41,7 @@ export const ProductsFilters = ({
     <div className="mb-6 space-y-4">
       <div className="flex flex-col items-center gap-4 md:flex-row">
         <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />{" "}
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
           <Input
             placeholder="Tìm kiếm sản phẩm..."
             value={searchTerm}
@@ -49,7 +49,7 @@ export const ProductsFilters = ({
             onKeyUp={(e) => e.key === "Enter" && onSearch()}
             className="pl-10"
           />
-        </div>{" "}
+        </div>
         <Button onClick={onSearch} variant={"healthy"}>
           <Search className="mr-2 h-4 w-4" />
           Tìm kiếm
@@ -59,7 +59,6 @@ export const ProductsFilters = ({
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex flex-col items-center gap-4 md:flex-row">
           <div className="flex items-center gap-2">
-            {" "}
             <span className="shrink-0 text-sm font-medium">Khoảng giá:</span>
             <Input
               placeholder="Tối thiểu"
@@ -76,9 +75,8 @@ export const ProductsFilters = ({
               className="min-w-20"
               type="number"
             />
-          </div>{" "}
+          </div>
           <div className="flex items-center gap-2">
-            {" "}
             <span className="text-sm font-medium">Sắp xếp theo:</span>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="min-w-40">

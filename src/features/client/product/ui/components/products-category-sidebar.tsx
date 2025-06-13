@@ -65,10 +65,9 @@ export const ProductsCategorySidebar = ({
 
   return (
     <Card className="h-fit gap-4 py-4 lg:sticky lg:top-4">
-      {" "}
       <CardHeader className="px-4">
         <CardTitle className="flex flex-wrap items-center justify-between gap-1">
-          Danh mục{" "}
+          Danh mục
           {selectedCategoryId && (
             <Badge variant="secondary" className="truncate text-xs">
               {allCategories.find((c) => c.id === selectedCategoryId)?.name ||
@@ -90,13 +89,12 @@ export const ProductsCategorySidebar = ({
           onClick={() => onCategorySelect(null)}
         >
           Tất cả sản phẩm
-        </MotionButton>{" "}
+        </MotionButton>
         {/* Category options - responsive layout */}
         <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-0 lg:space-y-1">
           {/* Product Categories Section */}
           {productCategories.length > 0 && (
             <>
-              {" "}
               <div className="text-muted-foreground mb-2 w-full text-xs font-medium lg:mb-1">
                 Danh mục sản phẩm
               </div>

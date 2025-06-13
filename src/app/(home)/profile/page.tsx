@@ -13,7 +13,6 @@ const ProfilePage = () => {
       <div className="container mx-auto max-w-7xl px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          {" "}
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             Cài đặt hồ sơ
           </h1>

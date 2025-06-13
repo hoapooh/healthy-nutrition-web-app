@@ -47,7 +47,6 @@ export const CartSummary = ({
   return (
     <Card className={`sticky top-4 ${className}`}>
       <CardHeader>
-        {" "}
         <CardTitle className="flex items-center gap-2">
           <ShoppingBag className="h-5 w-5" />
           Tóm tắt đơn hàng
@@ -56,7 +55,6 @@ export const CartSummary = ({
 
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          {" "}
           <div className="flex justify-between text-sm">
             <span>Tạm tính ({totalItems} sản phẩm)</span>
             <span>{formatCurrency(subtotal)}</span>

@@ -142,7 +142,7 @@ export function CreateUserModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />{" "}
+            />
             <FormField
               control={form.control}
               name="address"

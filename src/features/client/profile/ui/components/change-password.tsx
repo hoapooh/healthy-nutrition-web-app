@@ -33,7 +33,6 @@ const ChangePassword = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        {" "}
         <CardTitle className="flex items-center space-x-2">
           <Key className="h-5 w-5" />
           <span>Thay đổi mật khẩu</span>
@@ -52,7 +51,6 @@ const ChangePassword = () => {
               name="oldPassword"
               render={({ field }) => (
                 <FormItem>
-                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Shield className="h-4 w-4" />
                     <span>Mật khẩu hiện tại</span>
@@ -92,7 +90,6 @@ const ChangePassword = () => {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Key className="h-4 w-4" />
                     <span>Mật khẩu mới</span>
@@ -132,7 +129,6 @@ const ChangePassword = () => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  {" "}
                   <FormLabel className="flex items-center space-x-2">
                     <Key className="h-4 w-4" />
                     <span>Xác nhận mật khẩu mới</span>
@@ -170,7 +166,7 @@ const ChangePassword = () => {
                 </FormItem>
               )}
             />
-            {/* Password Requirements */}{" "}
+            {/* Password Requirements */}
             <div className="bg-muted/50 rounded-lg p-4">
               <h4 className="mb-2 text-sm font-medium">Yêu cầu mật khẩu:</h4>
               <ul className="text-muted-foreground space-y-1 text-sm">

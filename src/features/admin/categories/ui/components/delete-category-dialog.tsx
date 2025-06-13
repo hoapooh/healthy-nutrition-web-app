@@ -36,12 +36,11 @@ export function DeleteCategoryDialog({
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
-        {" "}
         <AlertDialogHeader>
           <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
           <AlertDialogDescription>
-            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn danh mục{" "}
-            <span className="font-semibold">&quot;{category.name}&quot;</span>{" "}
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn danh mục
+            <span className="font-semibold">&quot;{category.name}&quot;</span>
             và xóa tất cả dữ liệu liên quan khỏi máy chủ của chúng tôi.
           </AlertDialogDescription>
         </AlertDialogHeader>

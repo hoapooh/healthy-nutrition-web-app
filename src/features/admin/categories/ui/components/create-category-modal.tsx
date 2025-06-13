@@ -49,7 +49,6 @@ export function CreateCategoryModal({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
-        {" "}
         <DialogHeader>
           <DialogTitle>Tạo danh mục mới</DialogTitle>
           <DialogDescription>
@@ -114,7 +113,7 @@ export function CreateCategoryModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />{" "}
+            />
             <DialogFooter>
               <Button
                 type="button"

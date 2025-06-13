@@ -35,7 +35,7 @@ const PaymentSuccessPage = () => {
             <CardHeader className="pb-4">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>{" "}
+              </div>
               <CardTitle className="text-2xl text-green-700">
                 Thanh toán thành công!
               </CardTitle>
@@ -49,7 +49,7 @@ const PaymentSuccessPage = () => {
                   Thanh toán của bạn đã được xử lý thành công và đơn hàng đang
                   được chuẩn bị. Bạn sẽ nhận được email xác nhận sớm.
                 </p>
-              </div>{" "}
+              </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Button
                   onClick={handleGoHome}

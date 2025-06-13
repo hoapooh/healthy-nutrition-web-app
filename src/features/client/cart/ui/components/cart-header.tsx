@@ -36,7 +36,6 @@ export const CartHeader = ({ className = "" }: CartHeaderProps) => {
       className={`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between ${className}`}
     >
       <div className="flex items-center gap-4">
-        {" "}
         <Link href="/products">
           <Button variant="outline" size="sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -61,13 +60,11 @@ export const CartHeader = ({ className = "" }: CartHeaderProps) => {
               size="sm"
               className="text-red-600 hover:bg-red-50 hover:text-red-700"
             >
-              {" "}
               <Trash2 className="mr-2 h-4 w-4" />
               Xóa giỏ hàng
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
-            {" "}
             <AlertDialogHeader>
               <AlertDialogTitle>Xóa giỏ hàng</AlertDialogTitle>
               <AlertDialogDescription>

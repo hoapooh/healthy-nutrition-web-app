@@ -70,7 +70,7 @@ export const BlogsPageContent: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>All Blogs</CardTitle>
-        </CardHeader>{" "}
+        </CardHeader>
         <CardContent className="space-y-4">
           {/* Data Table */}
           <BlogsDataTable
@@ -82,7 +82,7 @@ export const BlogsPageContent: React.FC = () => {
             onRefresh={handleRefresh}
           />
         </CardContent>
-      </Card>{" "}
+      </Card>
       {/* Modals */}
       <CreateBlogModal
         open={isCreateModalOpen}

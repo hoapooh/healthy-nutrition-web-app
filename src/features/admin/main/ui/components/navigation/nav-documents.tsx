@@ -63,7 +63,6 @@ export function NavDocuments({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
-                {" "}
                 <DropdownMenuItem>
                   <IconFolder />
                   <span>Mở</span>
@@ -82,7 +81,6 @@ export function NavDocuments({
           </SidebarMenuItem>
         ))}
         <SidebarMenuItem>
-          {" "}
           <SidebarMenuButton className="text-sidebar-foreground/70">
             <IconDots className="text-sidebar-foreground/70" />
             <span>Thêm</span>
