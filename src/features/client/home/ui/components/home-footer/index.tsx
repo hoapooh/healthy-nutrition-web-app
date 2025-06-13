@@ -72,7 +72,7 @@ const HomeFooter = ({
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
               {description}
-            </p>{" "}
+            </p>
             <ul className="text-muted-foreground flex items-center space-x-6">
               {socialLinks.map((social, idx) => (
                 <li

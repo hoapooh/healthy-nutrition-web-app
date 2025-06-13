@@ -69,7 +69,7 @@ export function CategoriesDataTable({
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />{" "}
+            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
               placeholder="Tìm kiếm danh mục..."
               value={filters.name || ""}
@@ -85,7 +85,6 @@ export function CategoriesDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              {" "}
               <Button variant="outline" className="ml-auto">
                 Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
@@ -109,7 +108,7 @@ export function CategoriesDataTable({
                   );
                 })}
             </DropdownMenuContent>
-          </DropdownMenu>{" "}
+          </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Tạo danh mục
@@ -139,7 +138,6 @@ export function CategoriesDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -165,7 +163,6 @@ export function CategoriesDataTable({
               ))
             ) : (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -176,7 +173,7 @@ export function CategoriesDataTable({
             )}
           </TableBody>
         </Table>
-      </div>{" "}
+      </div>
       <DataTablePagination
         table={table}
         totalCount={totalCount}

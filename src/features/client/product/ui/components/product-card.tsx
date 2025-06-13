@@ -148,21 +148,20 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
             </div>
 
             <div className="text-muted-foreground text-sm">
-              {" "}
               <div className="flex flex-wrap gap-2 text-xs">
                 <span>Calo: {product.nutritionFact.calories}</span>
                 <span>Protein: {product.nutritionFact.protein}g</span>
                 <span>Carbs: {product.nutritionFact.carbs}g</span>
               </div>
             </div>
-          </CardContent>{" "}
+          </CardContent>
           <CardFooter className={viewMode === "list" ? "p-0 pt-2" : "mt-3 p-0"}>
             {viewMode === "grid" ? (
               <div className="flex w-full flex-col gap-y-2">
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
                     {formatCurrency(defaultPrice)}
-                  </span>{" "}
+                  </span>
                   <span className="text-muted-foreground text-xs">
                     cho {formatWeight(defaultWeight)}
                   </span>
@@ -183,7 +182,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
                 <div className="flex flex-col">
                   <span className="text-primary text-2xl font-bold">
                     {formatCurrency(defaultPrice)}
-                  </span>{" "}
+                  </span>
                   <span className="text-muted-foreground text-xs">
                     cho {formatWeight(defaultWeight)}
                   </span>

@@ -210,7 +210,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           });
         }}
       >
-        {" "}
         <Label htmlFor={`${row.original.id}-target`} className="sr-only">
           Mục tiêu
         </Label>
@@ -236,7 +235,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           });
         }}
       >
-        {" "}
         <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
           Giới hạn
         </Label>
@@ -529,7 +527,7 @@ export function DataTable({
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
@@ -558,7 +556,7 @@ export function DataTable({
               </Select>
             </div>
             <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
+              Page {table.getState().pagination.pageIndex + 1} of
               {table.getPageCount()}
             </div>
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
@@ -707,7 +705,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Separator />
               <div className="grid gap-2">
                 <div className="flex gap-2 leading-none font-medium">
-                  Trending up by 5.2% this month{" "}
+                  Trending up by 5.2% this month
                   <IconTrendingUp className="size-4" />
                 </div>
                 <div className="text-muted-foreground">

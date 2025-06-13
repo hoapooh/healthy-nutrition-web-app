@@ -32,7 +32,7 @@ const AdminLoginForm = ({
           <div className="flex flex-col items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-green-600 to-amber-600">
               <Shield className="h-8 w-8 text-white" />
-            </div>{" "}
+            </div>
             <div className="text-center">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Cổng Quản Trị
@@ -50,7 +50,6 @@ const AdminLoginForm = ({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  {" "}
                   <FormLabel
                     htmlFor="email"
                     className="font-medium text-gray-700 dark:text-gray-300"
@@ -76,7 +75,6 @@ const AdminLoginForm = ({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  {" "}
                   <FormLabel
                     htmlFor="password"
                     className="font-medium text-gray-700 dark:text-gray-300"
@@ -117,7 +115,6 @@ const AdminLoginForm = ({
               className="mt-6 h-11 w-full bg-gradient-to-r from-green-600 to-amber-600 font-medium text-white hover:from-green-600/80 hover:to-amber-600/80"
               disabled={isLoading}
             >
-              {" "}
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -127,7 +124,7 @@ const AdminLoginForm = ({
                 "Đăng nhập"
               )}
             </Button>
-          </div>{" "}
+          </div>
           {/* Security Notice */}
           <div className="text-center">
             <p className="text-xs text-gray-500">

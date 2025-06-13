@@ -103,7 +103,6 @@ export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  {" "}
                   <Button
                     variant="outline"
                     size="sm"

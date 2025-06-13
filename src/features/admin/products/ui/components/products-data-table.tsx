@@ -93,7 +93,6 @@ export function ProductsDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {" "}
             Tên
             <ArrowUpDown />
           </Button>
@@ -113,7 +112,6 @@ export function ProductsDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {" "}
             <DollarSign className="mr-1 h-4 w-4" />
             Giá
             <ArrowUpDown />
@@ -139,7 +137,6 @@ export function ProductsDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {" "}
             <Package className="mr-1 h-4 w-4" />
             Tồn kho
             <ArrowUpDown />
@@ -206,7 +203,6 @@ export function ProductsDataTable({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {" "}
               <DropdownMenuCheckboxItem
                 onClick={() => {
                   setEditingProduct(product);
@@ -269,7 +265,7 @@ export function ProductsDataTable({
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />{" "}
+            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
               placeholder="Tìm kiếm sản phẩm..."
               value={filters.searchTerm || ""}
@@ -288,7 +284,6 @@ export function ProductsDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              {" "}
               <Button variant="outline" className="ml-auto">
                 Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
@@ -312,7 +307,7 @@ export function ProductsDataTable({
                   );
                 })}
             </DropdownMenuContent>
-          </DropdownMenu>{" "}
+          </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
             Tạo sản phẩm
@@ -342,7 +337,6 @@ export function ProductsDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -368,7 +362,6 @@ export function ProductsDataTable({
               ))
             ) : (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
@@ -386,7 +379,7 @@ export function ProductsDataTable({
         currentPage={(filters.pageIndex || 1) - 1} // Convert 1-based pageIndex to 0-based for pagination component
         pageSize={filters.limit || 10}
         onPaginationChange={handlePaginationChange}
-      />{" "}
+      />
       <CreateProductModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}

@@ -71,14 +71,14 @@ const PersonalInformation = () => {
                     <span>{user.role}</span>
                   </Badge>
                 )}
-              </div>{" "}
+              </div>
               <p className="text-muted-foreground">
                 Thành viên từ {formatDate(user.createdAt)}
               </p>
             </div>
           </div>
         </CardHeader>
-      </Card>{" "}
+      </Card>
       {/* Personal Details */}
       <Card>
         <CardHeader>
@@ -103,7 +103,7 @@ const PersonalInformation = () => {
               />
             )}
           </div>
-        </CardHeader>{" "}
+        </CardHeader>
         <CardContent className="space-y-6">
           {isEditMode ? (
             <EditableProfileFields
@@ -118,7 +118,6 @@ const PersonalInformation = () => {
             <>
               {/* Basic Information */}
               <div className="grid gap-4 md:grid-cols-2">
-                {" "}
                 <div className="space-y-2">
                   <div className="text-muted-foreground flex items-center space-x-2 text-sm font-medium">
                     <User className="h-4 w-4" />

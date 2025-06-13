@@ -25,7 +25,6 @@ export default function CategoriesPageContent() {
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          {" "}
           <h2 className="text-primary text-3xl font-bold tracking-tight">
             Danh mục
           </h2>
@@ -36,11 +35,10 @@ export default function CategoriesPageContent() {
       </div>
 
       <Card>
-        {" "}
         <CardHeader>
           <CardTitle>Quản lý danh mục</CardTitle>
           <CardDescription>
-            Xem, tạo, chỉnh sửa và xóa danh mục sản phẩm. Tổng cộng:{" "}
+            Xem, tạo, chỉnh sửa và xóa danh mục sản phẩm. Tổng cộng:
             {totalCount} danh mục
           </CardDescription>
         </CardHeader>

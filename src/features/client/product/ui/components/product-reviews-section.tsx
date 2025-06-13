@@ -169,7 +169,6 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
             name="comment"
             render={({ field }) => (
               <FormItem>
-                {" "}
                 <FormLabel>Nhận xét *</FormLabel>
                 <FormControl>
                   <Textarea
@@ -180,7 +179,7 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
                   />
                 </FormControl>
                 <div className="flex justify-between">
-                  <FormMessage />{" "}
+                  <FormMessage />
                   <span className="text-muted-foreground text-xs">
                     {field.value.length}/500 ký tự
                   </span>

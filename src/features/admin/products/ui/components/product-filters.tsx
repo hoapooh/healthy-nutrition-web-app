@@ -114,7 +114,6 @@ export function ProductFilters({
     <div className="flex items-center space-x-2">
       <Popover>
         <PopoverTrigger asChild>
-          {" "}
           <Button variant="outline" size="sm" className="border-dashed">
             <Filter className="mr-2 h-4 w-4" />
             Lọc
@@ -139,7 +138,6 @@ export function ProductFilters({
         <PopoverContent className="min-w-80" align="start">
           <div className="grid w-full gap-4">
             <div className="space-y-2">
-              {" "}
               <h4 className="leading-none font-medium">Lọc sản phẩm</h4>
               <p className="text-muted-foreground text-sm">
                 Đặt bộ lọc để thu hẹp kết quả tìm kiếm.
@@ -147,7 +145,6 @@ export function ProductFilters({
             </div>
             <div className="grid gap-2">
               <div className="grid grid-cols-3 items-center gap-4">
-                {" "}
                 <Label htmlFor="brand">Thương hiệu</Label>
                 <Input
                   id="brand"
@@ -164,7 +161,6 @@ export function ProductFilters({
                 />
               </div>
               <div className="grid grid-cols-3 items-center gap-4">
-                {" "}
                 <Label htmlFor="category">Danh mục</Label>
                 <Select onValueChange={(value) => addCategoryFilter(value)}>
                   <SelectTrigger className="col-span-2 h-8">
@@ -206,7 +202,6 @@ export function ProductFilters({
             </div>
             <div className="grid gap-2">
               <div className="grid grid-cols-3 items-center gap-4">
-                {" "}
                 <Label htmlFor="tags">Thẻ</Label>
                 <Input
                   id="tags"
@@ -238,7 +233,6 @@ export function ProductFilters({
               )}
             </div>
             <div className="grid gap-2">
-              {" "}
               <Label>Khoảng giá</Label>
               <div className="grid grid-cols-2 gap-2">
                 <Input
@@ -255,7 +249,7 @@ export function ProductFilters({
                     })
                   }
                   className="h-8"
-                />{" "}
+                />
                 <Input
                   placeholder="Giá tối đa"
                   type="number"
@@ -274,7 +268,6 @@ export function ProductFilters({
               </div>
             </div>
             <div className="grid gap-2">
-              {" "}
               <Label>Khoảng số lượng tồn kho</Label>
               <div className="grid grid-cols-2 gap-2">
                 <Input
@@ -291,7 +284,7 @@ export function ProductFilters({
                     })
                   }
                   className="h-8"
-                />{" "}
+                />
                 <Input
                   placeholder="Tồn kho tối đa"
                   type="number"

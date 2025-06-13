@@ -116,7 +116,6 @@ export function AccountRegisterChart() {
 
   return (
     <Card className="@container/card">
-      {" "}
       <CardHeader>
         <CardTitle>Đăng ký tài khoản</CardTitle>
         <CardDescription>

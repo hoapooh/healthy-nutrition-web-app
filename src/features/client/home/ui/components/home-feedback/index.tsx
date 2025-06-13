@@ -32,7 +32,6 @@ const HomeFeedback = () => {
   return (
     <div className="mt-10 bg-gradient-to-r from-green-50 to-blue-50 px-4 py-12">
       <div className="mx-auto max-w-4xl text-center">
-        {" "}
         <h2 className="mb-4 text-2xl font-bold text-gray-800 md:text-3xl">
           Chúng tôi trân trọng phản hồi của bạn
         </h2>
@@ -43,7 +42,6 @@ const HomeFeedback = () => {
         </p>
         <form onSubmit={handleSubmit} className="mx-auto max-w-2xl">
           <div className="flex flex-col gap-4 sm:flex-row">
-            {" "}
             <Input
               type="text"
               placeholder="Chia sẻ suy nghĩ, đề xuất hoặc phản hồi của bạn..."

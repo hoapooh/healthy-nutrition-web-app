@@ -12,7 +12,7 @@ const UnauthorizedPage = () => {
       <div className="mx-auto w-full max-w-md px-6 text-center">
         <div className="mb-8">
           <AlertTriangle className="mx-auto mb-4 h-24 w-24 text-red-500" />
-          <h1 className="mb-2 text-4xl font-bold text-red-500">403</h1>{" "}
+          <h1 className="mb-2 text-4xl font-bold text-red-500">403</h1>
           <h2 className="mb-4 text-2xl font-semibold text-red-500">
             Truy cập bị từ chối
           </h2>
@@ -28,7 +28,6 @@ const UnauthorizedPage = () => {
             className="flex w-full items-center justify-center gap-2"
             variant={"healthy"}
           >
-            {" "}
             <Home className="h-4 w-4" />
             Về trang chủ
           </Button>

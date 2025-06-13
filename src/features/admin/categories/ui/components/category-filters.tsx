@@ -50,7 +50,7 @@ export function CategoryFilters({
           Filters
           {hasActiveFilters && (
             <div className="bg-primary text-primary-foreground ml-2 rounded-full px-2 py-0.5 text-xs">
-              {Object.values(filters).filter(Boolean).length - 2}{" "}
+              {Object.values(filters).filter(Boolean).length - 2}
               {/* Exclude offset and limit */}
             </div>
           )}
@@ -89,7 +89,6 @@ export function CategoryFilters({
             </div>
 
             <div className="space-y-2">
-              {" "}
               <Label htmlFor="description-filter">Mô tả</Label>
               <Input
                 id="description-filter"
@@ -106,7 +105,6 @@ export function CategoryFilters({
           </div>
 
           <div className="flex justify-between">
-            {" "}
             <Button
               variant="outline"
               size="sm"

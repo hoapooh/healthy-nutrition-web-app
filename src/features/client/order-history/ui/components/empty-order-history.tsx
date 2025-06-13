@@ -18,7 +18,7 @@ export const EmptyOrderHistory = ({
       <CardContent className="flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="mb-6 rounded-full bg-gray-100 p-6">
           <Receipt className="h-12 w-12 text-gray-400" />
-        </div>{" "}
+        </div>
         <h2 className="mb-2 text-2xl font-bold text-gray-900">
           Chưa có đơn hàng
         </h2>

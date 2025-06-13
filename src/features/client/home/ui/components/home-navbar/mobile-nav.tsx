@@ -63,7 +63,6 @@ const MobileNav = ({ menu }: MobileNavProps) => {
         side="left"
         className="flex w-[300px] flex-col sm:w-[350px]"
       >
-        {" "}
         <SheetHeader className="text-left">
           <SheetTitle>Thực đơn</SheetTitle>
           {/* Logo */}

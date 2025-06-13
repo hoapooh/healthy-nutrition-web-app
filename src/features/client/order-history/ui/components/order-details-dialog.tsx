@@ -94,7 +94,7 @@ export const OrderDetailsDialog = ({
                     {orderDetails.status}
                   </Badge>
                 </div>
-                <Separator className="my-4" />{" "}
+                <Separator className="my-4" />
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-semibold">Tổng tiền</span>
                   <span className="text-lg font-bold text-green-600">
@@ -106,11 +106,10 @@ export const OrderDetailsDialog = ({
 
             <Card className="py-0">
               <CardContent className="p-4">
-                {" "}
                 <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
                   <Package className="h-5 w-5" />
                   Sản phẩm trong đơn hàng ({orderDetails.items.length})
-                </h3>{" "}
+                </h3>
                 <div className="space-y-4">
                   {orderDetails.items.map(
                     (item: OrderItemPayment, index: number) => (
@@ -130,16 +129,15 @@ export const OrderDetailsDialog = ({
                               target.src = "/healthy-product.png"; // Fallback image
                             }}
                           />
-                        </div>{" "}
+                        </div>
                         <div className="flex-1">
-                          {" "}
                           <h4 className="font-medium">{item.productName}</h4>
                           <div className="space-y-1">
                             <p className="text-muted-foreground text-sm">
                               Tổng trọng lượng: {item.weight}kg
                             </p>
                             <p className="text-muted-foreground text-sm">
-                              Giá trên kg:{" "}
+                              Giá trên kg:
                               {formatCurrency(item.pricePerKilogram)}
                             </p>
                           </div>
@@ -157,7 +155,6 @@ export const OrderDetailsDialog = ({
                 </div>
                 <Separator className="my-4" />
                 <div className="space-y-2">
-                  {" "}
                   <div className="flex justify-between text-sm">
                     <span>Tạm tính</span>
                     <span>

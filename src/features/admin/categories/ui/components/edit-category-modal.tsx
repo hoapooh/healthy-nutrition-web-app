@@ -52,7 +52,6 @@ export function EditCategoryModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
-        {" "}
         <DialogHeader>
           <DialogTitle>Chỉnh sửa danh mục</DialogTitle>
           <DialogDescription>Cập nhật thông tin danh mục.</DialogDescription>
@@ -113,7 +112,7 @@ export function EditCategoryModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />{" "}
+            />
             <DialogFooter>
               <Button
                 type="button"

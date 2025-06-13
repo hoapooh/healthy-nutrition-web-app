@@ -42,16 +42,16 @@ export default function SignInForm({
               </div>
 
               <span className="sr-only">HealthyNutrition.</span>
-            </Link>{" "}
+            </Link>
             <h1 className="text-xl font-bold">
-              Chào mừng đến với{" "}
+              Chào mừng đến với
               <span className="text-green-600">
                 Healthy<span className="text-black">Nutrition</span>
               </span>
               .
             </h1>
             <div className="text-center text-sm">
-              Bạn chưa có tài khoản?{" "}
+              Bạn chưa có tài khoản?
               <Link
                 href="/sign-up"
                 className="underline underline-offset-4 hover:text-green-600"
@@ -65,7 +65,6 @@ export default function SignInForm({
           <div className="flex flex-col gap-6">
             {/* Email Field */}
             <div className="grid gap-2">
-              {" "}
               <FormField
                 control={form.control}
                 name="email"
@@ -128,7 +127,7 @@ export default function SignInForm({
                   </FormItem>
                 )}
               />
-            </div>{" "}
+            </div>
             <Button
               type="submit"
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
@@ -173,10 +172,10 @@ export default function SignInForm({
           </div> */}
         </form>
       </Form>
-      {/* Term and Service */}{" "}
+      {/* Term and Service */}
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
-        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        Bằng việc nhấp tiếp tục, bạn đồng ý với
+        <Link href="#">Điều khoản dịch vụ</Link> và
         <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>

@@ -17,14 +17,13 @@ const PaymentCancelledPage = () => {
           <CardHeader className="space-y-4">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
               <AlertCircle className="h-8 w-8 text-red-600" />
-            </div>{" "}
+            </div>
             <CardTitle className="text-2xl font-bold">
               Thanh toán đã bị hủy
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              {" "}
               <p className="text-muted-foreground">
                 Quá trình thanh toán của bạn đã bị hủy. Đừng lo, không có khoản
                 phí nào được tính vào tài khoản của bạn.

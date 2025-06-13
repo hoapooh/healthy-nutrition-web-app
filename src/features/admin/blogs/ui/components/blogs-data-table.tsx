@@ -70,7 +70,7 @@ export function BlogsDataTable({
       <div className="flex items-center justify-between">
         <div className="flex flex-1 items-center space-x-2">
           <div className="relative">
-            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />{" "}
+            <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               placeholder="Tìm kiếm blog..."
               value={filters.title || ""}
@@ -83,7 +83,6 @@ export function BlogsDataTable({
         <div className="flex items-center space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              {" "}
               <Button variant="outline" size="sm" className="ml-auto">
                 <Settings2 className="mr-2 h-4 w-4" />
                 Hiển thị
@@ -139,7 +138,6 @@ export function BlogsDataTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                {" "}
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"

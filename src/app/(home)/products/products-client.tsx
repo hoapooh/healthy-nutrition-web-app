@@ -167,7 +167,6 @@ const ProductsClient = () => {
 
         {/* Products Content */}
         <div className="min-w-0 flex-1">
-          {" "}
           <ProductsGrid
             products={sortedProducts}
             viewMode={viewMode}
