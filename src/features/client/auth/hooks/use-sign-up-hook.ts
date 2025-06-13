@@ -16,6 +16,7 @@ const formSchema = z
   .object({
     fullName: z.string().min(2, "Họ và tên phải có ít nhất 2 ký tự"),
     email: z.string().email("Địa chỉ email không hợp lệ"),
+    phoneNumber: z.string().min(10, "Số điện thoại phải có ít nhất 10 ký tự").regex(/^[0-9]+$/, "Số điện thoại chỉ được chứa số"),
     password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
     confirmPassword: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
     addressNo: z.string().min(1, "Số nhà là bắt buộc"),
@@ -45,12 +46,12 @@ const useSignUpHook = () => {
   const [loadingProvinces, setLoadingProvinces] = useState(false);
   const [loadingDistricts, setLoadingDistricts] = useState(false);
   const [loadingWards, setLoadingWards] = useState(false);
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
       email: "",
+      phoneNumber: "",
       password: "",
       confirmPassword: "",
       addressNo: "",
@@ -141,15 +142,13 @@ const useSignUpHook = () => {
   }, [watchDistrict, form, districts]);
   function onSubmit(values: FormValues) {
     // Since we're now storing names directly, we can use them as-is
-    const fullAddress = `${values.addressNo}, ${values.ward}, ${values.district}, ${values.city}`;
-
-    // Prepare registration data
+    const fullAddress = `${values.addressNo}, ${values.ward}, ${values.district}, ${values.city}`;    // Prepare registration data
     const registrationData = {
       fullName: values.fullName,
       email: values.email,
       password: values.password,
       confirmPassword: values.confirmPassword,
-      phoneNumber: "",
+      phoneNumber: values.phoneNumber,
       address: fullAddress,
     };
     register(registrationData)
