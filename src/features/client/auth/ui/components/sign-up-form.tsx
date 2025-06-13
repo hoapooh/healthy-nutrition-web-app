@@ -61,7 +61,7 @@ export function SignUpForm({
             </Link>
             <h1 className="text-xl font-bold">Tạo tài khoản của bạn</h1>
             <div className="text-center text-sm">
-              Đã có tài khoản?
+              Đã có tài khoản?{" "}
               <Link
                 href="/sign-in"
                 className="underline underline-offset-4 hover:text-green-600"
@@ -69,68 +69,51 @@ export function SignUpForm({
                 Đăng nhập
               </Link>
             </div>
-          </div>
-
+          </div>{" "}
           {/* Body */}
           <div className="flex flex-col gap-6">
-            {/* Full Name Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="fullName">Họ và tên</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="fullName"
-                        type="text"
-                        placeholder="Nguyễn Văn A"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            {/* Email Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="email@example.com"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            {/* Address Fields */}
-            <div className="grid gap-4">
-              <FormLabel className="text-sm font-medium">Địa chỉ</FormLabel>
-              {/* Address Number Field */}
-              <div className="grid gap-2">
+            {/* Personal Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin cá nhân
+              </h2>
+
+              {/* Full Name and Email Row */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Full Name Field */}
                 <FormField
                   control={form.control}
-                  name="addressNo"
+                  name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="addressNo">Số nhà</FormLabel>
+                      <FormLabel htmlFor="fullName">Họ và tên</FormLabel>
                       <FormControl>
                         <Input
-                          id="addressNo"
+                          id="fullName"
                           type="text"
-                          placeholder="123"
+                          placeholder="Nguyễn Văn A"
+                          className="transition-colors focus:border-green-500"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Email Field */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="email">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="email@example.com"
+                          className="transition-colors focus:border-green-500"
                           {...field}
                         />
                       </FormControl>
@@ -139,8 +122,59 @@ export function SignUpForm({
                   )}
                 />
               </div>
-              {/* City Field */}
-              <div className="grid gap-2">
+
+              {/* Phone Number Field */}
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="phoneNumber">Số điện thoại</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="phoneNumber"
+                        type="tel"
+                        placeholder="0123456789"
+                        className="transition-colors focus:border-green-500"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Address Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin địa chỉ
+              </h2>
+
+              {/* Address Number Field */}
+              <FormField
+                control={form.control}
+                name="addressNo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="addressNo">Số nhà, tên đường</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="addressNo"
+                        type="text"
+                        placeholder="123 Nguyễn Trãi"
+                        className="transition-colors focus:border-green-500"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Location Fields Grid */}
+              <div className="grid gap-4 md:grid-cols-3">
+                {/* City Field */}
                 <FormField
                   control={form.control}
                   name="city"
@@ -152,11 +186,11 @@ export function SignUpForm({
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
                             <SelectValue
                               placeholder={
                                 loadingProvinces
-                                  ? "Đang tải tỉnh/thành phố..."
+                                  ? "Đang tải..."
                                   : "Chọn tỉnh/thành phố"
                               }
                             />
@@ -183,9 +217,8 @@ export function SignUpForm({
                     </FormItem>
                   )}
                 />
-              </div>
-              {/* District Field */}
-              <div className="grid gap-2">
+
+                {/* District Field */}
                 <FormField
                   control={form.control}
                   name="district"
@@ -198,13 +231,13 @@ export function SignUpForm({
                         disabled={!form.watch("city") || loadingDistricts}
                       >
                         <FormControl>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
                             <SelectValue
                               placeholder={
                                 !form.watch("city")
                                   ? "Chọn tỉnh/thành phố trước"
                                   : loadingDistricts
-                                    ? "Đang tải quận/huyện..."
+                                    ? "Đang tải..."
                                     : "Chọn quận/huyện"
                               }
                             />
@@ -231,9 +264,8 @@ export function SignUpForm({
                     </FormItem>
                   )}
                 />
-              </div>
-              {/* Ward Field */}
-              <div className="grid gap-2">
+
+                {/* Ward Field */}
                 <FormField
                   control={form.control}
                   name="ward"
@@ -246,13 +278,13 @@ export function SignUpForm({
                         disabled={!form.watch("district") || loadingWards}
                       >
                         <FormControl>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
                             <SelectValue
                               placeholder={
                                 !form.watch("district")
                                   ? "Chọn quận/huyện trước"
                                   : loadingWards
-                                    ? "Đang tải phường/xã..."
+                                    ? "Đang tải..."
                                     : "Chọn phường/xã"
                               }
                             />
@@ -278,116 +310,131 @@ export function SignUpForm({
                 />
               </div>
             </div>
-            {/* Password Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex justify-between">
+
+            {/* Security Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin bảo mật
+              </h2>
+
+              {/* Password Fields Grid */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Password Field */}
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
                       <FormLabel htmlFor="password">Mật khẩu</FormLabel>
-                      <Link
-                        href="#"
-                        className="inline-block text-xs underline-offset-4 hover:text-green-600 hover:underline"
-                      >
-                        Quên mật khẩu?
-                      </Link>
-                    </div>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          id="password"
-                          type={
-                            passwordVisibility.password ? "text" : "password"
-                          }
-                          placeholder="********"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
-                          onClick={() => togglePasswordVisibility("password")}
-                        >
-                          {passwordVisibility.password ? (
-                            <EyeOff className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          ) : (
-                            <Eye className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            id="password"
+                            type={
+                              passwordVisibility.password ? "text" : "password"
+                            }
+                            placeholder="********"
+                            className="pr-10 transition-colors focus:border-green-500"
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
+                            onClick={() => togglePasswordVisibility("password")}
+                          >
+                            {passwordVisibility.password ? (
+                              <EyeOff className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            ) : (
+                              <Eye className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            )}
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Confirm Password Field */}
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="confirmPassword">
+                        Xác nhận mật khẩu
+                      </FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            id="confirmPassword"
+                            type={
+                              passwordVisibility.confirmPassword
+                                ? "text"
+                                : "password"
+                            }
+                            placeholder="********"
+                            className="pr-10 transition-colors focus:border-green-500"
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
+                            onClick={() =>
+                              togglePasswordVisibility("confirmPassword")
+                            }
+                          >
+                            {passwordVisibility.confirmPassword ? (
+                              <EyeOff className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            ) : (
+                              <Eye className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            )}
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="flex justify-end">
+                <Link
+                  href="#"
+                  className="text-xs text-green-600 underline-offset-4 hover:underline"
+                >
+                  Quên mật khẩu?
+                </Link>
+              </div>
             </div>
-            {/* Confirm Password Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="confirmPassword">
-                      Xác nhận mật khẩu
-                    </FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          id="confirmPassword"
-                          type={
-                            passwordVisibility.confirmPassword
-                              ? "text"
-                              : "password"
-                          }
-                          placeholder="********"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
-                          onClick={() =>
-                            togglePasswordVisibility("confirmPassword")
-                          }
-                        >
-                          {passwordVisibility.confirmPassword ? (
-                            <EyeOff className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          ) : (
-                            <Eye className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+
+            {/* Submit Button */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
+              className="h-11 w-full bg-green-600 text-base font-medium transition-colors hover:cursor-pointer hover:bg-green-600/90"
             >
               {isLoading ? (
-                <LoaderCircle className="size-5 animate-spin" />
+                <div className="flex items-center gap-2">
+                  <LoaderCircle className="size-4 animate-spin" />
+                  <span>Đang tạo tài khoản...</span>
+                </div>
               ) : (
                 "Tạo tài khoản"
               )}
             </Button>
           </div>
-
           {/* ----Or---- */}
           {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
               <span className="bg-background text-muted-foreground relative z-10 px-2">
                 Or
               </span>
             </div> */}
-
           {/* Third Provider Login */}
           {/* <div className="grid gap-4 sm:grid-cols-2">
               <Button variant="outline" className="w-full">
@@ -414,8 +461,8 @@ export function SignUpForm({
       </Form>
       {/* Term and Service */}
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        Bằng việc nhấp tiếp tục, bạn đồng ý với
-        <Link href="#">Điều khoản dịch vụ</Link> và
+        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
+        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
         <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>
