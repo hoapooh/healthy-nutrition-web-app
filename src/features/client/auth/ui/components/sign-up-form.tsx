@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Link from "next/link";
 
 import {
@@ -29,6 +36,12 @@ export function SignUpForm({
     isLoading,
     passwordVisibility,
     togglePasswordVisibility,
+    provinces,
+    districts,
+    wards,
+    loadingProvinces,
+    loadingDistricts,
+    loadingWards,
   } = useSignUpHook();
 
   return (
@@ -38,7 +51,7 @@ export function SignUpForm({
           {/* Header */}
           <div className="flex flex-col items-center gap-2">
             <Link
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
@@ -46,35 +59,111 @@ export function SignUpForm({
               </div>
               <span className="sr-only">HealthyNutrition.</span>
             </Link>
-
-            <h1 className="text-xl font-bold">Create your account</h1>
-
+            <h1 className="text-xl font-bold">Tạo tài khoản của bạn</h1>
             <div className="text-center text-sm">
-              Already have an account?{" "}
+              Đã có tài khoản?{" "}
               <Link
                 href="/sign-in"
                 className="underline underline-offset-4 hover:text-green-600"
               >
-                Sign in
+                Đăng nhập
               </Link>
             </div>
-          </div>
-
+          </div>{" "}
           {/* Body */}
           <div className="flex flex-col gap-6">
-            {/* Full Name Field */}
-            <div className="grid gap-2">
+            {/* Personal Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin cá nhân
+              </h2>
+
+              {/* Full Name and Email Row */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Full Name Field */}
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="fullName">Họ và tên</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="fullName"
+                          type="text"
+                          placeholder="Nguyễn Văn A"
+                          className="transition-colors focus:border-green-500"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Email Field */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="email">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="email@example.com"
+                          className="transition-colors focus:border-green-500"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Phone Number Field */}
               <FormField
                 control={form.control}
-                name="fullName"
+                name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="fullName">Full Name</FormLabel>
+                    <FormLabel htmlFor="phoneNumber">Số điện thoại</FormLabel>
                     <FormControl>
                       <Input
-                        id="fullName"
+                        id="phoneNumber"
+                        type="tel"
+                        placeholder="0123456789"
+                        className="transition-colors focus:border-green-500"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Address Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin địa chỉ
+              </h2>
+
+              {/* Address Number Field */}
+              <FormField
+                control={form.control}
+                name="addressNo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="addressNo">Số nhà, tên đường</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="addressNo"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="123 Nguyễn Trãi"
+                        className="transition-colors focus:border-green-500"
                         {...field}
                       />
                     </FormControl>
@@ -82,142 +171,270 @@ export function SignUpForm({
                   </FormItem>
                 )}
               />
-            </div>
 
-            {/* Email Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="email@example.com"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex justify-between">
-                      <FormLabel htmlFor="password">Password</FormLabel>
-                      <Link
-                        href="#"
-                        className="inline-block text-xs underline-offset-4 hover:text-green-600 hover:underline"
+              {/* Location Fields Grid */}
+              <div className="grid gap-4 md:grid-cols-3">
+                {/* City Field */}
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="city">Tỉnh/Thành phố</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
                       >
-                        Forgot your password?
-                      </Link>
-                    </div>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          id="password"
-                          type={
-                            passwordVisibility.password ? "text" : "password"
-                          }
-                          placeholder="********"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
-                          onClick={() => togglePasswordVisibility("password")}
-                        >
-                          {passwordVisibility.password ? (
-                            <EyeOff className="text-muted-foreground size-5 group-hover:text-green-600" />
+                        <FormControl>
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
+                            <SelectValue
+                              placeholder={
+                                loadingProvinces
+                                  ? "Đang tải..."
+                                  : "Chọn tỉnh/thành phố"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {provinces.length > 0 ? (
+                            provinces.map((province) => (
+                              <SelectItem
+                                key={province.code}
+                                value={province.name}
+                              >
+                                {province.name}
+                              </SelectItem>
+                            ))
                           ) : (
-                            <Eye className="text-muted-foreground size-5 group-hover:text-green-600" />
+                            <SelectItem value="no-city" disabled>
+                              Không có tỉnh/thành phố
+                            </SelectItem>
                           )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* District Field */}
+                <FormField
+                  control={form.control}
+                  name="district"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="district">Quận/Huyện</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={!form.watch("city") || loadingDistricts}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
+                            <SelectValue
+                              placeholder={
+                                !form.watch("city")
+                                  ? "Chọn tỉnh/thành phố trước"
+                                  : loadingDistricts
+                                    ? "Đang tải..."
+                                    : "Chọn quận/huyện"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {districts.length > 0 ? (
+                            districts.map((district) => (
+                              <SelectItem
+                                key={district.code}
+                                value={district.name}
+                              >
+                                {district.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-district" disabled>
+                              Không có quận/huyện
+                            </SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Ward Field */}
+                <FormField
+                  control={form.control}
+                  name="ward"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="ward">Phường/Xã</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={!form.watch("district") || loadingWards}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full transition-colors focus:border-green-500">
+                            <SelectValue
+                              placeholder={
+                                !form.watch("district")
+                                  ? "Chọn quận/huyện trước"
+                                  : loadingWards
+                                    ? "Đang tải..."
+                                    : "Chọn phường/xã"
+                              }
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {wards.length > 0 ? (
+                            wards.map((ward) => (
+                              <SelectItem key={ward.code} value={ward.name}>
+                                {ward.name}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-ward" disabled>
+                              Không có phường/xã
+                            </SelectItem>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
 
-            {/* Confirm Password Field */}
-            <div className="grid gap-2">
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="confirmPassword">
-                      Confirm Password
-                    </FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          id="confirmPassword"
-                          type={
-                            passwordVisibility.confirmPassword
-                              ? "text"
-                              : "password"
-                          }
-                          placeholder="********"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
-                          onClick={() =>
-                            togglePasswordVisibility("confirmPassword")
-                          }
-                        >
-                          {passwordVisibility.confirmPassword ? (
-                            <EyeOff className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          ) : (
-                            <Eye className="text-muted-foreground size-5 group-hover:text-green-600" />
-                          )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* Security Information Section */}
+            <div className="space-y-4">
+              <h2 className="border-b pb-2 text-sm font-semibold text-gray-700">
+                Thông tin bảo mật
+              </h2>
+
+              {/* Password Fields Grid */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Password Field */}
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="password">Mật khẩu</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            id="password"
+                            type={
+                              passwordVisibility.password ? "text" : "password"
+                            }
+                            placeholder="********"
+                            className="pr-10 transition-colors focus:border-green-500"
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
+                            onClick={() => togglePasswordVisibility("password")}
+                          >
+                            {passwordVisibility.password ? (
+                              <EyeOff className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            ) : (
+                              <Eye className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            )}
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Confirm Password Field */}
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="confirmPassword">
+                        Xác nhận mật khẩu
+                      </FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            id="confirmPassword"
+                            type={
+                              passwordVisibility.confirmPassword
+                                ? "text"
+                                : "password"
+                            }
+                            placeholder="********"
+                            className="pr-10 transition-colors focus:border-green-500"
+                            {...field}
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="group absolute top-1/2 right-0 h-full -translate-y-1/2 px-3 py-2 hover:cursor-pointer hover:bg-transparent"
+                            onClick={() =>
+                              togglePasswordVisibility("confirmPassword")
+                            }
+                          >
+                            {passwordVisibility.confirmPassword ? (
+                              <EyeOff className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            ) : (
+                              <Eye className="text-muted-foreground size-4 group-hover:text-green-600" />
+                            )}
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="flex justify-end">
+                <Link
+                  href="#"
+                  className="text-xs text-green-600 underline-offset-4 hover:underline"
+                >
+                  Quên mật khẩu?
+                </Link>
+              </div>
             </div>
 
+            {/* Submit Button */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
+              className="h-11 w-full bg-green-600 text-base font-medium transition-colors hover:cursor-pointer hover:bg-green-600/90"
             >
               {isLoading ? (
-                <LoaderCircle className="size-5 animate-spin" />
+                <div className="flex items-center gap-2">
+                  <LoaderCircle className="size-4 animate-spin" />
+                  <span>Đang tạo tài khoản...</span>
+                </div>
               ) : (
-                "Create account"
+                "Tạo tài khoản"
               )}
             </Button>
           </div>
-
           {/* ----Or---- */}
           {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
               <span className="bg-background text-muted-foreground relative z-10 px-2">
                 Or
               </span>
             </div> */}
-
           {/* Third Provider Login */}
           {/* <div className="grid gap-4 sm:grid-cols-2">
               <Button variant="outline" className="w-full">
@@ -242,12 +459,11 @@ export function SignUpForm({
             </div> */}
         </form>
       </Form>
-
       {/* Term and Service */}
-      <div className="text-muted-foreground hover:[&_a]:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4">
-        By clicking continue, you agree to our{" "}
-        <Link href="/">Terms of Service</Link> and{" "}
-        <Link href="/">Privacy Policy</Link>.
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
+        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>
   );

@@ -1,70 +1,38 @@
-import { Book, Sunset, Trees, Zap } from "lucide-react";
+import { Building2, Sunset, Zap } from "lucide-react";
 
 export const menuData = [
-  { title: "Home", url: "/" },
+  { title: "Trang chủ", url: "/" },
   {
-    title: "Products",
+    title: "Cửa hàng",
+    url: "/products",
+  },
+  {
+    title: "Công ty",
     url: "#",
     items: [
       {
-        title: "Blog",
-        description: "The latest industry news, updates, and info",
-        icon: <Book className="size-5 shrink-0" />,
-        url: "#",
-      },
-      {
-        title: "Company",
-        description: "Our mission is to innovate and empower the world",
-        icon: <Trees className="size-5 shrink-0" />,
-        url: "#",
-      },
-      {
-        title: "Careers",
-        description: "Browse job listing and discover our workspace",
+        title: "Về chúng tôi",
+        description: "Tìm hiểu thêm về sứ mệnh và giá trị của chúng tôi",
         icon: <Sunset className="size-5 shrink-0" />,
-        url: "#",
+        url: "/about",
       },
       {
-        title: "Support",
+        title: "Tuyển dụng",
         description:
-          "Get in touch with our support team or visit our community forums",
+          "Xem danh sách việc làm và khám phá nơi làm việc của chúng tôi",
+        icon: <Building2 className="size-5 shrink-0" />,
+        url: "#",
+      },
+      {
+        title: "Hỗ trợ",
+        description: "Liên hệ với đội ngũ hỗ trợ của chúng tôi",
         icon: <Zap className="size-5 shrink-0" />,
         url: "#",
       },
     ],
   },
   {
-    title: "Resources",
-    url: "#",
-    items: [
-      {
-        title: "Help Center",
-        description: "Get all the answers you need right here",
-        icon: <Zap className="size-5 shrink-0" />,
-        url: "#",
-      },
-      {
-        title: "Contact Us",
-        description: "We are here to help you with any questions you have",
-        icon: <Sunset className="size-5 shrink-0" />,
-        url: "#",
-      },
-      {
-        title: "Status",
-        description: "Check the current status of our services and APIs",
-        icon: <Trees className="size-5 shrink-0" />,
-        url: "#",
-      },
-      {
-        title: "Terms of Service",
-        description: "Our terms and conditions for using our services",
-        icon: <Book className="size-5 shrink-0" />,
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Blog",
+    title: "Bài viết",
     url: "/blog",
   },
 ];

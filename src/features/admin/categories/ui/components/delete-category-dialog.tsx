@@ -11,9 +11,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useDeleteCategoryMutation } from "@/services/category-services";
 import { Category } from "@/types/category";
-import { toast } from "react-hot-toast";
+import { useDeleteCategory } from "../../hooks/use-delete-category";
 
 interface DeleteCategoryDialogProps {
   category: Category;
@@ -28,40 +27,31 @@ export function DeleteCategoryDialog({
   onOpenChange,
   onSuccess,
 }: DeleteCategoryDialogProps) {
-  const [deleteCategory, { isLoading }] = useDeleteCategoryMutation();
-
-  const handleDelete = async () => {
-    try {
-      await deleteCategory({ id: category.id }).unwrap();
-      toast.success("Category deleted successfully!");
-      onOpenChange(false);
-      onSuccess();
-    } catch (error: unknown) {
-      console.error("Error deleting category:", error);
-      toast.error("Failed to delete category");
-    }
-  };
+  const { isLoading, handleDelete } = useDeleteCategory({
+    category,
+    onSuccess,
+    onOpenChange,
+  });
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            category{" "}
-            <span className="font-semibold">&quot;{category.name}&quot;</span>{" "}
-            and remove all associated data from our servers.
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn danh mục
+            <span className="font-semibold">&quot;{category.name}&quot;</span>
+            và xóa tất cả dữ liệu liên quan khỏi máy chủ của chúng tôi.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isLoading}>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isLoading}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? "Đang xóa..." : "Xóa"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

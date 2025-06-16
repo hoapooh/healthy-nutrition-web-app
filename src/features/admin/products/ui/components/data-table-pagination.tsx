@@ -49,7 +49,7 @@ export function DataTablePagination<TData>({
       <div className="text-muted-foreground flex-1 text-sm">
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </>
         )}

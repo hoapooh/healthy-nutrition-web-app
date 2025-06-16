@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Filter, X } from "lucide-react";
 import { CategoryParams, CATEGORY_TYPES } from "@/types/category";
+import useCategoryFilters from "../../hooks/use-category-filters";
 
 interface CategoryFiltersProps {
   filters: CategoryParams;
@@ -28,31 +29,18 @@ export function CategoryFilters({
   filters,
   onFiltersChange,
 }: CategoryFiltersProps) {
-  const [localFilters, setLocalFilters] =
-    React.useState<CategoryParams>(filters);
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const hasActiveFilters = Boolean(filters.type || filters.description);
-
-  const handleApplyFilters = () => {
-    onFiltersChange({ ...localFilters, pageIndex: 1 });
-    setIsOpen(false);
-  };
-
-  const handleClearFilters = () => {
-    const clearedFilters = {
-      name: filters.name,
-      pageIndex: 1,
-      limit: filters.limit,
-    };
-    setLocalFilters(clearedFilters);
-    onFiltersChange(clearedFilters);
-    setIsOpen(false);
-  };
-
-  React.useEffect(() => {
-    setLocalFilters(filters);
-  }, [filters]);
+  const {
+    localFilters,
+    setLocalFilters,
+    isOpen,
+    setIsOpen,
+    hasActiveFilters,
+    handleApplyFilters,
+    handleClearFilters,
+  } = useCategoryFilters({
+    filters,
+    onFiltersChange,
+  });
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -62,7 +50,7 @@ export function CategoryFilters({
           Filters
           {hasActiveFilters && (
             <div className="bg-primary text-primary-foreground ml-2 rounded-full px-2 py-0.5 text-xs">
-              {Object.values(filters).filter(Boolean).length - 2}{" "}
+              {Object.values(filters).filter(Boolean).length - 2}
               {/* Exclude offset and limit */}
             </div>
           )}
@@ -87,7 +75,7 @@ export function CategoryFilters({
                 }
               >
                 <SelectTrigger id="type-filter">
-                  <SelectValue placeholder="Select type" />
+                  <SelectValue placeholder="Chọn loại" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All types</SelectItem>
@@ -101,10 +89,10 @@ export function CategoryFilters({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description-filter">Description</Label>
+              <Label htmlFor="description-filter">Mô tả</Label>
               <Input
                 id="description-filter"
-                placeholder="Filter by description..."
+                placeholder="Lọc theo mô tả..."
                 value={localFilters.description || ""}
                 onChange={(e) =>
                   setLocalFilters({
@@ -124,10 +112,10 @@ export function CategoryFilters({
               disabled={!hasActiveFilters}
             >
               <X className="mr-2 h-4 w-4" />
-              Clear
+              Xóa
             </Button>
             <Button size="sm" onClick={handleApplyFilters}>
-              Apply Filters
+              Áp dụng bộ lọc
             </Button>
           </div>
         </div>

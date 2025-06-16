@@ -13,7 +13,7 @@ interface HomeBlogProps {
 }
 
 const HomeBlog = ({
-  badge = "Latest Articles",
+  badge = "Bài viết mới nhất",
   heading = "From Our Blog",
   description = "Stay updated with the latest news and articles from our blog.",
   posts,

@@ -34,12 +34,12 @@ export function DeleteProductDialog({
   const handleDelete = async () => {
     try {
       await deleteProduct(product.id).unwrap();
-      toast.success("Product deleted successfully!");
+      toast.success("Sản phẩm đã được xóa thành công!");
       onSuccess();
       onOpenChange(false);
     } catch (error: unknown) {
       console.error("Failed to delete product:", error);
-      toast.error("Failed to delete product");
+      toast.error("Xóa sản phẩm thất bại");
     }
   };
 
@@ -47,22 +47,22 @@ export function DeleteProductDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            product <strong>&quot;{product.name}&quot;</strong> and remove all
-            associated data from our servers.
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn sản phẩm
+            <strong>&quot;{product.name}&quot;</strong> và xóa tất cả dữ liệu
+            liên quan khỏi máy chủ của chúng tôi.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isLoading}>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isLoading}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Delete Product
+            Xóa sản phẩm
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

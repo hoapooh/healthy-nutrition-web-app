@@ -86,7 +86,7 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Full Name
+            Họ và tên
             <ArrowUpDown />
           </Button>
         );
@@ -132,7 +132,7 @@ export function UsersDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Role
+            Vai trò
             <ArrowUpDown />
           </Button>
         );
@@ -152,7 +152,7 @@ export function UsersDataTable({
     {
       id: "phoneNumber",
       accessorKey: "phoneNumber",
-      header: "Phone Number",
+      header: "Số điện thoại",
       cell: ({ row }) => (
         <div className="text-muted-foreground">
           {row.getValue("phoneNumber") || "N/A"}
@@ -162,7 +162,7 @@ export function UsersDataTable({
     {
       id: "address",
       accessorKey: "address",
-      header: "Address",
+      header: "Địa chỉ",
       cell: ({ row }) => (
         <div className="text-muted-foreground max-w-[200px] truncate">
           {row.getValue("address") || "N/A"}
@@ -172,7 +172,7 @@ export function UsersDataTable({
     {
       id: "createdAt",
       accessorKey: "createdAt",
-      header: "Created At",
+      header: "Ngày tạo",
       cell: ({ row }) => {
         const date = row.getValue("createdAt") as string;
         return (
@@ -202,14 +202,14 @@ export function UsersDataTable({
                 className="cursor-pointer"
               >
                 <Edit className="mr-2 h-4 w-4" />
-                Edit
+                Chỉnh sửa
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
                 onClick={() => setDeletingUser(user)}
                 className="text-destructive focus:text-destructive cursor-pointer"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
-                Delete
+                Xóa
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -259,7 +259,7 @@ export function UsersDataTable({
           <div className="relative">
             <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
-              placeholder="Search users..."
+              placeholder="Tìm kiếm người dùng..."
               value={
                 (table.getColumn("fullName")?.getFilterValue() as string) ?? ""
               }
@@ -274,7 +274,7 @@ export function UsersDataTable({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -292,11 +292,11 @@ export function UsersDataTable({
                       }
                     >
                       {column.id === "fullName"
-                        ? "Full Name"
+                        ? "Họ và tên"
                         : column.id === "phoneNumber"
-                          ? "Phone Number"
+                          ? "Số điện thoại"
                           : column.id === "createdAt"
-                            ? "Created At"
+                            ? "Ngày tạo"
                             : column.id}
                     </DropdownMenuCheckboxItem>
                   );
@@ -305,7 +305,7 @@ export function UsersDataTable({
           </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Create User
+            Tạo người dùng
           </Button>
         </div>
       </div>
@@ -336,7 +336,7 @@ export function UsersDataTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Loading...
+                  Đang tải...
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
@@ -361,7 +361,7 @@ export function UsersDataTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Không có kết quả.
                 </TableCell>
               </TableRow>
             )}
@@ -374,7 +374,7 @@ export function UsersDataTable({
         currentPage={(filters.pageIndex || 1) - 1} // Convert 1-based pageIndex to 0-based for pagination component
         pageSize={filters.limit || 10}
         onPaginationChange={handlePaginationChange}
-      />{" "}
+      />
       <CreateUserModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}

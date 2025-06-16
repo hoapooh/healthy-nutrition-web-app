@@ -63,16 +63,16 @@ const defaultCompanies = [
 ];
 
 const defaultAchievements = [
-  { label: "Companies Supported", value: 300, type: "number" },
-  { label: "Projects Finalized", value: 800, type: "number" },
-  { label: "Happy Customers", value: 99, type: "percentage" },
-  { label: "Recognized Awards", value: 10, type: "number" },
+  { label: "Công ty được hỗ trợ", value: 300, type: "number" },
+  { label: "Dự án hoàn thành", value: 800, type: "number" },
+  { label: "Khách hàng hài lòng", value: 99, type: "percentage" },
+  { label: "Giải thưởng được công nhận", value: 10, type: "number" },
 ];
 
 const AboutContent = (
   {
-    title = "About Us",
-    description = "Healthy Nutrition is a passionate team dedicated to creating innovative solutions that empower businesses to thrive in the digital age.",
+    title = "Về chúng tôi",
+    description = "Healthy Nutrition là một đội ngũ đam mê cam kết tạo ra những giải pháp sáng tạo giúp doanh nghiệp phát triển mạnh mẽ trong thời đại số.",
     mainImage = {
       src: "https://shadcnblocks.com/images/block/placeholder-1.svg",
       alt: "placeholder",
@@ -84,19 +84,19 @@ const AboutContent = (
     breakout = {
       src: "https://shadcnblocks.com/images/block/block-1.svg",
       alt: "logo",
-      title: "Hundreds of blocks at Shadcnblocks.com",
+      title: "Hàng trăm khối tại Shadcnblocks.com",
       description:
-        "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-      buttonText: "Discover more",
+        "Cung cấp cho doanh nghiệp những công cụ hiệu quả để cải thiện quy trình làm việc, tăng hiệu suất và khuyến khích tăng trưởng.",
+      buttonText: "Khám phá thêm",
       buttonUrl: "https://shadcnblocks.com",
     },
-    companiesTitle = "Valued by clients worldwide",
+    companiesTitle = "Được khách hàng trên toàn thế giới tin tưởng",
     companies = defaultCompanies,
-    achievementsTitle = "Our Achievements in Numbers",
-    achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
+    achievementsTitle = "Thành tựu của chúng tôi bằng con số",
+    achievementsDescription = "Cung cấp cho doanh nghiệp những công cụ hiệu quả để cải thiện quy trình làm việc, tăng hiệu suất và khuyến khích tăng trưởng.",
     achievements = defaultAchievements,
   }: AboutPageProps = {
-    title: "About Us",
+    title: "Về chúng tôi",
   },
 ) => {
   return (

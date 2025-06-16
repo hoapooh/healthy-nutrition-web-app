@@ -45,6 +45,6 @@ export interface DeleteCategoryParams {
 }
 
 export const CATEGORY_TYPES = [
-  { label: "Product", value: "Product" },
-  { label: "Goal", value: "Goal" },
+  { label: "Sản phẩm", value: "Product" },
+  { label: "Mục tiêu", value: "Goal" },
 ];

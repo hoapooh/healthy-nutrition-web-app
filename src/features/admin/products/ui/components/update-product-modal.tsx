@@ -28,45 +28,32 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, Upload, X } from "lucide-react";
 import { useUpdateProductMutation } from "@/services/product-services";
 import { useGetAllCategoriesQuery } from "@/services/category-services";
-import { Product } from "@/types/product";
 import toast from "react-hot-toast";
 import Image from "next/image";
-
-// Extended Product interface to include all necessary fields for editing
-interface ProductForEdit extends Product {
-  brand?: string;
-  images?: string[];
-  nutritionFact?: {
-    calories: number;
-    protein: number;
-    cholesterol: number;
-    lipid: number;
-    sugar: number;
-    carbs: number;
-  };
-}
+import { Product } from "@/types/product";
 
 // Form validation schema
 const updateProductSchema = z.object({
-  name: z.string().min(1, "Product name is required"),
-  description: z.string().min(1, "Description is required"),
-  price: z.number().min(0.01, "Price must be greater than 0"),
-  brand: z.string().min(1, "Brand is required"),
-  stockQuantity: z.number().min(0, "Stock quantity must be 0 or greater"),
-  categoryIds: z.array(z.string()).min(1, "At least one category is required"),
-  tags: z.array(z.string()).min(1, "At least one tag is required"),
-  calories: z.number().min(0, "Calories must be 0 or greater"),
-  protein: z.number().min(0, "Protein must be 0 or greater"),
-  cholesterol: z.number().min(0, "Cholesterol must be 0 or greater"),
-  lipid: z.number().min(0, "Lipid must be 0 or greater"),
-  sugar: z.number().min(0, "Sugar must be 0 or greater"),
-  carbs: z.number().min(0, "Carbs must be 0 or greater"),
+  name: z.string().min(1, "Tên sản phẩm là bắt buộc"),
+  description: z.string().min(1, "Mô tả là bắt buộc"),
+  price: z.number().min(0.01, "Giá phải lớn hơn 0"),
+  brand: z.string().min(1, "Thương hiệu là bắt buộc"),
+  stockQuantity: z.number().min(0, "Số lượng tồn kho phải từ 0 trở lên"),
+  categoryIds: z.array(z.string()).min(1, "Cần ít nhất một danh mục"),
+  tags: z.array(z.string()).min(1, "Cần ít nhất một thẻ"),
+  weights: z.array(z.number()).min(1, "Cần ít nhất 1 giá trị trọng lượng"),
+  calories: z.number().min(0, "Calo phải từ 0 trở lên"),
+  protein: z.number().min(0, "Protein phải từ 0 trở lên"),
+  cholesterol: z.number().min(0, "Cholesterol phải từ 0 trở lên"),
+  lipid: z.number().min(0, "Lipid phải từ 0 trở lên"),
+  sugar: z.number().min(0, "Đường phải từ 0 trở lên"),
+  carbs: z.number().min(0, "Carbs phải từ 0 trở lên"),
 });
 
 type UpdateProductFormValues = z.infer<typeof updateProductSchema>;
 
 interface UpdateProductModalProps {
-  product: ProductForEdit | null;
+  product: Product | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
@@ -82,11 +69,11 @@ export function UpdateProductModal({
   const { data: categoriesResponse } = useGetAllCategoriesQuery({
     limit: 100,
   });
-
   const categories = categoriesResponse?.result?.items || [];
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+  const [newWeight, setNewWeight] = useState("");
 
   const form = useForm<UpdateProductFormValues>({
     resolver: zodResolver(updateProductSchema),
@@ -98,6 +85,7 @@ export function UpdateProductModal({
       stockQuantity: 0,
       categoryIds: [],
       tags: [],
+      weights: [],
       calories: 0,
       protein: 0,
       cholesterol: 0,
@@ -118,6 +106,7 @@ export function UpdateProductModal({
         stockQuantity: product.stockQuantity || 0,
         categoryIds: product.categoryIds || [],
         tags: product.tags || [],
+        weights: product.weights || [],
         calories: product.nutritionFact?.calories || 0,
         protein: product.nutritionFact?.protein || 0,
         cholesterol: product.nutritionFact?.cholesterol || 0,
@@ -127,11 +116,10 @@ export function UpdateProductModal({
       };
 
       form.reset(defaultValues);
-      setExistingImages(product.images || []);
+      setExistingImages(product.imageUrls || []);
       setSelectedFiles([]);
     }
   }, [product, form]);
-
   // Reset form when modal closes
   useEffect(() => {
     if (!open) {
@@ -139,6 +127,7 @@ export function UpdateProductModal({
       setSelectedFiles([]);
       setExistingImages([]);
       setNewTag("");
+      setNewWeight("");
     }
   }, [open, form]);
 
@@ -177,12 +166,32 @@ export function UpdateProductModal({
       setNewTag("");
     }
   };
-
   const removeTag = (tagToRemove: string) => {
     const currentTags = form.getValues("tags");
     form.setValue(
       "tags",
       currentTags.filter((tag) => tag !== tagToRemove),
+    );
+  };
+  const addWeight = () => {
+    const weightNumber = parseFloat(newWeight.trim());
+    if (
+      newWeight.trim() &&
+      !isNaN(weightNumber) &&
+      weightNumber > 0 &&
+      !form.getValues("weights").includes(weightNumber)
+    ) {
+      const currentWeights = form.getValues("weights");
+      form.setValue("weights", [...currentWeights, weightNumber]);
+      setNewWeight("");
+    }
+  };
+
+  const removeWeight = (weightToRemove: number) => {
+    const currentWeights = form.getValues("weights");
+    form.setValue(
+      "weights",
+      currentWeights.filter((weight) => weight !== weightToRemove),
     );
   };
 
@@ -198,6 +207,7 @@ export function UpdateProductModal({
         stockQuantity: values.stockQuantity,
         categoryIds: values.categoryIds,
         tags: values.tags,
+        weights: values.weights,
         "nutritionFact.calories": values.calories,
         "nutritionFact.protein": values.protein,
         "nutritionFact.cholesterol": values.cholesterol,
@@ -207,20 +217,19 @@ export function UpdateProductModal({
       };
 
       const body =
-        selectedFiles.length > 0 ? { imageProduct: selectedFiles } : undefined;
-
+        selectedFiles.length > 0 ? { imageProduct: selectedFiles } : {};
       await updateProduct({
         id: product.id,
         params,
         body,
       }).unwrap();
 
-      toast.success("Product updated successfully!");
+      toast.success("Cập nhật sản phẩm thành công!");
       onOpenChange(false);
       onSuccess();
     } catch (error: unknown) {
       console.error("Error updating product:", error);
-      toast.error("Failed to update product");
+      toast.error("Cập nhật sản phẩm thất bại");
     }
   };
 
@@ -230,56 +239,52 @@ export function UpdateProductModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-7xl min-w-5xl overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Update Product</DialogTitle>
+          <DialogTitle>Cập nhật sản phẩm</DialogTitle>
           <DialogDescription>
-            Update product information, images, and nutritional facts.
+            Cập nhật thông tin sản phẩm, hình ảnh và dữ liệu dinh dưỡng.
           </DialogDescription>
         </DialogHeader>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Basic Information</h3>
-
+                <h3 className="text-lg font-semibold">Thông tin cơ bản</h3>
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Product Name</FormLabel>
+                      <FormLabel>Tên sản phẩm</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter product name" {...field} />
+                        <Input placeholder="Nhập tên sản phẩm" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="brand"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Brand</FormLabel>
+                      <FormLabel>Thương hiệu</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter brand name" {...field} />
+                        <Input placeholder="Nhập tên thương hiệu" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel>Mô tả</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Enter product description"
+                          placeholder="Nhập mô tả sản phẩm"
                           className="resize-none"
                           rows={4}
                           {...field}
@@ -289,14 +294,13 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Price (VND)</FormLabel>
+                        <FormLabel>Giá (VND)</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -312,13 +316,12 @@ export function UpdateProductModal({
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form.control}
                     name="stockQuantity"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Stock Quantity</FormLabel>
+                        <FormLabel>Số lượng tồn kho</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -338,14 +341,15 @@ export function UpdateProductModal({
 
               {/* Categories and Tags */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Categories & Tags</h3>
-
+                <h3 className="text-lg font-semibold">
+                  Danh mục, Thẻ, Trọng lượng
+                </h3>
                 <FormField
                   control={form.control}
                   name="categoryIds"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Categories</FormLabel>
+                      <FormLabel>Danh mục</FormLabel>
                       <div className="space-y-2">
                         {categories.map((category) => (
                           <div
@@ -382,17 +386,16 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="tags"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tags</FormLabel>
+                      <FormLabel>Thẻ</FormLabel>
                       <div className="space-y-2">
                         <div className="flex gap-2">
                           <Input
-                            placeholder="Enter tag"
+                            placeholder="Nhập thẻ"
                             value={newTag}
                             onChange={(e) => setNewTag(e.target.value)}
                             onKeyPress={(e) => {
@@ -407,7 +410,7 @@ export function UpdateProductModal({
                             onClick={addTag}
                             variant="outline"
                           >
-                            Add
+                            Thêm
                           </Button>
                         </div>
                         <div className="flex flex-wrap gap-2">
@@ -430,13 +433,60 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="weights"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Weights (grams)</FormLabel>
+                      <div className="space-y-2">
+                        <div className="flex gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Enter weight (e.g. 250)"
+                            value={newWeight}
+                            onChange={(e) => setNewWeight(e.target.value)}
+                            onKeyPress={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                addWeight();
+                              }
+                            }}
+                          />
+                          <Button
+                            type="button"
+                            onClick={addWeight}
+                            variant="outline"
+                          >
+                            Add
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {field.value.map((weight) => (
+                            <Badge
+                              key={weight}
+                              variant="secondary"
+                              className="flex items-center gap-1"
+                            >
+                              {weight}g
+                              <X
+                                className="h-3 w-3 cursor-pointer"
+                                onClick={() => removeWeight(weight)}
+                              />
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
-
             {/* Nutrition Facts */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">
-                Nutrition Facts (per 100g)
+                Thông tin dinh dưỡng (trên 100g)
               </h3>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                 <FormField
@@ -444,7 +494,7 @@ export function UpdateProductModal({
                   name="calories"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Calories (kcal)</FormLabel>
+                      <FormLabel>Calo (kcal)</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -460,7 +510,6 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="protein"
@@ -482,13 +531,12 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="carbs"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Carbohydrates (g)</FormLabel>
+                      <FormLabel>Carbohydrate (g)</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -504,13 +552,12 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="lipid"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Fat/Lipid (g)</FormLabel>
+                      <FormLabel>Chất béo/Lipid (g)</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -526,13 +573,12 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="sugar"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Sugar (g)</FormLabel>
+                      <FormLabel>Đường (g)</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -548,7 +594,6 @@ export function UpdateProductModal({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="cholesterol"
@@ -572,23 +617,21 @@ export function UpdateProductModal({
                 />
               </div>
             </div>
-
             {/* Images */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Product Images</h3>
-
+              <h3 className="text-lg font-semibold">Hình ảnh sản phẩm</h3>
               {/* Existing Images */}
               {existingImages.length > 0 && (
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-sm">
-                    Current Images:
+                    Hình ảnh hiện tại:
                   </p>
                   <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
                     {existingImages.map((image, index) => (
                       <div key={index} className="group relative">
                         <Image
                           src={image}
-                          alt={`Product ${index + 1}`}
+                          alt={`Sản phẩm ${index + 1}`}
                           width={100}
                           height={100}
                           className="h-20 w-full rounded-md border object-cover"
@@ -605,13 +648,12 @@ export function UpdateProductModal({
                   </div>
                 </div>
               )}
-
               {/* New Images Upload */}
               <div className="space-y-2">
                 <p className="text-muted-foreground text-sm">
                   {selectedFiles.length > 0
-                    ? "New Images:"
-                    : "Upload New Images (Optional):"}
+                    ? "Hình ảnh mới:"
+                    : "Tải lên hình ảnh mới (Tùy chọn):"}
                 </p>
                 <div
                   {...getRootProps()}
@@ -625,15 +667,14 @@ export function UpdateProductModal({
                   <Upload className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
                   <p className="text-muted-foreground mb-2 text-sm">
                     {isDragActive
-                      ? "Drop the images here..."
-                      : "Drag & drop images here, or click to select"}
+                      ? "Thả hình ảnh vào đây..."
+                      : "Kéo & thả hình ảnh vào đây, hoặc nhấp để chọn"}
                   </p>
                   <p className="text-muted-foreground text-xs">
-                    Supports: JPG, PNG, GIF, WebP (max 5MB each)
+                    Hỗ trợ: JPG, PNG, GIF, WebP (tối đa 5MB mỗi file)
                   </p>
                 </div>
               </div>
-
               {/* New Selected Files Preview */}
               {selectedFiles.length > 0 && (
                 <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
@@ -661,7 +702,6 @@ export function UpdateProductModal({
                 </div>
               )}
             </div>
-
             <DialogFooter>
               <Button
                 type="button"
@@ -669,16 +709,16 @@ export function UpdateProductModal({
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Updating...
+                    Đang cập nhật...
                   </>
                 ) : (
-                  "Update Product"
+                  "Cập nhật sản phẩm"
                 )}
               </Button>
             </DialogFooter>

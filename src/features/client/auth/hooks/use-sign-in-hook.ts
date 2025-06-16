@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { toast } from "sonner";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -7,10 +6,11 @@ import { useAppDispatch } from "@/store/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { setCredentials } from "@/store/slices/auth-slice";
 import { useLoginMutation } from "@/services/auth-services";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(3, "Password must be at least 3 characters long"),
+  email: z.string().email("Địa chỉ email không hợp lệ"),
+  password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -46,12 +46,13 @@ const useSignInHook = () => {
             },
           }),
         );
-        toast.success(data.message || "Login successful!");
+        toast.success("Chào mừng 🍎🍏!");
         // Optionally redirect or perform other actions after successful login
         router.replace("/");
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        toast.error("Thông tin đăng nhập không hợp lệ. Vui lòng thử lại.");
+        console.log("Login failed:", error);
       });
   };
 

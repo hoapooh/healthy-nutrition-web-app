@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import {
   Dialog,
   DialogContent,
@@ -30,23 +27,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useCreateCategoryMutation } from "@/services/category-services";
-import { toast } from "react-hot-toast";
 import { CATEGORY_TYPES } from "@/types/category";
-
-const createCategorySchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters"),
-  type: z.string().min(1, "Type is required"),
-  description: z
-    .string()
-    .min(1, "Description is required")
-    .max(500, "Description must be less than 500 characters"),
-});
-
-type CreateCategoryFormValues = z.infer<typeof createCategorySchema>;
+import { useCreateCategory } from "../../hooks/use-create-category";
 
 interface CreateCategoryModalProps {
   open: boolean;
@@ -59,47 +41,20 @@ export function CreateCategoryModal({
   onOpenChange,
   onSuccess,
 }: CreateCategoryModalProps) {
-  const [createCategory, { isLoading }] = useCreateCategoryMutation();
-
-  const form = useForm<CreateCategoryFormValues>({
-    resolver: zodResolver(createCategorySchema),
-    defaultValues: {
-      name: "",
-      type: "",
-      description: "",
-    },
+  const { form, isLoading, onSubmit, handleOpenChange } = useCreateCategory({
+    onSuccess,
+    onOpenChange,
   });
-
-  const onSubmit = async (values: CreateCategoryFormValues) => {
-    try {
-      await createCategory(values).unwrap();
-      toast.success("Category created successfully!");
-      form.reset();
-      onOpenChange(false);
-      onSuccess();
-    } catch (error: unknown) {
-      console.error("Error creating category:", error);
-      toast.error("Failed to create category");
-    }
-  };
-
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen) {
-      form.reset();
-    }
-    onOpenChange(newOpen);
-  };
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create New Category</DialogTitle>
+          <DialogTitle>Tạo danh mục mới</DialogTitle>
           <DialogDescription>
-            Add a new category to organize your products.
+            Thêm danh mục mới để sắp xếp sản phẩm của bạn.
           </DialogDescription>
         </DialogHeader>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -107,28 +62,27 @@ export function CreateCategoryModal({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter category name" {...field} />
+                    <Input placeholder="Nhập tên danh mục" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>Loại</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select category type" />
+                        <SelectValue placeholder="Chọn loại danh mục" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -143,16 +97,15 @@ export function CreateCategoryModal({
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Mô tả</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Enter category description"
+                      placeholder="Nhập mô tả danh mục"
                       className="resize-none"
                       {...field}
                     />
@@ -161,7 +114,6 @@ export function CreateCategoryModal({
                 </FormItem>
               )}
             />
-
             <DialogFooter>
               <Button
                 type="button"
@@ -169,10 +121,10 @@ export function CreateCategoryModal({
                 onClick={() => handleOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create Category"}
+                {isLoading ? "Đang tạo..." : "Tạo danh mục"}
               </Button>
             </DialogFooter>
           </form>

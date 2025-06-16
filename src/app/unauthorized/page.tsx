@@ -14,11 +14,11 @@ const UnauthorizedPage = () => {
           <AlertTriangle className="mx-auto mb-4 h-24 w-24 text-red-500" />
           <h1 className="mb-2 text-4xl font-bold text-red-500">403</h1>
           <h2 className="mb-4 text-2xl font-semibold text-red-500">
-            Access Denied
+            Truy cập bị từ chối
           </h2>
           <p className="mb-8 text-gray-600 dark:text-gray-400">
-            Sorry, you don&apos;t have permission to access this page. Please
-            contact your administrator if you believe this is an error.
+            Xin lỗi, bạn không có quyền truy cập trang này. Vui lòng liên hệ với
+            quản trị viên nếu bạn cho rằng đây là lỗi.
           </p>
         </div>
 
@@ -29,7 +29,7 @@ const UnauthorizedPage = () => {
             variant={"healthy"}
           >
             <Home className="h-4 w-4" />
-            Go to Home
+            Về trang chủ
           </Button>
 
           <Button
@@ -38,12 +38,12 @@ const UnauthorizedPage = () => {
             className="flex w-full items-center justify-center gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Go Back
+            Quay lại
           </Button>
         </div>
 
         <div className="mt-8 text-sm text-gray-500 dark:text-gray-400">
-          <p>Need help? Contact support at support@healthynutrition.com</p>
+          <p>Cần trợ giúp? Liên hệ hỗ trợ tại support@healthynutrition.com</p>
         </div>
       </div>
     </div>

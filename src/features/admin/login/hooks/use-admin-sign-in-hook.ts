@@ -9,8 +9,8 @@ import { setCredentials } from "@/store/slices/auth-slice";
 import { useLoginMutation } from "@/services/auth-services";
 
 const formSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(3, "Password must be at least 3 characters long"),
+  email: z.string().email("Địa chỉ email không hợp lệ"),
+  password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -46,7 +46,7 @@ const useAdminSignInHook = () => {
             },
           }),
         );
-        toast.success(data.message || "Login successful!");
+        toast.success(data.message || "Đăng nhập thành công!");
         // Optionally redirect or perform other actions after successful login
         router.replace("/admin/dashboard");
       })

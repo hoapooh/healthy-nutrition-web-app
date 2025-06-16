@@ -40,18 +40,19 @@ export default function ProductsPageContent() {
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-primary text-3xl font-bold tracking-tight">
-            Products
+            Sản phẩm
           </h2>
-          <p className="text-muted-foreground">Manage your products here.</p>
+          <p className="text-muted-foreground">
+            Quản lý sản phẩm của bạn tại đây.
+          </p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Products Management</CardTitle>
+          <CardTitle>Quản lý sản phẩm</CardTitle>
           <CardDescription>
-            View, create, edit, and delete products. Total: {totalCount}{" "}
-            products
+            Xem, tạo, sửa và xóa sản phẩm. Tổng số: {totalCount} sản phẩm
           </CardDescription>
         </CardHeader>
         <CardContent>

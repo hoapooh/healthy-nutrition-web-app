@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  IconBrandBlogger,
   IconCamera,
   IconCategory2,
   IconChartBar,
@@ -39,80 +40,81 @@ import AppLoader from "@/features/shared/ui/components/app-loader";
 
 const data = {
   navMain: [
+    { title: "Bảng điều khiển", url: "/admin/dashboard", icon: IconDashboard },
     {
-      title: "Dashboard",
-      url: "/admin/dashboard",
-      icon: IconDashboard,
-    },
-    {
-      title: "Users",
+      title: "Người dùng",
       url: "/admin/manage-users",
       icon: IconUsers,
     },
     {
-      title: "Feedbacks",
+      title: "Phản hồi",
       url: "/admin/manage-feedbacks",
       icon: IconListDetails,
     },
     {
-      title: "Transactions",
+      title: "Giao dịch",
       url: "/admin/manage-transactions",
       icon: IconChartBar,
     },
     {
-      title: "Products",
+      title: "Sản phẩm",
       url: "/admin/manage-products",
       icon: IconPackages,
     },
     {
-      title: "Categories",
+      title: "Danh mục",
       url: "/admin/manage-categories",
       icon: IconCategory2,
+    },
+    {
+      title: "Bài viết",
+      url: "/admin/manage-blogs",
+      icon: IconBrandBlogger,
     },
   ],
   navClouds: [
     {
-      title: "Capture",
+      title: "Ghi nhận",
       icon: IconCamera,
       isActive: true,
       url: "#",
       items: [
         {
-          title: "Active Proposals",
+          title: "Đề xuất đang hoạt động",
           url: "#",
         },
         {
-          title: "Archived",
+          title: "Đã lưu trữ",
           url: "#",
         },
       ],
     },
     {
-      title: "Proposal",
+      title: "Đề xuất",
       icon: IconFileDescription,
       url: "#",
       items: [
         {
-          title: "Active Proposals",
+          title: "Đề xuất đang hoạt động",
           url: "#",
         },
         {
-          title: "Archived",
+          title: "Đã lưu trữ",
           url: "#",
         },
       ],
     },
     {
-      title: "Prompts",
+      title: "Gợi ý",
       icon: IconFileAi,
       url: "#",
       items: [
         {
-          title: "Active Proposals",
+          title: "Đề xuất đang hoạt động",
           url: "#",
         },
         {
-          title: "Archived",
+          title: "Đã lưu trữ",
           url: "#",
         },
       ],
@@ -120,34 +122,34 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Settings",
+      title: "Cài đặt",
       url: "#",
       icon: IconSettings,
     },
     {
-      title: "Get Help",
+      title: "Trợ giúp",
       url: "#",
       icon: IconHelp,
     },
     {
-      title: "Search",
+      title: "Tìm kiếm",
       url: "#",
       icon: IconSearch,
     },
   ],
   documents: [
     {
-      name: "Data Library",
+      name: "Thư viện dữ liệu",
       url: "#",
       icon: IconDatabase,
     },
     {
-      name: "Reports",
+      name: "Báo cáo",
       url: "#",
       icon: IconReport,
     },
     {
-      name: "Word Assistant",
+      name: "Trợ lý văn bản",
       url: "#",
       icon: IconFileWord,
     },
@@ -180,7 +182,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">
+                  Healthy Nutrition
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

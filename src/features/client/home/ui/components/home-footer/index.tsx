@@ -46,14 +46,14 @@ const HomeFooter = ({
     ),
   },
   sections = defaultSections,
-  description = "A small company selling healthy products. We are committed to providing the best quality products to our customers.",
+  description = "Chúng tôi cung cấp các sản phẩm dinh dưỡng chất lượng cao, giúp bạn duy trì sức khỏe và năng lượng trong cuộc sống hàng ngày.",
   socialLinks = defaultSocialLinks,
   copyright = `© ${new Date().getFullYear()} HealthyNutrition. All rights reserved.`,
   legalLinks = defaultLegalLinks,
 }: HomeFooterProps) => {
   return (
     <section className="pt-32">
-      <div className="container mx-auto px-2 lg:px-0">
+      <div className="container mx-auto px-2 lg:px-4">
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           {/* Left Section */}
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
@@ -72,7 +72,7 @@ const HomeFooter = ({
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
               {description}
-            </p>{" "}
+            </p>
             <ul className="text-muted-foreground flex items-center space-x-6">
               {socialLinks.map((social, idx) => (
                 <li

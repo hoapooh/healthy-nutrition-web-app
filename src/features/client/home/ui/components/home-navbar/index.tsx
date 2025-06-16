@@ -6,20 +6,22 @@ import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import NavAuthButton from "./nav-auth-button";
 import NavMenu from "./nav-menu";
+import MobileNav from "./mobile-nav";
 import { menuData } from "../../../data/nav-menu-data";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const HomeNavbar = () => {
   const { scrollY } = useScroll();
+  const isMobile = useIsMobile();
 
   // Transform scroll position to shadow opacity
   const shadowOpacity = useTransform(scrollY, [0, 100], [0, 1]);
 
   // Transform scroll position to padding block
   const paddingBlock = useTransform(scrollY, [0, 100], ["10px", "0px"]);
-
   return (
     <motion.nav
-      className="fixed inset-x-0 top-0 z-50 flex min-h-16 items-center justify-between bg-white px-2 pr-5 transition-transform duration-150"
+      className="fixed inset-x-0 top-0 z-50 flex min-h-16 items-center justify-between bg-white px-3 transition-transform duration-150 md:px-2 md:pr-5"
       style={{
         boxShadow: useTransform(
           shadowOpacity,
@@ -29,28 +31,38 @@ const HomeNavbar = () => {
         paddingBlock: paddingBlock,
       }}
     >
-      <div className="flex w-full items-center gap-4">
-        {/* Menu and logo */}
-        <div className="flex shrink-0 items-center">
-          <Link href={"/"}>
-            <Image
-              src={"/healthy-nutrition.png"}
-              width={200}
-              height={50}
-              alt="Healthy Nutrition Logo"
-            />
+      <div className="container mx-auto flex w-full items-center justify-between">
+        <div className="flex w-full items-center gap-2 md:gap-4">
+          {/* Mobile Menu Button */}
+          {isMobile && <MobileNav menu={menuData} />}
 
-            {/*  <p className="text-xl font-semibold tracking-wide text-green-600">
-                Healthy<span className="text-black">Nutrition</span>
-              </p> */}
-          </Link>
+          {/* Logo */}
+          {!isMobile && (
+            <div className="flex shrink-0 items-center">
+              <Link href={"/"}>
+                <Image
+                  src={"/healthy-nutrition.png"}
+                  width={isMobile ? 150 : 160}
+                  height={isMobile ? 37 : 50}
+                  alt="Healthy Nutrition Logo"
+                  className="h-auto w-auto"
+                  priority
+                />
+              </Link>
+            </div>
+          )}
+
+          {/* Desktop Navigation Menu */}
+          <div className="hidden flex-1 md:flex">
+            <NavMenu menu={menuData} />
+          </div>
         </div>
 
-        {/* Navigation Menu */}
-        <NavMenu menu={menuData} />
-      </div>{" "}
-      {/* Authentication Button */}
-      <NavAuthButton />
+        {/* Authentication Button - Always visible */}
+        <div className="flex shrink-0">
+          <NavAuthButton />
+        </div>
+      </div>
     </motion.nav>
   );
 };

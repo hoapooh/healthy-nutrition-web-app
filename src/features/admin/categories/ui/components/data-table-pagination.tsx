@@ -49,14 +49,14 @@ export function DataTablePagination<TData>({
       <div className="text-muted-foreground flex-1 text-sm">
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} của
+            {table.getFilteredRowModel().rows.length} hàng được chọn.
           </>
         )}
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">Số hàng mỗi trang</p>
           <Select value={`${pageSize}`} onValueChange={handlePageSizeChange}>
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={pageSize} />
@@ -73,10 +73,10 @@ export function DataTablePagination<TData>({
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           {totalCount > 0 ? (
             <>
-              {startItem}-{endItem} of {totalCount}
+              {startItem}-{endItem} của {totalCount}
             </>
           ) : (
-            "0 of 0"
+            "0 của 0"
           )}
         </div>
         <div className="flex items-center space-x-2">
@@ -95,11 +95,11 @@ export function DataTablePagination<TData>({
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 0}
           >
-            <span className="sr-only">Go to previous page</span>
+            <span className="sr-only">Đi đến trang trước</span>
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="flex shrink-0 items-center justify-center text-sm font-medium">
-            Page {currentPage + 1} of {totalPages || 1}
+            Trang {currentPage + 1} của {totalPages || 1}
           </div>
           <Button
             variant="outline"
@@ -107,7 +107,7 @@ export function DataTablePagination<TData>({
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= totalPages - 1}
           >
-            <span className="sr-only">Go to next page</span>
+            <span className="sr-only">Đi đến trang tiếp theo</span>
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button

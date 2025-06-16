@@ -34,7 +34,7 @@ export default function SignInForm({
           {/* Header */}
           <div className="flex flex-col items-center gap-2">
             <Link
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md">
@@ -43,22 +43,20 @@ export default function SignInForm({
 
               <span className="sr-only">HealthyNutrition.</span>
             </Link>
-
             <h1 className="text-xl font-bold">
-              Welcome to{" "}
+              Chào mừng đến với{" "}
               <span className="text-green-600">
                 Healthy<span className="text-black">Nutrition</span>
               </span>
               .
             </h1>
-
             <div className="text-center text-sm">
-              Don&apos;t have an account?{" "}
+              Bạn chưa có tài khoản?{" "}
               <Link
                 href="/sign-up"
                 className="underline underline-offset-4 hover:text-green-600"
               >
-                Sign up
+                Đăng ký
               </Link>
             </div>
           </div>
@@ -86,7 +84,6 @@ export default function SignInForm({
                 )}
               />
             </div>
-
             {/* Password Field */}
             <div className="grid gap-2">
               <FormField
@@ -95,12 +92,12 @@ export default function SignInForm({
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex justify-between">
-                      <FormLabel htmlFor="password">Password</FormLabel>
+                      <FormLabel htmlFor="password">Mật khẩu</FormLabel>
                       <Link
                         href="/forgot-password"
                         className="inline-block text-xs underline-offset-4 hover:text-green-600 hover:underline"
                       >
-                        Forgot your password?
+                        Quên mật khẩu?
                       </Link>
                     </div>
                     <FormControl>
@@ -131,7 +128,6 @@ export default function SignInForm({
                 )}
               />
             </div>
-
             <Button
               type="submit"
               className="w-full bg-green-600 hover:cursor-pointer hover:bg-green-600/80"
@@ -140,7 +136,7 @@ export default function SignInForm({
               {isLoading ? (
                 <LoaderCircle className="size-5 animate-spin" />
               ) : (
-                "Continue"
+                "Tiếp tục"
               )}
             </Button>
           </div>
@@ -176,12 +172,11 @@ export default function SignInForm({
           </div> */}
         </form>
       </Form>
-
       {/* Term and Service */}
-      <div className="text-muted-foreground hover:[&_a]:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4">
-        By clicking continue, you agree to our{" "}
-        <Link href="/">Terms of Service</Link> and{" "}
-        <Link href="/">Privacy Policy</Link>.
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+        Bằng việc nhấp tiếp tục, bạn đồng ý với{" "}
+        <Link href="#">Điều khoản dịch vụ</Link> và{" "}
+        <Link href="#">Chính sách quyền riêng tư</Link>.
       </div>
     </div>
   );

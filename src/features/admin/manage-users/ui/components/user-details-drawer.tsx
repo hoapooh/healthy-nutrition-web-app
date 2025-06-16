@@ -94,9 +94,8 @@ export function UserDetailsDrawer({
           {/* Contact Information */}
           <div className="space-y-4">
             <h4 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
-              Contact Information
+              Thông tin liên hệ
             </h4>
-
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="text-muted-foreground h-4 w-4" />
@@ -111,7 +110,7 @@ export function UserDetailsDrawer({
               <div className="flex items-center space-x-3">
                 <Phone className="text-muted-foreground h-4 w-4" />
                 <div>
-                  <p className="text-sm font-medium">Phone Number</p>
+                  <p className="text-sm font-medium">Số điện thoại</p>
                   <p className="text-muted-foreground text-sm">
                     {user.phoneNumber || "N/A"}
                   </p>
@@ -121,7 +120,7 @@ export function UserDetailsDrawer({
               <div className="flex items-center space-x-3">
                 <MapPin className="text-muted-foreground h-4 w-4" />
                 <div>
-                  <p className="text-sm font-medium">Address</p>
+                  <p className="text-sm font-medium">Địa chỉ</p>
                   <p className="text-muted-foreground text-sm">
                     {user.address || "N/A"}
                   </p>
@@ -135,14 +134,13 @@ export function UserDetailsDrawer({
           {/* Account Information */}
           <div className="space-y-4">
             <h4 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
-              Account Information
+              Thông tin tài khoản
             </h4>
-
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <UserIcon className="text-muted-foreground h-4 w-4" />
                 <div>
-                  <p className="text-sm font-medium">User ID</p>
+                  <p className="text-sm font-medium">ID Người dùng</p>
                   <p className="text-muted-foreground font-mono text-sm">
                     {user.id || "N/A"}
                   </p>
@@ -152,7 +150,7 @@ export function UserDetailsDrawer({
               <div className="flex items-center space-x-3">
                 <Calendar className="text-muted-foreground h-4 w-4" />
                 <div>
-                  <p className="text-sm font-medium">Created At</p>
+                  <p className="text-sm font-medium">Ngày tạo</p>
                   <p className="text-muted-foreground text-sm">
                     {formatDate(user.createdAt)}
                   </p>
@@ -162,7 +160,7 @@ export function UserDetailsDrawer({
               <div className="flex items-center space-x-3">
                 <Calendar className="text-muted-foreground h-4 w-4" />
                 <div>
-                  <p className="text-sm font-medium">Last Updated</p>
+                  <p className="text-sm font-medium">Cập nhật lần cuối</p>
                   <p className="text-muted-foreground text-sm">
                     {formatDate(user.updatedAt)}
                   </p>

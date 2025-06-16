@@ -93,7 +93,7 @@ export function ProductsDataTable({
             className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Name
+            Tên
             <ArrowUpDown />
           </Button>
         );
@@ -113,7 +113,7 @@ export function ProductsDataTable({
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             <DollarSign className="mr-1 h-4 w-4" />
-            Price
+            Giá
             <ArrowUpDown />
           </Button>
         );
@@ -138,7 +138,7 @@ export function ProductsDataTable({
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             <Package className="mr-1 h-4 w-4" />
-            Stock
+            Tồn kho
             <ArrowUpDown />
           </Button>
         );
@@ -151,7 +151,7 @@ export function ProductsDataTable({
               stock > 50 ? "default" : stock > 10 ? "secondary" : "destructive"
             }
           >
-            {stock} units
+            {stock} sản phẩm
           </Badge>
         );
       },
@@ -159,7 +159,7 @@ export function ProductsDataTable({
     {
       id: "description",
       accessorKey: "description",
-      header: "Description",
+      header: "Mô tả",
       cell: ({ row }) => (
         <div className="text-muted-foreground max-w-[200px] truncate">
           {row.getValue("description")}
@@ -169,7 +169,7 @@ export function ProductsDataTable({
     {
       id: "tags",
       accessorKey: "tags",
-      header: "Tags",
+      header: "Thẻ",
       cell: ({ row }) => {
         const tags = row.getValue("tags") as string[];
         return (
@@ -203,7 +203,6 @@ export function ProductsDataTable({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {" "}
               <DropdownMenuCheckboxItem
                 onClick={() => {
                   setEditingProduct(product);
@@ -211,14 +210,14 @@ export function ProductsDataTable({
                 className="cursor-pointer"
               >
                 <Edit className="mr-2 h-4 w-4" />
-                Edit
+                Chỉnh sửa
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
                 onClick={() => setDeletingProduct(product)}
                 className="text-destructive focus:text-destructive cursor-pointer"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
-                Delete
+                Xóa
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -268,7 +267,7 @@ export function ProductsDataTable({
           <div className="relative">
             <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
             <Input
-              placeholder="Search products..."
+              placeholder="Tìm kiếm sản phẩm..."
               value={filters.searchTerm || ""}
               onChange={(event) =>
                 onFiltersChange({
@@ -286,7 +285,7 @@ export function ProductsDataTable({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                Cột <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -311,7 +310,7 @@ export function ProductsDataTable({
           </DropdownMenu>
           <Button onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Create Product
+            Tạo sản phẩm
           </Button>
         </div>
       </div>
@@ -342,7 +341,7 @@ export function ProductsDataTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Loading...
+                  Đang tải...
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
@@ -367,7 +366,7 @@ export function ProductsDataTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Không có kết quả.
                 </TableCell>
               </TableRow>
             )}
@@ -380,7 +379,7 @@ export function ProductsDataTable({
         currentPage={(filters.pageIndex || 1) - 1} // Convert 1-based pageIndex to 0-based for pagination component
         pageSize={filters.limit || 10}
         onPaginationChange={handlePaginationChange}
-      />{" "}
+      />
       <CreateProductModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}
