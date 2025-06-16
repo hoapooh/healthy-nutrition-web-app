@@ -73,7 +73,8 @@ const BlogSearchForm = () => {
       {searchParams.get("q") && (
         <div className="mt-3 rounded-lg bg-blue-50 p-3">
           <p className="text-sm text-blue-800">
-            <strong>Search results for:</strong> "{searchParams.get("q")}"
+            <strong>Search results for:</strong> &quot;{searchParams.get("q")}
+            &quot;
           </p>
         </div>
       )}

@@ -5,9 +5,7 @@ import BlogPagination from "@/features/client/home/ui/components/blog/blog-pagin
 import BlogSidebar from "@/features/client/home/ui/components/blog/blog-sidebar";
 
 interface BlogPageProps {
-  searchParams: {
-    page?: string;
-  };
+  searchParams: Promise<{ page?: string }>;
 }
 
 export const metadata: Metadata = {
@@ -19,7 +17,9 @@ export const metadata: Metadata = {
 const POSTS_PER_PAGE = 3;
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = Number(searchParams.page) || 1;
+  const [searchParamsResolved] = await Promise.all([searchParams]);
+
+  const currentPage = Number(searchParamsResolved.page) || 1;
   const allPosts = await getBlogPosts();
 
   // Tính toán pagination

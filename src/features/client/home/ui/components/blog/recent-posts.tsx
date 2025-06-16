@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BlogPost } from "@/features/client/home/data/types";
+import Image from "next/image";
 
 interface RecentPostsProps {
   posts: BlogPost[];
@@ -14,10 +15,12 @@ const RecentPosts = ({ posts }: RecentPostsProps) => {
           <div key={post.id} className="flex gap-3">
             <Link href={`/blog/${post.slug}`} className="shrink-0">
               <div className="relative h-20 w-20 overflow-hidden rounded">
-                <img
+                <Image
                   src={post.image.src || "/placeholder.svg"}
                   alt={post.image.alt}
                   className="h-full w-full object-cover"
+                  width={80}
+                  height={80}
                 />
               </div>
             </Link>

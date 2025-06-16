@@ -13,19 +13,15 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface TagPageProps {
-  params: {
-    slug: string;
-  };
-  searchParams: {
-    page?: string;
-  };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
   const allTags = await getPopularTags();
-  const tag = allTags.find((t) => t.slug === params.slug);
+  const tag = allTags.find(async (t) => t.slug === (await params).slug);
 
   if (!tag) {
     return {
@@ -43,15 +39,20 @@ export async function generateMetadata({
 const POSTS_PER_PAGE = 3;
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
-  const currentPage = Number(searchParams.page) || 1;
+  const [paramsResolved, searchParamsResolved] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+
+  const currentPage = Number(searchParamsResolved.page) || 1;
   const allTags = await getPopularTags();
-  const tag = allTags.find((t) => t.slug === params.slug);
+  const tag = allTags.find(async (t) => t.slug === (await paramsResolved).slug);
 
   if (!tag) {
     notFound();
   }
 
-  const allPosts = await getBlogPostsByTag(params.slug);
+  const allPosts = await getBlogPostsByTag(paramsResolved.slug);
 
   // Calculate pagination
   const totalPosts = allPosts.length;
@@ -84,7 +85,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
             </Badge>
           </div>
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
-            Articles tagged with "{tag.name}"
+            Articles tagged with &quot;{tag.name}&quot;
           </h1>
           <p className="text-lg text-gray-600">
             {totalPosts} article{totalPosts !== 1 ? "s" : ""} found
@@ -108,7 +109,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                   <BlogPagination
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    baseUrl={`/blog/tag/${params.slug}`}
+                    baseUrl={`/blog/tag/${paramsResolved.slug}`}
                   />
                 )}
 
@@ -125,7 +126,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                   No articles found
                 </h3>
                 <p className="mb-4 text-gray-600">
-                  There are no articles tagged with "{tag.name}" yet.
+                  There are no articles tagged with &quot;{tag.name}&quot; yet.
                 </p>
                 <Button
                   asChild

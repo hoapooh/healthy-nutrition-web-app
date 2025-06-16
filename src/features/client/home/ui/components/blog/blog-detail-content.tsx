@@ -11,13 +11,13 @@ const getDetailedContent = (slug: string) => {
   const contentMap: Record<string, JSX.Element> = {
     "delicious-vegan-recipes": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
           Vegan cooking has evolved tremendously over the past decade. Gone are
           the days when plant-based meals were considered bland or boring.
-          Today's vegan cuisine is vibrant, flavorful, and satisfying even for
-          the most dedicated meat-eaters.
+          Today&apos;s vegan cuisine is vibrant, flavorful, and satisfying even
+          for the most dedicated meat-eaters.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Essential Vegan Ingredients
@@ -72,7 +72,6 @@ const getDetailedContent = (slug: string) => {
           creates precious family memories. The kitchen becomes a classroom
           where math, science, and creativity come together.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Age-Appropriate Kitchen Tasks
@@ -105,11 +104,10 @@ const getDetailedContent = (slug: string) => {
               </ul>
             </div>
           </div>
-        </div>
-
+        </div>{" "}
         <blockquote className="border-l-4 border-orange-500 bg-orange-50 py-4 pl-6 text-lg text-gray-800 italic">
-          "The kitchen is the heart of the home, and cooking together creates
-          bonds that last a lifetime."
+          &quot;The kitchen is the heart of the home, and cooking together
+          creates bonds that last a lifetime.&quot;
         </blockquote>
       </div>
     ),
@@ -170,16 +168,16 @@ const getDetailedContent = (slug: string) => {
 
     "seasonal-cooking-autumn-harvest": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
           Autumn brings a rich harvest of root vegetables, squashes, apples, and
           hearty greens that form the foundation of comforting meals as
-          temperatures drop. Seasonal cooking connects us to nature's rhythms
-          while providing peak nutrition and flavor.
+          temperatures drop. Seasonal cooking connects us to nature&apos;s
+          rhythms while providing peak nutrition and flavor.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
-            Autumn's Bounty
+            Autumn&apos;s Bounty
           </h2>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -220,7 +218,6 @@ const getDetailedContent = (slug: string) => {
             </div>
           </div>
         </div>
-
         <div className="border-l-4 border-amber-500 bg-amber-50 p-6">
           <h3 className="mb-2 text-lg font-semibold text-amber-800">
             Seasonal Cooking Tip
@@ -236,14 +233,14 @@ const getDetailedContent = (slug: string) => {
 
     "homemade-bread-beginners": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
-          There's something deeply satisfying about creating bread from
+          There&apos;s something deeply satisfying about creating bread from
           scratch—watching simple ingredients transform into a fragrant, crusty
           loaf through the alchemy of fermentation and heat. This ancient
           practice connects us to culinary traditions spanning thousands of
           years.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Essential Bread-Making Equipment
@@ -323,13 +320,14 @@ const getDetailedContent = (slug: string) => {
 
     "superfoods-facts-marketing": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
-          The term "superfood" has become ubiquitous in health media, promising
-          extraordinary benefits from specific foods. While many of these foods
-          are indeed nutritious, the marketing often outpaces the science. Let's
-          examine the evidence behind popular superfood claims.
+          The term &quot;superfood&quot; has become ubiquitous in health media,
+          promising extraordinary benefits from specific foods. While many of
+          these foods are indeed nutritious, the marketing often outpaces the
+          science. Let&apos;s examine the evidence behind popular superfood
+          claims.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Superfood Reality Check
@@ -390,11 +388,10 @@ const getDetailedContent = (slug: string) => {
               </div>
             </div>
           </div>
-        </div>
-
+        </div>{" "}
         <blockquote className="border-l-4 border-blue-500 bg-blue-50 py-4 pl-6 text-lg text-gray-800 italic">
-          "The best 'superfood' is a varied, balanced diet rich in whole foods
-          from all food groups."
+          &quot;The best &apos;superfood&apos; is a varied, balanced diet rich
+          in whole foods from all food groups.&quot;
         </blockquote>
       </div>
     ),
@@ -535,13 +532,14 @@ const getDetailedContent = (slug: string) => {
 
     "fermentation-basics-preserving": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
-          Fermentation represents one of humanity's oldest food preservation
-          techniques, dating back thousands of years across virtually all
-          cultures. This microbial transformation not only prevents spoilage but
-          also creates complex flavors and increases nutritional value.
+          Fermentation represents one of humanity&apos;s oldest food
+          preservation techniques, dating back thousands of years across
+          virtually all cultures. This microbial transformation not only
+          prevents spoilage but also creates complex flavors and increases
+          nutritional value.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Fermentation Fundamentals
@@ -592,7 +590,6 @@ const getDetailedContent = (slug: string) => {
             </div>
           </div>
         </div>
-
         <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-6">
           <h3 className="mb-3 text-lg font-semibold text-yellow-800">
             ⚠️ Safety First
@@ -662,11 +659,11 @@ const getDetailedContent = (slug: string) => {
         <div className="border-l-4 border-green-500 bg-green-50 p-6">
           <h3 className="mb-2 text-lg font-semibold text-green-800">
             Complete Protein Myth
-          </h3>
+          </h3>{" "}
           <p className="text-green-700">
-            You don't need to combine proteins at every meal. Eating a variety
-            of plant foods throughout the day provides all essential amino acids
-            your body needs.
+            You don&apos;t need to combine proteins at every meal. Eating a
+            variety of plant foods throughout the day provides all essential
+            amino acids your body needs.
           </p>
         </div>
       </div>
@@ -739,30 +736,30 @@ const getDetailedContent = (slug: string) => {
               <div className="mb-3 text-3xl">🧠</div>
               <h3 className="mb-2 text-lg font-semibold text-purple-800">
                 Intuition
-              </h3>
+              </h3>{" "}
               <p className="text-sm text-purple-700">
-                Trust your body's hunger and fullness signals
+                Trust your body&apos;s hunger and fullness signals
               </p>
             </div>
           </div>
         </div>
 
         <blockquote className="border-l-4 border-indigo-500 bg-indigo-50 py-4 pl-6 text-lg text-gray-800 italic">
-          "When we eat mindfully, we transform a basic necessity into a moment
-          of meditation and gratitude."
+          &quot;When we eat mindfully, we transform a basic necessity into a
+          moment of meditation and gratitude.&quot;
         </blockquote>
       </div>
     ),
 
     "spice-cabinet-essentials": (
       <div className="space-y-8">
+        {" "}
         <p className="mb-6 text-lg leading-relaxed text-gray-700">
-          Spices represent one of the most powerful tools in a cook's arsenal,
-          capable of transforming simple ingredients into complex, satisfying
-          meals. A thoughtfully stocked spice cabinet opens doors to global
-          cuisines without requiring extensive specialty shopping.
+          Spices represent one of the most powerful tools in a cook&apos;s
+          arsenal, capable of transforming simple ingredients into complex,
+          satisfying meals. A thoughtfully stocked spice cabinet opens doors to
+          global cuisines without requiring extensive specialty shopping.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Essential Spice Collection
@@ -1095,9 +1092,9 @@ const getDetailedContent = (slug: string) => {
               </h3>
               <p className="mb-2 text-sm text-yellow-700">
                 <strong>Flavor:</strong> Mild, slightly bitter
-              </p>
+              </p>{" "}
               <p className="text-sm text-yellow-600">
-                Known as "poor man's saffron" for golden color
+                Known as &quot;poor man&apos;s saffron&quot; for golden color
               </p>
             </div>
 
@@ -1180,9 +1177,9 @@ const getDetailedContent = (slug: string) => {
                 <div className="flex items-start space-x-3">
                   <span className="text-2xl">🔪</span>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Julienne</h4>
+                    <h4 className="font-semibold text-gray-800">Julienne</h4>{" "}
                     <p className="text-sm text-gray-600">
-                      Thin matchstick cuts, 1/8" × 1/8" × 2"
+                      Thin matchstick cuts, 1/8&quot; × 1/8&quot; × 2&quot;
                     </p>
                   </div>
                 </div>
@@ -1191,7 +1188,7 @@ const getDetailedContent = (slug: string) => {
                   <div>
                     <h4 className="font-semibold text-gray-800">Brunoise</h4>
                     <p className="text-sm text-gray-600">
-                      Fine dice, 1/8" × 1/8" × 1/8"
+                      Fine dice, 1/8&quot; × 1/8&quot; × 1/8&quot;
                     </p>
                   </div>
                 </div>
@@ -1200,7 +1197,7 @@ const getDetailedContent = (slug: string) => {
                   <div>
                     <h4 className="font-semibold text-gray-800">Medium Dice</h4>
                     <p className="text-sm text-gray-600">
-                      Standard dice, 1/2" × 1/2" × 1/2"
+                      Standard dice, 1/2&quot; × 1/2&quot; × 1/2&quot;
                     </p>
                   </div>
                 </div>
@@ -1229,9 +1226,9 @@ const getDetailedContent = (slug: string) => {
                     <li>• Curl fingertips under when holding food</li>
                     <li>• Cut away from your body</li>
                   </ul>
-                </div>
+                </div>{" "}
                 <div className="rounded-lg bg-red-50 p-4">
-                  <h4 className="font-semibold text-red-800">❌ Don't</h4>
+                  <h4 className="font-semibold text-red-800">❌ Don&apos;t</h4>
                   <ul className="space-y-1 text-sm text-red-700">
                     <li>• Leave knives in sinks or drawers</li>
                     <li>• Try to catch a falling knife</li>
@@ -1571,7 +1568,6 @@ const getDetailedContent = (slug: string) => {
           morning meals offer fascinating insights into different approaches to
           starting the day.
         </p>
-
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
             Breakfast Around the World
@@ -1656,11 +1652,10 @@ const getDetailedContent = (slug: string) => {
               </ul>
             </div>
           </div>
-        </div>
-
+        </div>{" "}
         <blockquote className="border-l-4 border-teal-500 bg-teal-50 py-4 pl-6 text-lg text-gray-800 italic">
-          "Breakfast traditions reflect not just what we eat, but how we value
-          time, family, and the start of each new day."
+          &quot;Breakfast traditions reflect not just what we eat, but how we
+          value time, family, and the start of each new day.&quot;
         </blockquote>
       </div>
     ),

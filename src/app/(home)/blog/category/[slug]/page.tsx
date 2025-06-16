@@ -13,12 +13,8 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CategoryPageProps {
-  params: {
-    slug: string;
-  };
-  searchParams: {
-    page?: string;
-  };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateMetadata({
@@ -26,7 +22,7 @@ export async function generateMetadata({
 }: CategoryPageProps): Promise<Metadata> {
   const allPosts = await getBlogPosts();
   const category = allPosts.find(
-    (post) => post.category.slug === params.slug,
+    async (post) => post.category.slug === (await params).slug,
   )?.category;
 
   if (!category) {
@@ -48,8 +44,14 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const currentPage = Number(searchParams.page) || 1;
-  const allPosts = await getBlogPostsByCategory(params.slug);
+  const paramsResolved = await params;
+  if (!paramsResolved || !paramsResolved.slug) {
+    notFound();
+  }
+  const [searchParamsResolved] = await Promise.all([searchParams]);
+
+  const currentPage = Number(searchParamsResolved.page) || 1;
+  const allPosts = await getBlogPostsByCategory(paramsResolved.slug);
 
   if (allPosts.length === 0) {
     notFound();
@@ -110,7 +112,7 @@ export default async function CategoryPage({
               <BlogPagination
                 currentPage={currentPage}
                 totalPages={totalPages}
-                baseUrl={`/blog/category/${params.slug}`}
+                baseUrl={`/blog/category/${paramsResolved.slug}`}
               />
             )}
 
