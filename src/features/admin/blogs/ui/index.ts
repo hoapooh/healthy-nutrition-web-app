@@ -10,6 +10,7 @@ export { BlogPreviewDialog } from "./components/blog-preview-dialog";
 export { DeleteBlogDialog } from "./components/delete-blog-dialog";
 export { RichTextEditor } from "./components/rich-text-editor";
 export { DataTablePagination } from "./components/data-table-pagination";
+export { default as BlogImageUploader } from "./components/blog-image-uploader";
 
 // Blog hooks
 export { useBlogsPageContent } from "../hooks/use-blogs-page-content";

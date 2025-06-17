@@ -38,11 +38,11 @@ export function DataTablePagination({
       <div className="text-muted-foreground flex-1 text-sm">
         {/* {table.getFilteredSelectedRowModel().rows.length} of
         {table.getFilteredRowModel().rows.length} row(s) selected.  */}
-        Total: {totalCount} blogs.
+        Tổng: {totalCount} bài viết.
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">Số hàng trên trang</p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
@@ -62,7 +62,7 @@ export function DataTablePagination({
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {pageIndex + 1} of {pageCount}
+          Trang {pageIndex + 1} của {pageCount}
         </div>
         <div className="flex items-center space-x-2">
           <Button

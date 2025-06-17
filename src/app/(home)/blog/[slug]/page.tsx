@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import BlogDetailLayout from "@/features/client/home/ui/components/blog/blog-detail-layout";
+import BlogDetailLayout from "@/features/client/blog/ui/components/blog-detail-layout";
 import { getBlogPostBySlug } from "@/features/client/home/data/blog-data";
 
 interface BlogDetailPageProps {
