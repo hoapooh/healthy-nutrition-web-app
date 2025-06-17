@@ -1,13 +1,16 @@
+"use client";
+
 import type { BlogPost } from "@/features/client/home/data/types";
-import type { JSX } from "react";
-import Image from "next/image";
+import styles from "./blog-detail-content.module.css";
+import { ArrowLeft, Instagram } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface BlogDetailContentProps {
   post: BlogPost;
 }
 
 // Tạo nội dung chi tiết khác nhau cho tất cả 20 bài blog
-const getDetailedContent = (slug: string) => {
+/* const getDetailedContent = (slug: string) => {
   const contentMap: Record<string, JSX.Element> = {
     "delicious-vegan-recipes": (
       <div className="space-y-8">
@@ -1662,13 +1665,131 @@ const getDetailedContent = (slug: string) => {
   };
 
   return contentMap[slug] || contentMap["default"];
-};
+}; */
 
 const BlogDetailContent = ({ post }: BlogDetailContentProps) => {
+  const handleNavigateToFacebook = () => {
+    window.open(
+      "https://www.facebook.com/profile.php?id=100086812806936",
+      "_blank",
+    );
+  };
+
   return (
-    <div className="prose prose-lg max-w-none">
-      {getDetailedContent(post.slug)}
-    </div>
+    <article className="mx-auto max-w-4xl px-6 py-8">
+      {/* Header Section */}
+      <header className="mb-12 text-center">
+        <h1 className="mb-6 text-4xl leading-tight font-bold text-gray-900 md:text-5xl lg:text-6xl">
+          {post.title}
+        </h1>
+
+        {/* Meta Information */}
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
+          <time className="flex items-center gap-2">
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            {post.date}
+          </time>
+
+          {post.minutesToRead && (
+            <span className="flex items-center gap-2">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              {post.minutesToRead} phút đọc
+            </span>
+          )}
+        </div>
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mb-8 flex flex-wrap justify-center gap-2">
+            {post.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 transition-colors hover:bg-green-200"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Excerpt */}
+        <div className="mx-auto max-w-3xl">
+          <p className="text-xl leading-relaxed text-gray-600 md:text-2xl">
+            {post.excerpt}
+          </p>
+        </div>
+      </header>
+
+      {/* Divider */}
+      <div className="mb-12 flex justify-center">
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-green-400 to-blue-500"></div>
+      </div>
+
+      {/* Main Content */}
+      <div className="prose prose-lg max-w-none">
+        <div
+          className={styles.blogContent}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </div>
+
+      {/* Footer Actions */}
+      <footer className="mt-16 border-t border-gray-200 pt-8">
+        <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm text-gray-500">Chia sẻ bài viết:</span>
+            <div className="flex gap-2">
+              <Button
+                className="size-9 rounded-full bg-blue-600 !p-2 text-white transition-colors hover:bg-blue-700"
+                onClick={handleNavigateToFacebook}
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </Button>
+              <Button className="size-9 rounded-full bg-pink-500 !p-2 text-white transition-colors hover:bg-pink-600">
+                <Instagram className="size-5" />
+              </Button>
+            </div>
+          </div>
+
+          <Button
+            variant={"healthy"}
+            className="flex items-center gap-x-2 rounded-lg font-medium"
+          >
+            <ArrowLeft className="size-4" /> Quay lại danh sách bài viết
+          </Button>
+        </div>
+      </footer>
+    </article>
   );
 };
 

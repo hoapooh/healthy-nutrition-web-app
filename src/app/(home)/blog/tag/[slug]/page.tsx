@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import {
   getBlogPostsByTag,
   getPopularTags,
-} from "@/features/client/home/data/blog-data";
+} from "@/features/client/blog/services/blog-api";
 import BlogCard from "@/features/client/blog/ui/components/blog-card";
 import BlogPagination from "@/features/client/blog/ui/components/blog-pagination";
 import BlogSidebar from "@/features/client/blog/ui/components/blog-sidebar";

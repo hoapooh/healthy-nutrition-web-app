@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { getBlogPosts } from "@/features/client/home/data/blog-data";
 import BlogCard from "@/features/client/blog/ui/components/blog-card";
 import BlogPagination from "@/features/client/blog/ui/components/blog-pagination";
 import BlogSidebar from "@/features/client/blog/ui/components/blog-sidebar";
+import { getBlogPosts } from "@/features/client/blog/services/blog-api";
 
 interface BlogPageProps {
   searchParams: Promise<{ page?: string }>;
@@ -18,11 +18,15 @@ const POSTS_PER_PAGE = 3;
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const [searchParamsResolved] = await Promise.all([searchParams]);
-
   const currentPage = Number(searchParamsResolved.page) || 1;
-  const allPosts = await getBlogPosts();
 
-  // Tính toán pagination
+  // Get all posts with pagination from API
+  const allPosts = await getBlogPosts({
+    pageIndex: currentPage,
+    limit: POSTS_PER_PAGE * 10,
+  });
+
+  // Calculate pagination
   const totalPosts = allPosts.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;

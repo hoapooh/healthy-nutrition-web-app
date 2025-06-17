@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import BlogDetailLayout from "@/features/client/blog/ui/components/blog-detail-layout";
-import { getBlogPostBySlug } from "@/features/client/home/data/blog-data";
+import { getBlogPostBySlug } from "@/features/client/blog/services/blog-api";
 
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Calendar, Clock } from "lucide-react";
 import type { BlogPost } from "@/features/client/home/data/types";
 
 interface BlogCardProps {
@@ -26,16 +25,6 @@ const BlogCard = ({ post }: BlogCardProps) => {
       {/* Content */}
       <div className="p-6">
         {/* Category Badge */}
-        <div className="mb-3">
-          <Link href={`/blog/category/${post.category.slug}`}>
-            <Badge
-              variant="secondary"
-              className="text-xs hover:bg-green-100 hover:text-green-700"
-            >
-              {post.category.name}
-            </Badge>
-          </Link>
-        </div>
 
         {/* Title */}
         <Link href={`/blog/${post.slug}`}>
@@ -49,10 +38,6 @@ const BlogCard = ({ post }: BlogCardProps) => {
 
         {/* Meta Info */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-          <div className="flex items-center gap-1">
-            <User className="h-4 w-4" />
-            <span>by {post.author.name}</span>
-          </div>
           <div className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
             <span>{post.date}</span>
@@ -71,7 +56,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
             href={`/blog/${post.slug}`}
             className="text-sm font-medium text-green-600 hover:text-green-700 hover:underline"
           >
-            Read full story...
+            Tiếp tục đọc...
           </Link>
         </div>
       </div>

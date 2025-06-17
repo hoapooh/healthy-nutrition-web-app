@@ -4,7 +4,6 @@ import {
   BlogResponse,
   DeleteBlogParams,
   Blog,
-  BlogBySlugParams,
   CreateBlogRequest,
   UpdateBlogRequest,
 } from "@/types/blog";
@@ -80,13 +79,6 @@ export const blogApi = apiSlice.injectEndpoints({
         url: `/blogs/${id}`,
       }),
       providesTags: (result, error, id) => [{ type: "Blog", id }],
-    }),
-    getBlogBySlug: builder.query<Blog, BlogBySlugParams>({
-      query: (params) => ({
-        url: `/blogs/slug`,
-        params,
-      }),
-      providesTags: (result, error, slug) => [{ type: "Blog", slug }],
     }),
     createBlog: builder.mutation<void, CreateBlogRequest>({
       query: ({ params, body }) => {
