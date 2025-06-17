@@ -32,12 +32,12 @@ const RecentPosts = ({ posts }: RecentPostsProps) => {
               </Link>
               <div className="mt-1 flex items-center justify-between">
                 <span className="text-xs text-gray-500">{post.date}</span>
-                <Link
+                {/* <Link
                   href={`/blog/category/${post.category.slug}`}
                   className="text-xs text-green-600 hover:underline"
                 >
                   {post.category.name}
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

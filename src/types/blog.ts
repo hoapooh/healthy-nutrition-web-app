@@ -4,6 +4,7 @@ export interface Blog {
   content: string;
   excerpt: string;
   images: string[];
+  slug: string;
   tags: string[];
   createdAt: string;
   updatedAt: string;

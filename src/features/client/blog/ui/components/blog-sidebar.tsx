@@ -5,18 +5,17 @@ import BlogRecentPosts from "./blog-recent-posts";
 import BlogPopularTags from "./blog-popular-tags";
 import { useState, useEffect } from "react";
 import {
-  getRecentPosts,
+  getBlogPosts,
   getPopularTags,
-} from "@/features/client/home/data/blog-data";
+} from "@/features/client/blog/services/blog-api";
 import type { BlogPost, Tag } from "@/features/client/home/data/types";
 
 const BlogSidebar = () => {
   const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [popularTags, setPopularTags] = useState<Tag[]>([]);
-
   useEffect(() => {
     const fetchSidebarData = async () => {
-      const posts = await getRecentPosts();
+      const posts = await getBlogPosts({ limit: 5 }); // Get recent posts
       const tags = await getPopularTags();
 
       setRecentPosts(posts);

@@ -39,7 +39,7 @@ const defaultSocialLinks = [
   },
   {
     icon: <FaFacebook className="size-5" />,
-    href: "#",
+    href: "https://www.facebook.com/profile.php?id=100086812806936",
     label: "Facebook",
     color: "#2563eb", // blue-600
   },
