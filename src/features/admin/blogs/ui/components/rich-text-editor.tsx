@@ -27,7 +27,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       ["bold", "italic", "underline", "strike"],
       [{ list: "ordered" }, { list: "bullet" }],
       [{ indent: "-1" }, { indent: "+1" }],
-      ["link", "blockquote", "code-block"],
+      ["link", "blockquote", "code-block", "image"],
       [{ align: [] }],
       [{ color: [] }, { background: [] }],
       ["clean"],
@@ -49,6 +49,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     "align",
     "color",
     "background",
+    "image",
   ];
 
   return (
@@ -65,6 +66,30 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         }}
       />
       <style jsx global>{`
+        .dark .rich-text-editor .ql-formats svg .ql-stroke {
+          stroke: #e2e8f0;
+        }
+
+        .dark .rich-text-editor .ql-formats svg .ql-fill {
+          fill: #e2e8f0;
+        }
+
+        .dark .rich-text-editor .ql-formats .ql-picker .ql-picker-label {
+          color: #e2e8f0;
+        }
+
+        .dark .ql-align.ql-picker .ql-picker-options svg .ql-stroke {
+          stroke: #444;
+        }
+
+        .dark
+          .ql-color.ql-picker
+          .ql-picker-label
+          svg
+          .ql-stroke.ql-color-label {
+          stroke: #e2e8f0;
+        }
+
         .rich-text-editor .ql-editor {
           min-height: 200px;
           font-size: 14px;
