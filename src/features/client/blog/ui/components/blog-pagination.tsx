@@ -61,7 +61,7 @@ const BlogPagination = ({
             className="flex items-center gap-1"
           >
             <ChevronLeft className="h-4 w-4" />
-            Previous
+            Trước đó
           </Button>
         </Link>
       )}
@@ -77,7 +77,7 @@ const BlogPagination = ({
             size="sm"
             className="flex items-center gap-1"
           >
-            Next
+            Tiếp theo
             <ChevronRight className="h-4 w-4" />
           </Button>
         </Link>

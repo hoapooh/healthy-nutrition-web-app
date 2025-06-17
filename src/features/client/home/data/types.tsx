@@ -1,9 +1,3 @@
-export interface Author {
-  id: string;
-  name: string;
-  avatar: string;
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -41,8 +35,6 @@ export interface BlogPost {
     alt: string;
   };
   date: string;
-  author: Author;
-  category: Category;
   tags: Tag[];
   minutesToRead?: number;
 }

@@ -36,8 +36,6 @@ const CheckoutPage = () => {
     }
   }, [cartItems.length, router]);
 
-  console.log(cartItems);
-
   const handlePayment = async () => {
     try {
       // Convert cart items to OrderItemPayment format

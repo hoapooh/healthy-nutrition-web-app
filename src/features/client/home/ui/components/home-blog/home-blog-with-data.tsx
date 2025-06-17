@@ -1,15 +1,12 @@
 import HomeBlog from "./index";
-import { getHomeBlogData } from "@/features/client/home/data/blog-data";
 
 const HomeBlogWithData = async () => {
-  const blogData = await getHomeBlogData();
-
+  // The HomeBlog component now fetches its own data with the hook
   return (
     <HomeBlog
       badge="Latest Articles"
       heading="From Our Blog"
       description="Stay updated with the latest news and articles from our blog."
-      posts={blogData}
     />
   );
 };

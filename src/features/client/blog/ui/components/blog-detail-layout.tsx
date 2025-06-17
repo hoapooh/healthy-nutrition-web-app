@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, MessageCircle, ArrowLeft } from "lucide-react";
+import { Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BlogSidebar from "./blog-sidebar";
 import BlogDetailContent from "./blog-detail-content";
 import BlogTags from "./blog-tags";
-import BlogShare from "./blog-share";
+// import BlogShare from "./blog-share";
 import RelatedStories from "./related-stories";
 import type { BlogPost } from "@/features/client/home/data/types";
 
@@ -24,7 +24,7 @@ const BlogDetailLayout = ({ post }: BlogDetailLayoutProps) => {
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Blog
+            Quay lại danh sách bài viết
           </Link>
         </Button>
       </div>
@@ -54,26 +54,10 @@ const BlogDetailLayout = ({ post }: BlogDetailLayoutProps) => {
 
                   {/* Meta info */}
                   <div className="flex flex-wrap items-center gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src={post.author.avatar || "/placeholder.svg"}
-                        alt={post.author.name}
-                        width={24}
-                        height={24}
-                        className="rounded-full"
-                      />
-                      <span>by {post.author.name}</span>
-                    </div>
-                    <Link
-                      href={`/blog/category/${post.category.slug}`}
-                      className="text-green-400 hover:text-green-300"
-                    >
-                      {post.category.name}
-                    </Link>
-                    <div className="flex items-center gap-1">
+                    {/* <div className="flex items-center gap-1">
                       <MessageCircle className="h-4 w-4" />
                       <span>No Comments</span>
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-1">
                       <Calendar className="h-4 w-4" />
                       <span>{post.date}</span>
@@ -87,10 +71,10 @@ const BlogDetailLayout = ({ post }: BlogDetailLayoutProps) => {
                 <BlogDetailContent post={post} />
 
                 {/* Tags and Share */}
-                <div className="mt-12 border-t border-gray-200 pt-8">
+                <div className="border-t border-gray-200 pt-8">
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                     <BlogTags tags={post.tags} />
-                    <BlogShare />
+                    {/* <BlogShare /> */}
                   </div>
                 </div>
               </div>

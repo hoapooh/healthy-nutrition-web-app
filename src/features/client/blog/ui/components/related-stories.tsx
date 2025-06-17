@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getBlogPosts } from "@/features/client/home/data/blog-data";
+import { getBlogPosts } from "@/features/client/blog/services/blog-api";
 import type { BlogPost } from "@/features/client/home/data/types";
 
 interface RelatedStoriesProps {

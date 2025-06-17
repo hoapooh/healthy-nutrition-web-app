@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Tag } from "@/features/client/home/data/types";
+import { Tag } from "@/features/client/home/data/types";
 
 interface BlogPopularTagsProps {
   tags: Tag[];
