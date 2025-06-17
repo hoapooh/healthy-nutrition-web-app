@@ -4,6 +4,12 @@ export interface Category {
   slug: string;
 }
 
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 // Interface cho HomeBlogCard (homepage)
 export interface HomeBlogCardData {
   image?: {
@@ -29,6 +35,6 @@ export interface BlogPost {
     alt: string;
   };
   date: string;
-  tags: string[];
+  tags: Tag[];
   minutesToRead?: number;
 }

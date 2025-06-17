@@ -1,5 +1,23 @@
 import { Blog } from "@/types/blog";
-import { BlogPost } from "../../home/data/types";
+import { BlogPost, Tag } from "../../home/data/types";
+
+// Helper function to create tag slug from name
+const createTagSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .trim();
+};
+
+// Helper function to transform string tags to Tag objects
+const transformTagsToObjects = (tagStrings: string[]): Tag[] => {
+  return tagStrings.map((tagName, index) => ({
+    id: `tag-${index}-${createTagSlug(tagName)}`,
+    name: tagName,
+    slug: createTagSlug(tagName),
+  }));
+};
 
 // Transform Blog to BlogPost format helper function
 const transformBlogToBlogPost = (blog: Blog): BlogPost => {
@@ -32,7 +50,7 @@ const transformBlogToBlogPost = (blog: Blog): BlogPost => {
       alt: blog.title,
     },
     date: formatDate(blog.createdAt),
-    tags: blog.tags,
+    tags: transformTagsToObjects(blog.tags),
     minutesToRead,
   };
 };
@@ -108,10 +126,12 @@ const getBlogPosts = async (params?: {
 // Server-side function to get blog posts by tag
 const getBlogPostsByTag = async (tagSlug: string): Promise<BlogPost[]> => {
   try {
-    // Convert slug back to tag name (assuming tags are stored as text)
-    const tagName = tagSlug.replace(/-/g, " ");
+    const allPosts = await getBlogPosts({ limit: 100 });
 
-    return await getBlogPosts({ tags: [tagName] });
+    // Filter posts that have a tag with the matching slug
+    return allPosts.filter((post) =>
+      post.tags.some((tag) => tag.slug === tagSlug),
+    );
   } catch (error) {
     console.error("Error fetching blogs by tag:", error);
     return [];
@@ -119,21 +139,26 @@ const getBlogPostsByTag = async (tagSlug: string): Promise<BlogPost[]> => {
 };
 
 // Server-side function to get popular tags
-const getPopularTags = async (): Promise<string[]> => {
+const getPopularTags = async (): Promise<Tag[]> => {
   try {
     const posts = await getBlogPosts({ limit: 100 }); // Get more posts to analyze tags
-    const tagMap = new Map<string, number>();
+    const tagMap = new Map<string, { tag: Tag; count: number }>();
 
     posts.forEach((post) => {
       post.tags.forEach((tag) => {
-        tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+        const existing = tagMap.get(tag.slug);
+        if (existing) {
+          existing.count += 1;
+        } else {
+          tagMap.set(tag.slug, { tag, count: 1 });
+        }
       });
     });
 
-    return Array.from(tagMap.entries())
-      .sort((a, b) => b[1] - a[1])
+    return Array.from(tagMap.values())
+      .sort((a, b) => b.count - a.count)
       .slice(0, 10)
-      .map((entry) => entry[0]);
+      .map((entry) => entry.tag);
   } catch (error) {
     console.error("Error fetching popular tags:", error);
     return [];

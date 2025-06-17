@@ -21,7 +21,8 @@ export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
   const allTags = await getPopularTags();
-  const tag = allTags.find(async (t) => t.slug === (await params).slug);
+  const { slug } = await params;
+  const tag = allTags.find((t) => t.slug === slug);
 
   if (!tag) {
     return {
@@ -43,10 +44,9 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
     params,
     searchParams,
   ]);
-
   const currentPage = Number(searchParamsResolved.page) || 1;
   const allTags = await getPopularTags();
-  const tag = allTags.find(async (t) => t.slug === (await paramsResolved).slug);
+  const tag = allTags.find((t) => t.slug === paramsResolved.slug);
 
   if (!tag) {
     notFound();

@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { Tag } from "@/features/client/home/data/types";
 
 interface PopularTagsProps {
-  tags: string[];
+  tags: Tag[];
 }
 
 const PopularTags = ({ tags }: PopularTagsProps) => {
@@ -11,11 +12,11 @@ const PopularTags = ({ tags }: PopularTagsProps) => {
       <div className="flex flex-wrap gap-2">
         {tags.map((tag) => (
           <Link
-            key={tag}
-            href={`/blog/tag/${tag}`}
+            key={tag.id}
+            href={`/blog/tag/${tag.slug}`}
             className="rounded-md bg-gray-100 px-3 py-1 text-sm transition-colors hover:bg-gray-200"
           >
-            {tag}
+            {tag.name}
           </Link>
         ))}
       </div>

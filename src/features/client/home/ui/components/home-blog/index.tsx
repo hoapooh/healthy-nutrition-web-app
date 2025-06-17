@@ -102,7 +102,7 @@ const HomeBlog = ({
               variant={"outline"}
               className="hover:cursor-pointer hover:text-green-600/90"
             >
-              View All Blogs <ArrowRight className="size-4" />
+              Xem tất cả bài viết <ArrowRight className="size-4" />
             </Button>
           </Link>
         </div>

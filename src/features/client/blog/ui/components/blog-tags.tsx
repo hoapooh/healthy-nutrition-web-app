@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { Tag } from "@/features/client/home/data/types";
 
 interface BlogTagsProps {
-  tags: string[];
+  tags: Tag[];
 }
 
 const BlogTags = ({ tags }: BlogTagsProps) => {
@@ -13,11 +14,11 @@ const BlogTags = ({ tags }: BlogTagsProps) => {
       <div className="flex flex-wrap gap-2">
         {tags.map((tag) => (
           <Link
-            key={`tag-${tag}`}
-            href={`/blog/tag/${tag}`}
+            key={tag.id}
+            href={`/blog/tag/${tag.slug}`}
             className="rounded-full bg-gray-100 px-4 py-2 text-sm transition-colors hover:bg-green-100 hover:text-green-700"
           >
-            #{tag}
+            #{tag.name}
           </Link>
         ))}
       </div>

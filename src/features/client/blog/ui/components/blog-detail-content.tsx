@@ -4,6 +4,7 @@ import type { BlogPost } from "@/features/client/home/data/types";
 import styles from "./blog-detail-content.module.css";
 import { ArrowLeft, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface BlogDetailContentProps {
   post: BlogPost;
@@ -1682,7 +1683,6 @@ const BlogDetailContent = ({ post }: BlogDetailContentProps) => {
         <h1 className="mb-6 text-4xl leading-tight font-bold text-gray-900 md:text-5xl lg:text-6xl">
           {post.title}
         </h1>
-
         {/* Meta Information */}
         <div className="mb-8 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
           <time className="flex items-center gap-2">
@@ -1720,22 +1720,21 @@ const BlogDetailContent = ({ post }: BlogDetailContentProps) => {
               {post.minutesToRead} phút đọc
             </span>
           )}
-        </div>
-
+        </div>{" "}
         {/* Tags */}
         {post.tags && post.tags.length > 0 && (
           <div className="mb-8 flex flex-wrap justify-center gap-2">
-            {post.tags.map((tag, index) => (
-              <span
-                key={index}
+            {post.tags.map((tag) => (
+              <Link
+                key={tag.id}
+                href={`/blog/tag/${tag.slug}`}
                 className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 transition-colors hover:bg-green-200"
               >
-                #{tag}
-              </span>
+                #{tag.name}
+              </Link>
             ))}
           </div>
         )}
-
         {/* Excerpt */}
         <div className="mx-auto max-w-3xl">
           <p className="text-xl leading-relaxed text-gray-600 md:text-2xl">

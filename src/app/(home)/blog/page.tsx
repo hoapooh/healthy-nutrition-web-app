@@ -39,11 +39,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
-            Latest Articles
+            Bài viết mới nhất
           </h1>
           <p className="text-lg text-gray-600">
-            Discover recipes, cooking tips, and healthy living advice from our
-            expert contributors.
+            Khám phá công thức, mẹo nấu ăn và lời khuyên về lối sống lành mạnh
+            từ các chuyên gia của chúng tôi.
           </p>
         </div>
 
@@ -66,8 +66,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
             {/* Posts Info */}
             <div className="mt-6 text-center text-sm text-gray-500">
-              Showing {startIndex + 1}-{Math.min(endIndex, totalPosts)} of{" "}
-              {totalPosts} articles
+              Hiển thị {startIndex + 1}-{Math.min(endIndex, totalPosts)} trong{" "}
+              {totalPosts} bài viết
             </div>
           </div>
 
