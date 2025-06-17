@@ -32,11 +32,11 @@ export const metadata: Metadata = {
   creator: "WAG Team",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${oswald.className} antialiased`}>

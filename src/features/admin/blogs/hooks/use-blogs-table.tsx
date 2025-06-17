@@ -54,10 +54,9 @@ export const useBlogsTable = ({
         return (
           <Button
             variant="ghost"
-            className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Title
+            Tiêu đề
             <ArrowUpDown />
           </Button>
         );
@@ -72,44 +71,6 @@ export const useBlogsTable = ({
             {row.getValue("title")}
           </Button>
         </div>
-      ),
-    },
-    {
-      id: "status",
-      accessorKey: "status",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            className="hover:bg-gray-800"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Status
-            <ArrowUpDown />
-          </Button>
-        );
-      },
-      cell: ({ row }) => {
-        const status = row.getValue("status") as string;
-        const variant =
-          status === "published"
-            ? "default"
-            : status === "draft"
-              ? "secondary"
-              : "outline";
-        return (
-          <Badge variant={variant} className="capitalize">
-            {status}
-          </Badge>
-        );
-      },
-    },
-    {
-      id: "author",
-      accessorKey: "author",
-      header: "Tác giả",
-      cell: ({ row }) => (
-        <div className="text-muted-foreground">{row.getValue("author")}</div>
       ),
     },
     {
@@ -151,10 +112,9 @@ export const useBlogsTable = ({
         return (
           <Button
             variant="ghost"
-            className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Created
+            Ngày tạo
             <ArrowUpDown />
           </Button>
         );

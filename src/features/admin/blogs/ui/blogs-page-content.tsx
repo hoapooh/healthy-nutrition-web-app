@@ -2,14 +2,14 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { PlusCircle } from "lucide-react";
 import { useBlogsPageContent } from "../hooks/use-blogs-page-content";
 import { BlogsDataTable } from "./components/blogs-data-table";
-import { CreateBlogModal } from "./components/create-blog-modal";
-import { EditBlogModal } from "./components/edit-blog-modal";
-import { BlogPreviewDialog } from "./components/blog-preview-dialog";
-import { DeleteBlogDialog } from "./components/delete-blog-dialog";
+// import { CreateBlogModal } from "./components/create-blog-modal";
+// import { EditBlogModal } from "./components/edit-blog-modal";
+// import { BlogPreviewDialog } from "./components/blog-preview-dialog";
+// import { DeleteBlogDialog } from "./components/delete-blog-dialog";
 
 export const BlogsPageContent: React.FC = () => {
   const {
@@ -19,20 +19,20 @@ export const BlogsPageContent: React.FC = () => {
     error,
     filters,
     // Modal states
-    isCreateModalOpen,
-    setIsCreateModalOpen,
-    isEditModalOpen,
-    setIsEditModalOpen,
-    editingBlog,
-    isPreviewDialogOpen,
-    setIsPreviewDialogOpen,
-    previewBlog,
-    isDeleteDialogOpen,
-    setIsDeleteDialogOpen,
-    deletingBlog,
-    // Actions
-    handleCreateBlog,
-    handleConfirmDelete,
+    // isCreateModalOpen,
+    // setIsCreateModalOpen,
+    // isEditModalOpen,
+    // setIsEditModalOpen,
+    // editingBlog,
+    // isPreviewDialogOpen,
+    // setIsPreviewDialogOpen,
+    // previewBlog,
+    // isDeleteDialogOpen,
+    // setIsDeleteDialogOpen,
+    // deletingBlog,
+    // // Actions
+    // handleCreateBlog,
+    // handleConfirmDelete,
     handleRefresh,
     handleFilterChange,
   } = useBlogsPageContent();
@@ -56,20 +56,22 @@ export const BlogsPageContent: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Blog Management</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Quản lý bài viết
+          </h1>
           <p className="text-muted-foreground">
-            Create, edit, and manage your blog posts
+            Tạo, chỉnh sửa và quản lý các bài viết blog của bạn
           </p>
         </div>
-        <Button onClick={handleCreateBlog} size="sm">
+        {/* <Button onClick={handleCreateBlog} size="sm">
           <PlusCircle className="mr-2 h-4 w-4" />
           Create Blog
-        </Button>
+        </Button> */}
       </div>
       {/* Main Content */}
       <Card>
         <CardHeader>
-          <CardTitle>All Blogs</CardTitle>
+          <CardTitle>Tất cả bài viết</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Data Table */}
@@ -84,7 +86,7 @@ export const BlogsPageContent: React.FC = () => {
         </CardContent>
       </Card>
       {/* Modals */}
-      <CreateBlogModal
+      {/* <CreateBlogModal
         open={isCreateModalOpen}
         onOpenChange={setIsCreateModalOpen}
         onSuccess={handleRefresh}
@@ -105,7 +107,7 @@ export const BlogsPageContent: React.FC = () => {
         onOpenChange={setIsDeleteDialogOpen}
         blog={deletingBlog}
         onSuccess={handleConfirmDelete}
-      />
+      /> */}
     </div>
   );
 };

@@ -1,20 +1,22 @@
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Newspaper } from "lucide-react";
-import React from "react";
 import HomeBlogCard from "./home-blog-card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import type { HomeBlogCardData } from "@/features/client/home/data/types";
 
 interface HomeBlogProps {
   badge?: string;
   heading?: string;
   description?: string;
+  posts?: HomeBlogCardData[];
 }
 
 const HomeBlog = ({
   badge = "Bài viết mới nhất",
   heading = "From Our Blog",
   description = "Stay updated with the latest news and articles from our blog.",
+  posts,
 }: HomeBlogProps) => {
   return (
     <section className="px-2 py-16 lg:px-0 lg:pt-32 lg:pb-0">
@@ -34,17 +36,30 @@ const HomeBlog = ({
         </div>
 
         {/* Body Cards */}
-        {/* // TODO: replace with actual data fetching here */}
         <div className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(3)].map((_, index) => (
-            <HomeBlogCard
-              key={`blog-card-${index}`}
-              title="How to build a successfull brand and business online in 2024"
-              description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda veniam corporis vitae delectus voluptas eveniet saepe sed omnis cupiditate ex?"
-              date="March 15, 2024"
-              minutesToRead={10}
-            />
-          ))}
+          {posts && posts.length > 0
+            ? posts
+                .slice(0, 3)
+                .map((post, index) => (
+                  <HomeBlogCard
+                    key={`blog-card-${index}`}
+                    title={post.title}
+                    description={post.description}
+                    date={post.date}
+                    minutesToRead={post.minutesToRead}
+                    image={post.image}
+                    slug={post.slug}
+                  />
+                ))
+            : [...Array(3)].map((_, index) => (
+                <HomeBlogCard
+                  key={`blog-card-${index}`}
+                  title="How to build a successfull brand and business online in 2024"
+                  description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda veniam corporis vitae delectus voluptas eveniet saepe sed omnis cupiditate ex?"
+                  date="March 15, 2024"
+                  minutesToRead={10}
+                />
+              ))}
         </div>
 
         {/* View All Blogs */}

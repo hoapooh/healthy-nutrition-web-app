@@ -3,22 +3,21 @@ export interface Blog {
   title: string;
   content: string;
   excerpt: string;
-  author: string;
-  image?: string;
-  status: "draft" | "published" | "archived";
+  images: string[];
   tags: string[];
   createdAt: string;
   updatedAt: string;
-  publishedAt?: string;
 }
 
 export interface BlogParams {
   pageIndex?: number;
   limit?: number;
-  title?: string;
-  status?: "draft" | "published" | "archived";
-  author?: string;
+  slug?: string;
+  startDate?: string;
+  endDate?: string;
   tags?: string[];
+  searchTerm?: string;
+  title?: string;
 }
 
 export interface BlogResponse {
@@ -30,34 +29,46 @@ export interface BlogResponse {
   };
 }
 
-export interface CreateBlogBody {
+export interface BlogBySlugParams {
+  slug: string;
+}
+
+// POST
+export interface CreateBlogParams {
   title: string;
   content: string;
   excerpt: string;
   tags: string[];
-  status: "draft" | "published";
-  image?: string;
+}
+
+export interface CreateBlogBody {
+  imageBlog: File;
+}
+
+export interface CreateBlogRequest {
+  params: CreateBlogParams;
+  body: CreateBlogBody;
+}
+
+// PUT
+export interface UpdateBlogParams {
+  title: string;
+  content: string;
+  excerpt: string;
+  tags: string[];
 }
 
 export interface UpdateBlogBody {
-  id: string;
-  body: {
-    title: string;
-    content: string;
-    excerpt: string;
-    tags: string[];
-    status: "draft" | "published";
-    image?: string;
-  };
+  imageBlog?: File | null;
 }
 
+export interface UpdateBlogRequest {
+  id: string;
+  params: UpdateBlogParams;
+  body: UpdateBlogBody;
+}
+
+// DELETE
 export interface DeleteBlogParams {
   id: string;
 }
-
-// Blog status options for forms
-export const BLOG_STATUSES = [
-  { value: "draft", label: "Bản nháp" },
-  { value: "published", label: "Đã xuất bản" },
-  { value: "archived", label: "Đã lưu trữ" },
-] as const;

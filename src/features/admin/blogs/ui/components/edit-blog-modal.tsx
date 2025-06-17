@@ -21,18 +21,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { useUpdateBlog } from "../../hooks/use-update-blog";
-import { Blog, BLOG_STATUSES } from "@/types/blog";
+import { Blog } from "@/types/blog";
 import { RichTextEditor } from "./rich-text-editor";
+import BlogImageUploader from "./blog-image-uploader";
 
 interface EditBlogModalProps {
   blog: Blog | null;
@@ -84,9 +78,9 @@ export function EditBlogModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-7xl min-w-4xl overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Blog</DialogTitle>
+          <DialogTitle>Chỉnh sửa blog</DialogTitle>
           <DialogDescription>
-            Update the blog post content and settings.
+            Cập nhật nội dung và cài đặt bài viết blog.
           </DialogDescription>
         </DialogHeader>
 
@@ -98,47 +92,21 @@ export function EditBlogModal({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Tiêu đề</FormLabel>
                     <FormControl>
                       <Input placeholder="Nhập tiêu đề bài viết" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Chọn trạng thái" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {BLOG_STATUSES.map((status) => (
-                          <SelectItem key={status.value} value={status.value}>
-                            {status.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    </FormControl>{" "}
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-
             <FormField
               control={form.control}
               name="excerpt"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Excerpt</FormLabel>
+                  <FormLabel>Trích đoạn</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Mô tả ngắn gọn về bài viết"
@@ -148,19 +116,18 @@ export function EditBlogModal({
                     />
                   </FormControl>
                   <FormDescription>
-                    A short summary that will be displayed in blog listings.
+                    Một tóm tắt ngắn gọn sẽ được hiển thị trong danh sách blog.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel>Nội dung</FormLabel>
                   <FormControl>
                     <RichTextEditor
                       value={field.value}
@@ -171,34 +138,34 @@ export function EditBlogModal({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-
+            />{" "}
             <FormField
               control={form.control}
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Ảnh Nổi Bật (Tùy chọn)</FormLabel>
+                  <FormLabel>Ảnh Thumbnail</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://example.com/image.jpg"
-                      {...field}
+                    <BlogImageUploader
+                      value={field.value}
+                      onChange={field.onChange}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    URL đến ảnh nổi bật cho bài viết này.
+                    Ảnh thumbnail sẽ hiển thị trong danh sách bài viết và chia
+                    sẻ mạng xã hội.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="tags"
               render={() => (
                 <FormItem>
-                  <FormLabel>Tags</FormLabel>
+                  <FormLabel>Thẻ</FormLabel>
                   <FormControl>
                     <div className="space-y-2">
                       <Input
@@ -231,14 +198,12 @@ export function EditBlogModal({
                     </div>
                   </FormControl>
                   <FormDescription>
-                    Press Enter or comma to add tags. Click the X to remove
-                    them.
+                    Nhấn Enter hoặc phím phẩy để thêm thẻ. Nhấn X để xóa chúng.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <DialogFooter>
               <Button
                 type="button"
@@ -246,10 +211,10 @@ export function EditBlogModal({
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                Hủy
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Updating..." : "Update Blog"}
+                {isLoading ? "Đang cập nhật..." : "Cập nhật blog"}
               </Button>
             </DialogFooter>
           </form>

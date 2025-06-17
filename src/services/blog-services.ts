@@ -2,14 +2,15 @@ import { apiSlice } from "@/store/slices/api-slice";
 import {
   BlogParams,
   BlogResponse,
-  CreateBlogBody,
-  UpdateBlogBody,
   DeleteBlogParams,
   Blog,
+  BlogBySlugParams,
+  CreateBlogRequest,
+  UpdateBlogRequest,
 } from "@/types/blog";
 
 // Fake blog data for demo purposes
-const fakeBlog: Blog = {
+/* const fakeBlog: Blog = {
   id: "1",
   title: "The Ultimate Guide to Healthy Nutrition",
   content: `<h2>Introduction to Healthy Nutrition</h2>
@@ -63,78 +64,80 @@ const fakeBlog: Blog = {
   createdAt: "2024-12-01T10:00:00Z",
   updatedAt: "2024-12-05T15:30:00Z",
   publishedAt: "2024-12-02T09:00:00Z",
-};
+}; */
 
 export const blogApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllBlogs: builder.query<BlogResponse, BlogParams>({
-      queryFn: async (params) => {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Return fake data
-        return {
-          data: {
-            result: {
-              items: [fakeBlog],
-              totalCount: 1,
-              pageIndex: params.pageIndex || 1,
-              limit: params.limit || 10,
-            },
-          },
-        };
-      },
+      query: (params) => ({
+        url: "/blogs",
+        params,
+      }),
       providesTags: ["Blog"],
     }),
     getBlogById: builder.query<Blog, string>({
-      queryFn: async (id) => {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 300));
-
-        if (id === "1") {
-          return { data: fakeBlog };
-        }
-
-        return {
-          error: {
-            status: 404,
-            data: { message: "Blog not found" },
-          },
-        };
-      },
+      query: (id) => ({
+        url: `/blogs/${id}`,
+      }),
       providesTags: (result, error, id) => [{ type: "Blog", id }],
     }),
-    createBlog: builder.mutation<void, CreateBlogBody>({
-      queryFn: async (body) => {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 800));
+    getBlogBySlug: builder.query<Blog, BlogBySlugParams>({
+      query: (params) => ({
+        url: `/blogs/slug`,
+        params,
+      }),
+      providesTags: (result, error, slug) => [{ type: "Blog", slug }],
+    }),
+    createBlog: builder.mutation<void, CreateBlogRequest>({
+      query: ({ params, body }) => {
+        const formData = new FormData();
+        if (body.imageBlog) {
+          formData.append("imageBlog", body.imageBlog);
+        }
 
-        // Simulate successful creation
-        console.log("Creating blog with data:", body);
-        return { data: undefined };
+        // Create URLSearchParams to handle array serialization properly
+        const searchParams = new URLSearchParams();
+
+        // Handle arrays specially
+        Object.entries(params).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              searchParams.append(key, item.toString());
+            });
+          } else {
+            searchParams.append(key, value.toString());
+          }
+        });
+
+        return {
+          url: `/blogs?${searchParams.toString()}`,
+          method: "POST",
+          body: formData,
+        };
       },
       invalidatesTags: ["Blog"],
     }),
-    updateBlog: builder.mutation<{ message: string }, UpdateBlogBody>({
-      queryFn: async ({ id, body }) => {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 700));
+    updateBlog: builder.mutation<{ message: string }, UpdateBlogRequest>({
+      query: ({ id, params, body }) => {
+        const formData = new FormData();
+        if (body.imageBlog) {
+          formData.append("imageBlog", body.imageBlog);
+        }
 
-        // Simulate successful update
-        console.log("Updating blog with id:", id, "and data:", body);
-        return { data: { message: "Blog updated successfully" } };
+        return {
+          url: `/blogs/${id}`,
+          method: "PUT",
+          params,
+          body: formData,
+        };
       },
       invalidatesTags: ["Blog"],
     }),
     deleteBlog: builder.mutation<void, DeleteBlogParams>({
-      queryFn: async ({ id }) => {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Simulate successful deletion
-        console.log("Deleting blog with id:", id);
-        return { data: undefined };
-      },
+      query: ({ id }) => ({
+        url: `/blogs/${id}`,
+        method: "DELETE",
+      }),
       invalidatesTags: ["Blog"],
     }),
   }),

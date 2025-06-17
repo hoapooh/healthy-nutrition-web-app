@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CalendarDays, User, Eye } from "lucide-react";
+import { CalendarDays, Eye } from "lucide-react";
 import { Blog } from "@/types/blog";
 import Image from "next/image";
 
@@ -33,10 +33,10 @@ export function BlogPreviewDialog({
         <DialogHeader className="space-y-4">
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
-            <DialogTitle>Blog Preview</DialogTitle>
+            <DialogTitle>Xem trước</DialogTitle>
           </div>
           <DialogDescription>
-            Preview of the blog post as it will appear to readers.
+            Xem trước bài viết blog như nó sẽ xuất hiện với độc giả.
           </DialogDescription>
         </DialogHeader>
 
@@ -44,18 +44,6 @@ export function BlogPreviewDialog({
           {/* Blog Header */}
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge
-                variant={
-                  blog.status === "published"
-                    ? "default"
-                    : blog.status === "draft"
-                      ? "secondary"
-                      : "outline"
-                }
-                className="capitalize"
-              >
-                {blog.status}
-              </Badge>
               {blog.tags.map((tag) => (
                 <Badge key={tag} variant="outline" className="text-xs">
                   {tag}
@@ -67,34 +55,24 @@ export function BlogPreviewDialog({
 
             <div className="text-muted-foreground flex items-center gap-4 text-sm">
               <div className="flex items-center gap-1">
-                <User className="h-4 w-4" />
-                <span>{blog.author}</span>
-              </div>
-              <div className="flex items-center gap-1">
                 <CalendarDays className="h-4 w-4" />
                 <span>
-                  {blog.publishedAt
-                    ? new Date(blog.publishedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })
-                    : new Date(blog.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                  {new Date(blog.createdAt).toLocaleDateString("vi-VN", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </span>
               </div>
             </div>
 
-            {blog.image && (
+            {blog.images && blog.images.length > 0 && (
               <div className="overflow-hidden rounded-lg">
                 <Image
-                  src={blog.image}
+                  src={blog.images[0]}
                   alt={blog.title}
-                  height={256}
-                  width={256}
+                  height={1080}
+                  width={1920}
                   className="h-64 w-full object-cover"
                 />
               </div>
@@ -105,7 +83,7 @@ export function BlogPreviewDialog({
 
           {/* Blog Excerpt */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold">Excerpt</h3>
+            <h3 className="text-lg font-semibold">Trích đoạn</h3>
             <p className="text-muted-foreground italic">{blog.excerpt}</p>
           </div>
 
@@ -113,7 +91,7 @@ export function BlogPreviewDialog({
 
           {/* Blog Content */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold">Content</h3>
+            <h3 className="text-lg font-semibold">Nội dung</h3>
             <div
               className="prose prose-sm max-w-none"
               dangerouslySetInnerHTML={{ __html: blog.content }}
@@ -123,11 +101,7 @@ export function BlogPreviewDialog({
           {/* Blog Footer */}
           <Separator />
           <div className="text-muted-foreground space-y-1 text-sm">
-            <p>Created: {new Date(blog.createdAt).toLocaleString()}</p>
-            <p>Last Updated: {new Date(blog.updatedAt).toLocaleString()}</p>
-            {blog.publishedAt && (
-              <p>Published: {new Date(blog.publishedAt).toLocaleString()}</p>
-            )}
+            <p>Xuất bản: {new Date(blog.createdAt).toLocaleString()}</p>
           </div>
         </div>
 

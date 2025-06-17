@@ -13,16 +13,20 @@ export const useBlogFilters = ({
   const [localFilters, setLocalFilters] = useState<BlogParams>(filters);
   const [isOpen, setIsOpen] = useState(false);
 
-  const hasActiveFilters = Boolean(filters.status || filters.author);
+  const hasActiveFilters = Boolean(
+    (filters.tags && filters.tags.length > 0) ||
+      filters.startDate ||
+      filters.endDate,
+  );
 
   const handleApplyFilters = () => {
     onFiltersChange({ ...localFilters, pageIndex: 1 });
     setIsOpen(false);
   };
-
   const handleClearFilters = () => {
     const clearedFilters = {
       title: filters.title,
+      searchTerm: filters.searchTerm,
       pageIndex: 1,
       limit: filters.limit,
     };
