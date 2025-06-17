@@ -116,10 +116,23 @@ export const blogApi = apiSlice.injectEndpoints({
           formData.append("imageBlog", body.imageBlog);
         }
 
+        // Create URLSearchParams to handle array serialization properly
+        const searchParams = new URLSearchParams();
+
+        // Handle arrays specially
+        Object.entries(params).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              searchParams.append(key, item.toString());
+            });
+          } else {
+            searchParams.append(key, value.toString());
+          }
+        });
+
         return {
-          url: `/blogs/${id}`,
+          url: `/blogs/${id}?${searchParams.toString()}`,
           method: "PUT",
-          params,
           body: formData,
         };
       },
