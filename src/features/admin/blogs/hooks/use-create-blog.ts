@@ -21,8 +21,7 @@ const createBlogSchema = z.object({
     .array(z.string())
     .min(1, "Cần ít nhất một thẻ")
     .max(10, "Tối đa 10 thẻ"),
-  status: z.enum(["draft", "published"]),
-  image: z.string().optional(),
+  image: z.union([z.instanceof(File), z.string()]).optional(),
 });
 
 export type CreateBlogFormValues = z.infer<typeof createBlogSchema>;
@@ -37,7 +36,6 @@ export const useCreateBlog = ({
   onOpenChange,
 }: UseCreateBlogProps) => {
   const [createBlog, { isLoading }] = useCreateBlogMutation();
-
   const form = useForm<CreateBlogFormValues>({
     resolver: zodResolver(createBlogSchema),
     defaultValues: {
@@ -45,13 +43,31 @@ export const useCreateBlog = ({
       content: "",
       excerpt: "",
       tags: [],
-      status: "draft",
-      image: "",
+      image: undefined,
     },
   });
+
   const onSubmit = async (values: CreateBlogFormValues) => {
     try {
-      await createBlog(values).unwrap();
+      // Only send File objects, ignore string URLs for create
+      const imageFile =
+        values.image instanceof File
+          ? values.image
+          : new File([], "", { type: "image/jpeg" });
+
+      const createBlogRequest = {
+        params: {
+          title: values.title,
+          content: values.content,
+          excerpt: values.excerpt,
+          tags: values.tags,
+        },
+        body: {
+          imageBlog: imageFile,
+        },
+      };
+
+      await createBlog(createBlogRequest).unwrap();
       toast.success("Tạo blog thành công!");
       form.reset();
       onOpenChange(false);

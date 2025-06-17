@@ -9,15 +9,8 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Filter, X } from "lucide-react";
-import { BlogParams, BLOG_STATUSES } from "@/types/blog";
+import { BlogParams } from "@/types/blog";
 import { useBlogFilters } from "../../hooks/use-blog-filters";
 
 interface BlogFiltersProps {
@@ -44,60 +37,39 @@ export function BlogFilters({ filters, onFiltersChange }: BlogFiltersProps) {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="border-dashed">
           <Filter className="mr-2 h-4 w-4" />
-          Filters
+          Bộ lọc{" "}
           {hasActiveFilters && (
             <div className="bg-primary text-primary-foreground ml-2 rounded-full px-2 py-0.5 text-xs">
-              {Object.values(filters).filter(Boolean).length - 2}
-              {/* Exclude pageIndex and limit */}
+              {(filters.tags?.length || 0) +
+                (filters.startDate ? 1 : 0) +
+                (filters.endDate ? 1 : 0)}
             </div>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80" align="start">
         <div className="space-y-4">
+          {" "}
           <div className="space-y-2">
-            <h4 className="text-medium leading-none font-medium">Filters</h4>
+            <h4 className="text-medium leading-none font-medium">Bộ lọc</h4>
             <p className="text-muted-foreground text-sm">
-              Filter blogs by status, author, and tags.
+              Lọc bài viết theo thẻ và khoảng thời gian.
             </p>
           </div>
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="status">Status</Label>
-              <Select
-                value={localFilters.status || "all"}
-                onValueChange={(value) => {
-                  setLocalFilters({
-                    ...localFilters,
-                    status:
-                      value === "all"
-                        ? undefined
-                        : (value as "draft" | "published" | "archived"),
-                  });
-                }}
-              >
-                <SelectTrigger id="status" className="col-span-2 h-8">
-                  <SelectValue placeholder="All statuses" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All statuses</SelectItem>
-                  {BLOG_STATUSES.map((status) => (
-                    <SelectItem key={status.value} value={status.value}>
-                      {status.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="author">Author</Label>
+              <Label htmlFor="tags">Thẻ</Label>
               <Input
-                id="author"
-                placeholder="Author name"
-                value={localFilters.author || ""}
-                onChange={(e) =>
-                  setLocalFilters({ ...localFilters, author: e.target.value })
-                }
+                id="tags"
+                placeholder="Nhập thẻ (cách nhau bằng dấu phẩy)"
+                value={localFilters.tags?.join(", ") || ""}
+                onChange={(e) => {
+                  const tags = e.target.value
+                    .split(",")
+                    .map((tag) => tag.trim())
+                    .filter(Boolean);
+                  setLocalFilters({ ...localFilters, tags });
+                }}
                 className="col-span-2 h-8"
               />
             </div>

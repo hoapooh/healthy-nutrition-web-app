@@ -110,7 +110,7 @@ export function BlogsDataTable({
           </DropdownMenu>
           <Button size="sm" onClick={() => setIsCreateModalOpen(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Add Blog
+            Tạo blog mới
           </Button>
         </div>
       </div>

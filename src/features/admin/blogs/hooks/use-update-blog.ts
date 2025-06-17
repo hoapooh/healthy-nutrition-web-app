@@ -23,8 +23,7 @@ const updateBlogSchema = z.object({
     .array(z.string())
     .min(1, "Cần ít nhất một thẻ")
     .max(10, "Tối đa 10 thẻ"),
-  status: z.enum(["draft", "published"]),
-  image: z.string().optional(),
+  image: z.union([z.instanceof(File), z.string()]).optional(),
 });
 
 export type UpdateBlogFormValues = z.infer<typeof updateBlogSchema>;
@@ -41,7 +40,6 @@ export const useUpdateBlog = ({
   onOpenChange,
 }: UseUpdateBlogProps) => {
   const [updateBlog, { isLoading }] = useUpdateBlogMutation();
-
   const form = useForm<UpdateBlogFormValues>({
     resolver: zodResolver(updateBlogSchema),
     defaultValues: {
@@ -49,11 +47,9 @@ export const useUpdateBlog = ({
       content: blog?.content || "",
       excerpt: blog?.excerpt || "",
       tags: blog?.tags || [],
-      status: (blog?.status as "draft" | "published") || "draft",
-      image: blog?.image || "",
+      image: blog?.images[0] || undefined,
     },
   });
-
   React.useEffect(() => {
     if (blog) {
       form.reset({
@@ -61,18 +57,29 @@ export const useUpdateBlog = ({
         content: blog.content,
         excerpt: blog.excerpt,
         tags: blog.tags,
-        status: blog.status as "draft" | "published",
-        image: blog.image || "",
+        image: blog.images[0] || undefined,
       });
     }
   }, [blog, form]);
-
   const onSubmit = async (values: UpdateBlogFormValues) => {
     try {
-      await updateBlog({
+      // Only send File objects to the API, strings are existing URLs
+      const imageFile = values.image instanceof File ? values.image : null;
+
+      const updateBlogRequest = {
         id: blog!.id,
-        body: values,
-      }).unwrap();
+        params: {
+          title: values.title,
+          content: values.content,
+          excerpt: values.excerpt,
+          tags: values.tags,
+        },
+        body: {
+          imageBlog: imageFile,
+        },
+      };
+
+      await updateBlog(updateBlogRequest).unwrap();
       toast.success("Cập nhật blog thành công!");
       onOpenChange(false);
       onSuccess();

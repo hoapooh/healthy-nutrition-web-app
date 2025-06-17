@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getBlogPosts } from "@/features/client/home/data/blog-data";
-import BlogCard from "@/features/client/home/ui/components/blog/blog-card";
-import BlogPagination from "@/features/client/home/ui/components/blog/blog-pagination";
-import BlogSidebar from "@/features/client/home/ui/components/blog/blog-sidebar";
+import BlogCard from "@/features/client/blog/ui/components/blog-card";
+import BlogPagination from "@/features/client/blog/ui/components/blog-pagination";
+import BlogSidebar from "@/features/client/blog/ui/components/blog-sidebar";
 
 interface BlogPageProps {
   searchParams: Promise<{ page?: string }>;

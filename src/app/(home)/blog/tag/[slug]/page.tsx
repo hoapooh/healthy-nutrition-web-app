@@ -4,9 +4,9 @@ import {
   getBlogPostsByTag,
   getPopularTags,
 } from "@/features/client/home/data/blog-data";
-import BlogCard from "@/features/client/home/ui/components/blog/blog-card";
-import BlogPagination from "@/features/client/home/ui/components/blog/blog-pagination";
-import BlogSidebar from "@/features/client/home/ui/components/blog/blog-sidebar";
+import BlogCard from "@/features/client/blog/ui/components/blog-card";
+import BlogPagination from "@/features/client/blog/ui/components/blog-pagination";
+import BlogSidebar from "@/features/client/blog/ui/components/blog-sidebar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
