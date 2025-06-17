@@ -8,11 +8,11 @@ import {
   getBlogPosts,
   getPopularTags,
 } from "@/features/client/blog/services/blog-api";
-import type { BlogPost } from "@/features/client/home/data/types";
+import type { BlogPost, Tag } from "@/features/client/home/data/types";
 
 const BlogSidebar = () => {
   const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
-  const [popularTags, setPopularTags] = useState<string[]>([]);
+  const [popularTags, setPopularTags] = useState<Tag[]>([]);
   useEffect(() => {
     const fetchSidebarData = async () => {
       const posts = await getBlogPosts({ limit: 5 }); // Get recent posts
