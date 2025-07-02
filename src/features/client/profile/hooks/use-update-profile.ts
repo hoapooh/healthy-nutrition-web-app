@@ -57,12 +57,12 @@ const useUpdateProfile = () => {
       // Update the user in the store
       dispatch(updateUser(values));
 
-      toast.success("Profile updated successfully!");
+      toast.success("Cập nhật hồ sơ thành công!");
       setIsEditMode(false);
       form.reset(values); // Reset form with new values
     } catch (error: unknown) {
       console.error("Error updating profile:", error);
-      toast.error("Failed to update profile. Please try again.");
+      toast.error("Cập nhật hồ sơ thất bại. Vui lòng thử lại.");
     }
   };
   const handleCancel = () => {

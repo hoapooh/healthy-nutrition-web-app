@@ -9,7 +9,7 @@ interface BlogRecentPostsProps {
 const BlogRecentPosts = ({ posts }: BlogRecentPostsProps) => {
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-xl font-bold text-gray-900">Recent News</h2>
+      <h2 className="mb-4 text-xl font-bold text-gray-900">Tin tức gần đây</h2>
       <div className="space-y-4">
         {posts.map((post) => (
           <article key={post.id} className="flex gap-3">
