@@ -70,7 +70,7 @@ const OrderHistory = () => {
                     <span className="text-muted-foreground text-sm font-normal">
                       <span className="font-semibold text-green-600">
                         {pagination.totalItems}
-                      </span>
+                      </span>{" "}
                       đơn hàng
                     </span>
                   )}

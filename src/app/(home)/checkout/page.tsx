@@ -43,7 +43,7 @@ const CheckoutPage = () => {
         productId: item.productId,
         productName: item.name,
         quantity: item.quantity,
-        weight: item.quantity * (item.weight / 1000),
+        weight: item.weight / 1000,
         pricePerKilogram: item.pricePerKg,
       }));
       const paymentData = {

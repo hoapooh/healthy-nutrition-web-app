@@ -74,7 +74,7 @@ export const ProductsPagination = ({
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
       <div className="text-muted-foreground shrink-0 text-sm">
-        Showing {startItem} to {endItem} of {totalCount} products
+        Hiển thị {startItem} đến {endItem} của {totalCount} sản phẩm
       </div>
 
       <Pagination className="justify-end">

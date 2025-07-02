@@ -32,14 +32,14 @@ const ProfilePage = () => {
                   className="w-full justify-start space-x-2 p-2 text-left"
                 >
                   <User className="h-4 w-4" />
-                  <span>Personal Information</span>
+                  <span>Thông tin cá nhân</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="password"
                   className="w-full justify-start space-x-2 p-2 text-left"
                 >
                   <Key className="h-4 w-4" />
-                  <span>Change Password</span>
+                  <span>Đổi mật khẩu</span>
                 </TabsTrigger>
               </TabsList>
             </div>
