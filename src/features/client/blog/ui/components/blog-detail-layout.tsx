@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BlogSidebar from "./blog-sidebar";
@@ -8,6 +7,7 @@ import BlogTags from "./blog-tags";
 // import BlogShare from "./blog-share";
 import RelatedStories from "./related-stories";
 import type { BlogPost } from "@/features/client/home/data/types";
+import Link from "next/link";
 
 interface BlogDetailLayoutProps {
   post: BlogPost;
@@ -18,15 +18,15 @@ const BlogDetailLayout = ({ post }: BlogDetailLayoutProps) => {
     <div className="min-h-screen bg-gray-50">
       {/* Back Button */}
       <div className="container mx-auto px-4 pt-6">
-        <Button variant="ghost" asChild className="mb-4">
-          <Link
-            href="/blog"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-          >
+        <Link
+          href="/blog"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+        >
+          <Button variant="ghost" className="mb-4">
             <ArrowLeft className="h-4 w-4" />
             Quay lại danh sách bài viết
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
 
       <div className="container mx-auto px-4 pb-12">

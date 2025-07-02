@@ -45,7 +45,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
           {post.minutesToRead && (
             <div className="flex items-center gap-1">
               <Clock className="h-4 w-4" />
-              <span>{post.minutesToRead} min read</span>
+              <span>{post.minutesToRead} phút đọc</span>
             </div>
           )}
         </div>

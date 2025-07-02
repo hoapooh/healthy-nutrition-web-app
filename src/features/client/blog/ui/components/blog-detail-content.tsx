@@ -1780,12 +1780,14 @@ const BlogDetailContent = ({ post }: BlogDetailContentProps) => {
             </div>
           </div>
 
-          <Button
-            variant={"healthy"}
-            className="flex items-center gap-x-2 rounded-lg font-medium"
-          >
-            <ArrowLeft className="size-4" /> Quay lại danh sách bài viết
-          </Button>
+          <Link href="/blog">
+            <Button
+              variant={"healthy"}
+              className="flex items-center gap-x-2 rounded-lg font-medium"
+            >
+              <ArrowLeft className="size-4" /> Quay lại danh sách bài viết
+            </Button>
+          </Link>
         </div>
       </footer>
     </article>
