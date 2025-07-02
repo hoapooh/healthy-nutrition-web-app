@@ -3,7 +3,8 @@ import BlogCard from "@/features/client/blog/ui/components/blog-card";
 import BlogPagination from "@/features/client/blog/ui/components/blog-pagination";
 import BlogSidebar from "@/features/client/blog/ui/components/blog-sidebar";
 import { searchBlogPosts } from "@/features/client/blog/services/blog-api";
-import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface BlogSearchPageProps {
   searchParams: Promise<{ q?: string; page?: string }>;
@@ -101,15 +102,13 @@ export default async function BlogSearchPage({
                       Không tìm thấy kết quả nào
                     </h2>
                     <p className="mb-6 text-gray-600">
-                      Không có bài viết nào phù hợp với từ khóa "{query}". Hãy
-                      thử với từ khóa khác hoặc xem các bài viết mới nhất.
+                      Không có bài viết nào phù hợp với từ khóa &quot;{query}
+                      &quot;. Hãy thử với từ khóa khác hoặc xem các bài viết mới
+                      nhất.
                     </p>
-                    <a
-                      href="/blog"
-                      className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
-                    >
-                      Xem tất cả bài viết
-                    </a>
+                    <Link href="/blog">
+                      <Button variant={"healthy"}>Xem tất cả bài viết</Button>
+                    </Link>
                   </div>
                 ) : (
                   <div>

@@ -160,8 +160,9 @@ const BlogSearch = () => {
                 </>
               ) : debouncedSearchTerm.trim() ? (
                 <div className="p-4 text-center text-gray-500">
-                  Không tìm thấy bài viết nào phù hợp với "{debouncedSearchTerm}
-                  "
+                  Không tìm thấy bài viết nào phù hợp với &quot;
+                  {debouncedSearchTerm}
+                  &quot;
                 </div>
               ) : null}
             </div>

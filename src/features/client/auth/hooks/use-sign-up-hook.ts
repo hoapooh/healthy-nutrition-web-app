@@ -156,7 +156,7 @@ const useSignUpHook = () => {
     };
     register(registrationData)
       .unwrap()
-      .then((data) => {
+      .then(() => {
         toast.success("Đăng ký thành công!");
         router.push("/sign-in");
       })
