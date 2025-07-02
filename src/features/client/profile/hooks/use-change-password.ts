@@ -44,12 +44,12 @@ const useChangePassword = () => {
   const onSubmit = async (values: ChangePasswordFormValues) => {
     try {
       await changePassword(values).unwrap();
-      toast.success("Password changed successfully!");
+      toast.success("Đổi mật khẩu thành công!");
       form.reset();
       handleLogout(); // Log out user after password change
     } catch (error: unknown) {
       console.error("Error changing password:", error);
-      toast.error("Failed to change password. Try again!");
+      toast.error("Đổi mật khẩu thất bại. Vui lòng thử lại!");
     }
   };
 

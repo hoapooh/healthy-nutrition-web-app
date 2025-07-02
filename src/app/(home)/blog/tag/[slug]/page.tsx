@@ -69,7 +69,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
           <Button variant="ghost" asChild>
             <Link href="/blog" className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
-              Back to All Articles
+              Quay lại bài viết
             </Link>
           </Button>
         </div>
@@ -85,10 +85,10 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
             </Badge>
           </div>
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
-            Articles tagged with &quot;{tag.name}&quot;
+            Bài viết được gắn thẻ &quot;{tag.name}&quot;
           </h1>
           <p className="text-lg text-gray-600">
-            {totalPosts} article{totalPosts !== 1 ? "s" : ""} found
+            {totalPosts} bài viết{totalPosts !== 1 ? "s" : ""} được tìm thấy
           </p>
         </div>
 
@@ -115,8 +115,8 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
 
                 {/* Posts Info */}
                 <div className="mt-6 text-center text-sm text-gray-500">
-                  Showing {startIndex + 1}-{Math.min(endIndex, totalPosts)} of{" "}
-                  {totalPosts} articles
+                  Hiển thị {startIndex + 1}-{Math.min(endIndex, totalPosts)} của{" "}
+                  {totalPosts} bài viết
                 </div>
               </>
             ) : (

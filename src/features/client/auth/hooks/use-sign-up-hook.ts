@@ -16,7 +16,10 @@ const formSchema = z
   .object({
     fullName: z.string().min(2, "Họ và tên phải có ít nhất 2 ký tự"),
     email: z.string().email("Địa chỉ email không hợp lệ"),
-    phoneNumber: z.string().min(10, "Số điện thoại phải có ít nhất 10 ký tự").regex(/^[0-9]+$/, "Số điện thoại chỉ được chứa số"),
+    phoneNumber: z
+      .string()
+      .min(10, "Số điện thoại phải có ít nhất 10 ký tự")
+      .regex(/^[0-9]+$/, "Số điện thoại chỉ được chứa số"),
     password: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
     confirmPassword: z.string().min(3, "Mật khẩu phải có ít nhất 3 ký tự"),
     addressNo: z.string().min(1, "Số nhà là bắt buộc"),
@@ -142,7 +145,7 @@ const useSignUpHook = () => {
   }, [watchDistrict, form, districts]);
   function onSubmit(values: FormValues) {
     // Since we're now storing names directly, we can use them as-is
-    const fullAddress = `${values.addressNo}, ${values.ward}, ${values.district}, ${values.city}`;    // Prepare registration data
+    const fullAddress = `${values.addressNo}, ${values.ward}, ${values.district}, ${values.city}`; // Prepare registration data
     const registrationData = {
       fullName: values.fullName,
       email: values.email,
@@ -154,7 +157,7 @@ const useSignUpHook = () => {
     register(registrationData)
       .unwrap()
       .then((data) => {
-        toast.success(data.message || "Đăng ký thành công!");
+        toast.success("Đăng ký thành công!");
         router.push("/sign-in");
       })
       .catch((error) => {

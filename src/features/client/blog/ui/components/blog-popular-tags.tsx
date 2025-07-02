@@ -8,7 +8,7 @@ interface BlogPopularTagsProps {
 const BlogPopularTags = ({ tags }: BlogPopularTagsProps) => {
   return (
     <div className="rounded-lg bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-xl font-bold text-gray-900">Popular Tags</h2>
+      <h2 className="mb-4 text-xl font-bold text-gray-900">Tag phổ biến</h2>
       <div className="flex flex-wrap gap-2">
         {tags.slice(0, 15).map((tag) => (
           <Link
