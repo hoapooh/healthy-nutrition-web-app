@@ -119,7 +119,7 @@ export const ProductCard = ({ product, viewMode }: ProductCardProps) => {
             <div className="flex items-center">
               <Star className="h-4 w-4 fill-current text-yellow-400" />
               <span className="ml-1 text-sm text-white">
-                ({product.rating})
+                ({product.rating?.toFixed(1) || "0.0"})
               </span>
             </div>
           </div>

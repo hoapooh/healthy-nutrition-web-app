@@ -16,6 +16,7 @@ import { useOrderDetails } from "../../hooks/use-order-history";
 import { OrderItemPayment } from "@/types/order";
 import { Package, Receipt, Calendar, Loader2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface OrderDetailsDialogProps {
   orderCode: string;
@@ -91,7 +92,13 @@ export const OrderDetailsDialog = ({
                     </p>
                   </div>
                   <Badge className={getStatusColor(orderDetails.status)}>
-                    {orderDetails.status}
+                    {orderDetails.status === "PAID"
+                      ? "Đã thanh toán"
+                      : orderDetails.status === "PENDING"
+                        ? "Đang chờ"
+                        : orderDetails.status === "CANCELLED"
+                          ? "Đã hủy"
+                          : "Không xác định"}
                   </Badge>
                 </div>
                 <Separator className="my-4" />
@@ -131,13 +138,22 @@ export const OrderDetailsDialog = ({
                           />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-medium">{item.productName}</h4>
+                          <Link
+                            href={`/products/${item.productId}`}
+                            className="transition-colors duration-200 hover:text-green-600"
+                          >
+                            <h4 className="font-medium">{item.productName}</h4>
+                          </Link>
                           <div className="space-y-1">
                             <p className="text-muted-foreground text-sm">
                               Tổng trọng lượng: {item.weight}kg
                             </p>
                             <p className="text-muted-foreground text-sm">
-                              Giá trên kg:
+                              Số lượng: {item.quantity}{" "}
+                              {item.quantity > 1 ? "cái" : "cái"}
+                            </p>
+                            <p className="text-muted-foreground text-sm">
+                              Giá trên kg:{" "}
                               {formatCurrency(item.pricePerKilogram)}
                             </p>
                           </div>
@@ -145,7 +161,9 @@ export const OrderDetailsDialog = ({
                         <div className="text-right">
                           <p className="font-semibold">
                             {formatCurrency(
-                              item.pricePerKilogram * item.weight,
+                              item.pricePerKilogram *
+                                item.weight *
+                                item.quantity,
                             )}
                           </p>
                         </div>
@@ -161,7 +179,8 @@ export const OrderDetailsDialog = ({
                       {formatCurrency(
                         orderDetails.items.reduce(
                           (sum: number, item: OrderItemPayment) =>
-                            sum + item.pricePerKilogram * item.weight,
+                            sum +
+                            item.pricePerKilogram * item.weight * item.quantity,
                           0,
                         ),
                       )}

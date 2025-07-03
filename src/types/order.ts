@@ -3,6 +3,7 @@ export interface OrderItemPayment {
   productId: string;
   productName: string;
   productImageUrl?: string;
+  quantity: number;
   weight: number;
   pricePerKilogram: number;
 }

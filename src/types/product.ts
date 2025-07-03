@@ -19,6 +19,7 @@ export interface Product {
     sugar: number;
     carbs: number;
   };
+  reviewCount: number;
 }
 
 // GET
