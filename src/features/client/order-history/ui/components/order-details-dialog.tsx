@@ -88,7 +88,11 @@ export const OrderDetailsDialog = ({
                     </h3>
                     <p className="text-muted-foreground flex items-center gap-1 text-sm">
                       <Calendar className="h-4 w-4" />
-                      {new Date().toLocaleDateString()}
+                      {new Date().toLocaleDateString("vi-VN", {
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit",
+                      })}
                     </p>
                   </div>
                   <Badge className={getStatusColor(orderDetails.status)}>
@@ -146,7 +150,7 @@ export const OrderDetailsDialog = ({
                           </Link>
                           <div className="space-y-1">
                             <p className="text-muted-foreground text-sm">
-                              Tổng trọng lượng: {item.weight}kg
+                              Trọng lượng: {item.weight}kg
                             </p>
                             <p className="text-muted-foreground text-sm">
                               Số lượng: {item.quantity}{" "}
