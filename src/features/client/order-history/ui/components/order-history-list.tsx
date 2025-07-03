@@ -98,7 +98,13 @@ export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
                       variant="secondary"
                       className={getStatusColor(order.status)}
                     >
-                      {order.status}
+                      {order.status === "PAID"
+                        ? "Đã thanh toán"
+                        : order.status === "PENDING"
+                          ? "Đang chờ"
+                          : order.status === "CANCELLED"
+                            ? "Đã hủy"
+                            : "Không xác định"}
                     </Badge>
                   </div>
                 </div>

@@ -108,10 +108,20 @@ export const ProductInfo = ({ product, className = "" }: ProductInfoProps) => {
         <div className="mb-4 flex items-center gap-4">
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
+              <Star
+                key={i}
+                className={`h-5 w-5 fill-current ${
+                  i < Math.floor(product.rating || 0)
+                    ? "text-yellow-400"
+                    : "text-gray-300"
+                }`}
+              />
             ))}
             <span className="text-muted-foreground ml-1 text-sm">
-              (4.7) 127 đánh giá
+              ({product.rating?.toFixed(1)} / 5.0){" "}
+              <span className="text-muted-foreground">
+                ({product.reviewCount} đánh giá)
+              </span>
             </span>
           </div>
           <Badge variant="secondary">Còn hàng: {product.stockQuantity}</Badge>

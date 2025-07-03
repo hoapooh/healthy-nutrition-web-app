@@ -102,7 +102,9 @@ export const RelatedProducts = ({
                   </span>
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 fill-current text-yellow-400" />
-                    <span className="text-sm">{product.rating || "4.5"}</span>
+                    <span className="text-sm">
+                      {product.rating?.toFixed(1) || "0.0"}
+                    </span>
                   </div>
                 </div>
               </CardContent>

@@ -93,7 +93,7 @@ const StarRating: React.FC<StarRatingProps> = ({
       <span className="text-muted-foreground ml-2 text-sm">
         {rating > 0
           ? `${rating} star${rating !== 1 ? "s" : ""}`
-          : "Select rating"}
+          : "Chọn đánh giá của bạn"}
       </span>
     </div>
   );
@@ -141,7 +141,7 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
 
   return (
     <div className="bg-card rounded-lg border p-6">
-      <h3 className="mb-4 text-lg font-semibold">Write a Review</h3>
+      <h3 className="mb-4 text-lg font-semibold">Viết đánh giá</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* Rating Field */}
@@ -197,12 +197,12 @@ const ReviewInputForm: React.FC<ReviewInputFormProps> = ({
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
+                Đang gửi...
               </>
             ) : (
               <>
                 <Send className="mr-2 h-4 w-4" />
-                Submit Review
+                Gửi đánh giá
               </>
             )}
           </Button>
@@ -342,7 +342,7 @@ export const ProductReviewsSection = ({
             ))}
           </div>
           <div className="text-muted-foreground text-sm">
-            Based on {totalReviews} reviews
+            Dựa trên {totalReviews} đánh giá
           </div>
         </div>
 
@@ -376,25 +376,27 @@ export const ProductReviewsSection = ({
       <div className="space-y-6">
         {totalReviews === 0 ? (
           <div className="py-8 text-center">
-            <p className="font-semibold text-green-600">No reviews yet.</p>
+            <p className="font-semibold text-green-600">
+              Chưa có đánh giá nào.
+            </p>
             {user && canUserReview && !checkCurrentUser && (
               <p className="text-muted-foreground mt-2 text-sm">
-                Be the first to review this product!
+                Hãy là người đầu tiên đánh giá sản phẩm này!
               </p>
             )}
             {user && canUserReview && checkCurrentUser && (
               <p className="text-muted-foreground mt-2 text-sm">
-                You can only review products once per product.
+                Bạn chỉ có thể đánh giá sản phẩm một lần.
               </p>
             )}
             {user && !canUserReview && (
               <p className="text-muted-foreground mt-2 text-sm">
-                Buy this product to leave a review.
+                Mua sản phẩm này để lại đánh giá.
               </p>
             )}
             {!user && (
               <p className="text-muted-foreground mt-2 text-sm">
-                Please log in to write a review.
+                Vui lòng đăng nhập để viết đánh giá.
               </p>
             )}
           </div>
