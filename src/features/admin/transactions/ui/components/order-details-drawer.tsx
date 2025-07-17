@@ -1,7 +1,12 @@
 "use client";
 
-import React from "react";
-import { OrderItemHistory } from "@/types/order";
+import { ChevronRight, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -9,10 +14,18 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { useUpdateOrderStatusMutation } from "@/services/order-services";
+import { OrderItemHistory, OrderStatus } from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
+import {
+  canUpdateOrderStatus,
+  getAllOrderStatuses,
+  getNextOrderStatus,
+  getOrderStatusBadgeVariant,
+  getOrderStatusColorClasses,
+  getOrderStatusIndex,
+  getOrderStatusText,
+} from "@/utils/order-status-utils";
 
 interface OrderDetailsDrawerProps {
   order: OrderItemHistory | null;
@@ -25,41 +38,80 @@ export function OrderDetailsDrawer({
   open,
   onOpenChange,
 }: OrderDetailsDrawerProps) {
+  const [updateOrderStatus, { isLoading: isUpdating }] =
+    useUpdateOrderStatusMutation();
+
   if (!order) return null;
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "paid":
-      case "success":
-        return "bg-green-100 text-green-800 border-green-200";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "cancelled":
-      case "failed":
-        return "bg-red-100 text-red-800 border-red-200";
-      case "processing":
-        return "bg-blue-100 text-blue-800 border-blue-200";
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+  const handleUpdateStatus = async () => {
+    const currentStatus = order.status as OrderStatus;
+    const nextStatus = getNextOrderStatus(currentStatus);
+    if (!nextStatus) return;
+
+    try {
+      await updateOrderStatus({
+        orderCode: order.orderCode,
+        status: nextStatus,
+      }).unwrap();
+
+      toast.success(
+        `Đã cập nhật trạng thái đơn hàng thành "${getOrderStatusText(nextStatus)}"`,
+      );
+    } catch (error) {
+      toast.error("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng");
+      console.error("Error updating order status:", error);
     }
   };
 
-  const getStatusText = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-      case "success":
-        return "Hoàn thành";
-      case "pending":
-        return "Đang chờ";
-      case "cancelled":
-        return "Đã hủy";
-      case "failed":
-        return "Thất bại";
-      case "processing":
-        return "Đang xử lý";
-      default:
-        return status;
-    }
+  const renderStatusProgress = () => {
+    const currentIndex = getOrderStatusIndex(order.status as OrderStatus);
+    const statuses = getAllOrderStatuses();
+
+    return (
+      <div className="space-y-3">
+        {statuses.map((status, index) => {
+          const isCompleted = index <= currentIndex;
+          const isCurrent = index === currentIndex;
+
+          return (
+            <div key={status} className="flex items-center gap-3">
+              <div
+                className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                  isCompleted
+                    ? "bg-primary border-primary"
+                    : "border-muted-foreground bg-background"
+                }`}
+              >
+                {isCompleted && (
+                  <div className="h-2 w-2 rounded-full bg-white" />
+                )}
+              </div>
+              <div className="flex-1">
+                <div
+                  className={`text-sm font-medium ${
+                    isCurrent
+                      ? "text-primary"
+                      : isCompleted
+                        ? "text-foreground"
+                        : "text-muted-foreground"
+                  }`}
+                >
+                  {getOrderStatusText(status)}
+                </div>
+              </div>
+              {isCurrent && (
+                <Badge
+                  variant={getOrderStatusBadgeVariant(status)}
+                  className="text-xs"
+                >
+                  Hiện tại
+                </Badge>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
@@ -91,12 +143,36 @@ export function OrderDetailsDrawer({
                 <span className="text-muted-foreground text-sm font-medium">
                   Trạng thái:
                 </span>
-                <Badge
-                  className={getStatusColor(order.status)}
-                  variant="outline"
-                >
-                  {getStatusText(order.status)}
-                </Badge>
+                <div className="flex items-center gap-2">
+                  <Badge
+                    className={getOrderStatusColorClasses(
+                      order.status as OrderStatus,
+                    )}
+                    variant="outline"
+                  >
+                    {getOrderStatusText(order.status as OrderStatus)}
+                  </Badge>
+                  {canUpdateOrderStatus(order.status as OrderStatus) && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleUpdateStatus}
+                      disabled={isUpdating}
+                      className="h-6 px-2 text-xs"
+                    >
+                      {isUpdating ? (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      ) : (
+                        <>
+                          <ChevronRight className="mr-1 h-3 w-3" />
+                          {getOrderStatusText(
+                            getNextOrderStatus(order.status as OrderStatus)!,
+                          )}
+                        </>
+                      )}
+                    </Button>
+                  )}
+                </div>
               </div>
 
               <Separator />
@@ -110,6 +186,13 @@ export function OrderDetailsDrawer({
                 </span>
               </div>
             </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Tiến trình đơn hàng</CardTitle>
+            </CardHeader>
+            <CardContent>{renderStatusProgress()}</CardContent>
           </Card>
 
           {/* <Card>
