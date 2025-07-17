@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { OrderItemHistory, OrderStatus } from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
 import {
-  getOrderStatusColorClasses,
+  getOrderStatusBadgeVariant,
   getOrderStatusText,
 } from "@/utils/order-status-utils";
 
@@ -84,8 +84,7 @@ export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
                       </span>
                     </div>
                     <Badge
-                      variant="secondary"
-                      className={getOrderStatusColorClasses(
+                      variant={getOrderStatusBadgeVariant(
                         order.status as OrderStatus,
                       )}
                     >
