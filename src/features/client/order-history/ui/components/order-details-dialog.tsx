@@ -1,6 +1,11 @@
 "use client";
 
-import React from "react";
+import { Calendar, Loader2, Package, Receipt } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -8,15 +13,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent } from "@/components/ui/card";
+import { OrderItemPayment, OrderStatus } from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
+import { getOrderStatusText } from "@/utils/order-status-utils";
+
 import { useOrderDetails } from "../../hooks/use-order-history";
-import { OrderItemPayment } from "@/types/order";
-import { Package, Receipt, Calendar, Loader2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 interface OrderDetailsDialogProps {
   orderCode: string;
@@ -96,13 +98,7 @@ export const OrderDetailsDialog = ({
                     </p>
                   </div>
                   <Badge className={getStatusColor(orderDetails.status)}>
-                    {orderDetails.status === "PAID"
-                      ? "Đã thanh toán"
-                      : orderDetails.status === "PENDING"
-                        ? "Đang chờ"
-                        : orderDetails.status === "CANCELLED"
-                          ? "Đã hủy"
-                          : "Không xác định"}
+                    {getOrderStatusText(orderDetails.status as OrderStatus)}
                   </Badge>
                 </div>
                 <Separator className="my-4" />
