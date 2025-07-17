@@ -1,35 +1,24 @@
 "use client";
 
+import { DollarSign, Package } from "lucide-react";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { OrderItemHistory, OrderStatus } from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
-import { OrderItemHistory } from "@/types/order";
+import {
+  getOrderStatusColorClasses,
+  getOrderStatusText,
+} from "@/utils/order-status-utils";
+
 import { OrderDetailsDialog } from "./order-details-dialog";
-import { Package, DollarSign } from "lucide-react";
 
 interface OrderHistoryListProps {
   orders: OrderItemHistory[];
   isLoading?: boolean;
 }
-
-const getStatusColor = (status: string) => {
-  const statusLower = status.toLowerCase();
-  switch (statusLower) {
-    case "paid":
-    case "success":
-      return "bg-green-100 text-green-800 hover:bg-green-200";
-    case "pending":
-    case "processing":
-      return "bg-yellow-100 text-yellow-800 hover:bg-yellow-200";
-    case "cancelled":
-    case "failed":
-      return "bg-red-100 text-red-800 hover:bg-red-200";
-    default:
-      return "bg-gray-100 text-gray-800 hover:bg-gray-200";
-  }
-};
 
 export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
   orders,
@@ -96,15 +85,11 @@ export const OrderHistoryList: React.FC<OrderHistoryListProps> = ({
                     </div>
                     <Badge
                       variant="secondary"
-                      className={getStatusColor(order.status)}
+                      className={getOrderStatusColorClasses(
+                        order.status as OrderStatus,
+                      )}
                     >
-                      {order.status === "PAID"
-                        ? "Đã thanh toán"
-                        : order.status === "PENDING"
-                          ? "Đang chờ"
-                          : order.status === "CANCELLED"
-                            ? "Đã hủy"
-                            : "Không xác định"}
+                      {getOrderStatusText(order.status as OrderStatus)}
                     </Badge>
                   </div>
                 </div>

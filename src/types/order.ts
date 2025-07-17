@@ -1,3 +1,10 @@
+export enum OrderStatus {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  SHIPPING = "SHIPPING",
+  SHIPPED = "SHIPPED",
+}
+
 // Types
 export interface OrderItemPayment {
   productId: string;
@@ -11,7 +18,7 @@ export interface OrderItemPayment {
 export interface OrderItemHistory {
   orderCode: number;
   totalAmount: number;
-  status: string;
+  status: OrderStatus;
 }
 
 // GET
@@ -23,13 +30,14 @@ export interface GetAllOrdersResponse {
 export interface GetAllOrdersParams {
   pageIndex?: number;
   limit?: number;
+  status: OrderStatus;
 }
 
 export interface GetOrderByCodeResponse {
   orderCode: number;
   items: OrderItemPayment[];
   totalAmount: number;
-  status: string;
+  status: OrderStatus;
 }
 
 export interface GetOrderByCodeParams {
@@ -52,4 +60,10 @@ export interface CreatePaymentLinkBody {
   };
   returnUrl: string;
   cancelUrl: string;
+}
+
+// PUT
+export interface UpdateOrderStatusBody {
+  orderCode: number;
+  status: OrderStatus;
 }

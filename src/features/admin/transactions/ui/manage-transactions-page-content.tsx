@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { useGetAllOrdersQuery } from "@/services/order-services";
-import { GetAllOrdersParams } from "@/types/order";
-import { TransactionsDataTable } from "./components";
+
 import {
   Card,
   CardContent,
@@ -11,11 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useGetAllOrdersQuery } from "@/services/order-services";
+import { GetAllOrdersParams, OrderStatus } from "@/types/order";
+
+import { TransactionsDataTable } from "./components";
 
 export default function ManageTransactionsPageContent() {
   const [filters, setFilters] = React.useState<GetAllOrdersParams>({
     pageIndex: 1,
     limit: 10,
+    status: OrderStatus.PENDING,
   });
 
   const {
