@@ -1,26 +1,22 @@
 "use client";
 
+import { ArrowUpDown, ChevronDown, RefreshCw, Search } from "lucide-react";
 import React from "react";
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { toast } from "sonner";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -29,11 +25,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowUpDown, ChevronDown, Search, RefreshCw } from "lucide-react";
-import { OrderItemHistory, GetAllOrdersParams } from "@/types/order";
+import { useUpdateOrderStatusMutation } from "@/services/order-services";
+import {
+  GetAllOrdersParams,
+  OrderItemHistory,
+  OrderStatus,
+} from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
+import {
+  getAllOrderStatuses,
+  getOrderStatusBadgeVariant,
+  getOrderStatusText,
+} from "@/utils/order-status-utils";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from "@tanstack/react-table";
+
 import { DataTablePagination } from "./data-table-pagination";
 import { OrderDetailsDrawer } from "./order-details-drawer";
 
@@ -64,43 +80,82 @@ export function TransactionsDataTable({
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const [selectedOrder, setSelectedOrder] =
     React.useState<OrderItemHistory | null>(null);
+  const [statusFilter, setStatusFilter] = React.useState<OrderStatus>(
+    OrderStatus.PENDING,
+  );
+  const [updateOrderStatus, { isLoading: isBulkUpdating }] =
+    useUpdateOrderStatusMutation();
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "paid":
-      case "success":
-        return "default";
-      case "pending":
-        return "secondary";
-      case "cancelled":
-      case "failed":
-        return "destructive";
-      case "processing":
-        return "outline";
-      default:
-        return "secondary";
+  // Sync statusFilter with filters.status from parent
+  React.useEffect(() => {
+    if (filters.status && filters.status !== statusFilter) {
+      setStatusFilter(filters.status);
     }
-  };
+  }, [filters.status, statusFilter]);
 
-  const getStatusText = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-      case "success":
-        return "Hoàn thành";
-      case "pending":
-        return "Đang chờ";
-      case "cancelled":
-        return "Đã hủy";
-      case "failed":
-        return "Thất bại";
-      case "processing":
-        return "Đang xử lý";
-      default:
-        return status;
+  // Notify parent component when status filter changes
+  React.useEffect(() => {
+    if (filters.status !== statusFilter) {
+      onFiltersChange({
+        ...filters,
+        status: statusFilter,
+        pageIndex: 1, // Reset to first page when changing status
+      });
+    }
+  }, [statusFilter, filters.status, filters, onFiltersChange]);
+
+  // Bulk status update handler
+  const handleBulkStatusUpdate = async (newStatus: OrderStatus) => {
+    const selectedRows = table.getFilteredSelectedRowModel().rows;
+    if (selectedRows.length === 0) {
+      toast.error("Vui lòng chọn ít nhất một đơn hàng");
+      return;
+    }
+
+    try {
+      const updatePromises = selectedRows.map((row) =>
+        updateOrderStatus({
+          orderCode: row.original.orderCode,
+          status: newStatus,
+        }).unwrap(),
+      );
+
+      await Promise.all(updatePromises);
+
+      toast.success(
+        `Đã cập nhật ${selectedRows.length} đơn hàng thành "${getOrderStatusText(newStatus)}"`,
+      );
+      setRowSelection({});
+      onRefresh();
+    } catch (error) {
+      toast.error("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng");
+      console.error("Error bulk updating order status:", error);
     }
   };
 
   const columns: ColumnDef<OrderItemHistory>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       id: "orderCode",
       accessorKey: "orderCode",
@@ -108,7 +163,6 @@ export function TransactionsDataTable({
         return (
           <Button
             variant="ghost"
-            className="hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Mã đơn hàng
@@ -127,6 +181,11 @@ export function TransactionsDataTable({
           #{row.getValue("orderCode")}
         </button>
       ),
+      filterFn: (row, id, value) => {
+        // Convert orderCode (number) to string for comparison
+        const orderCodeString = row.getValue(id)?.toString() || "";
+        return orderCodeString.includes(value);
+      },
     },
     {
       id: "totalAmount",
@@ -164,8 +223,11 @@ export function TransactionsDataTable({
       cell: ({ row }) => {
         const status = row.getValue("status") as string;
         return (
-          <Badge variant={getStatusColor(status)} className="capitalize">
-            {getStatusText(status)}
+          <Badge
+            variant={getOrderStatusBadgeVariant(status as OrderStatus)}
+            className="capitalize"
+          >
+            {getOrderStatusText(status as OrderStatus)}
           </Badge>
         );
       },
@@ -208,6 +270,28 @@ export function TransactionsDataTable({
 
   return (
     <div className="w-full">
+      {/* Bulk Actions */}
+      {Object.keys(rowSelection).length > 0 && (
+        <div className="bg-muted/50 mb-4 flex items-center gap-2 rounded-lg p-4">
+          <span className="text-muted-foreground text-sm">
+            Đã chọn {Object.keys(rowSelection).length} đơn hàng
+          </span>
+          <div className="flex gap-2">
+            {getAllOrderStatuses().map((status) => (
+              <Button
+                key={status}
+                size="sm"
+                variant="outline"
+                onClick={() => handleBulkStatusUpdate(status)}
+                disabled={isBulkUpdating}
+              >
+                Chuyển thành {getOrderStatusText(status)}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center space-x-2">
           <div className="relative">
@@ -223,6 +307,32 @@ export function TransactionsDataTable({
               className="max-w-sm pl-8"
             />
           </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm">
+                Trạng thái: {getOrderStatusText(statusFilter)}
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuLabel>Lọc theo trạng thái</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {getAllOrderStatuses().map((status) => (
+                <DropdownMenuCheckboxItem
+                  key={status}
+                  checked={statusFilter === status}
+                  onCheckedChange={() => setStatusFilter(status)}
+                >
+                  <Badge
+                    variant={getOrderStatusBadgeVariant(status)}
+                    className="mr-2"
+                  >
+                    {getOrderStatusText(status)}
+                  </Badge>
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="flex items-center space-x-2">
           <Button

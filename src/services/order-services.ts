@@ -5,6 +5,7 @@ import {
   GetOrderByCodeParams,
   GetOrderByCodeResponse,
   GetOrderByUserResponse,
+  UpdateOrderStatusBody,
 } from "@/types/order";
 
 const orderApi = apiSlice.injectEndpoints({
@@ -32,6 +33,17 @@ const orderApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Order"],
     }),
+    updateOrderStatus: builder.mutation<
+      { message: string },
+      UpdateOrderStatusBody
+    >({
+      query: (body) => ({
+        url: "orders/update-status",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
@@ -39,4 +51,5 @@ export const {
   useGetAllOrdersQuery,
   useGetOrderByCodeQuery,
   useGetOrderByUserQuery,
+  useUpdateOrderStatusMutation,
 } = orderApi;

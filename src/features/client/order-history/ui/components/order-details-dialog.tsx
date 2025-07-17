@@ -1,6 +1,11 @@
 "use client";
 
-import React from "react";
+import { Calendar, Loader2, Package, Receipt } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -8,15 +13,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent } from "@/components/ui/card";
+import { OrderItemPayment, OrderStatus } from "@/types/order";
 import { formatCurrency } from "@/utils/format-currency";
+import {
+  getOrderStatusBadgeVariant,
+  getOrderStatusText,
+} from "@/utils/order-status-utils";
+
 import { useOrderDetails } from "../../hooks/use-order-history";
-import { OrderItemPayment } from "@/types/order";
-import { Package, Receipt, Calendar, Loader2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 interface OrderDetailsDialogProps {
   orderCode: string;
@@ -29,21 +34,6 @@ export const OrderDetailsDialog = ({
 }: OrderDetailsDialogProps) => {
   const { orderDetails, isLoading, error } = useOrderDetails(orderCode);
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "paid":
-      case "delivered":
-        return "bg-green-100 text-green-800";
-      case "pending":
-      case "processing":
-        return "bg-yellow-100 text-yellow-800";
-      case "cancelled":
-      case "failed":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
   if (error) {
     return (
       <Dialog open={true} onOpenChange={() => onClose()}>
@@ -88,17 +78,19 @@ export const OrderDetailsDialog = ({
                     </h3>
                     <p className="text-muted-foreground flex items-center gap-1 text-sm">
                       <Calendar className="h-4 w-4" />
-                      {new Date().toLocaleDateString()}
+                      {new Date().toLocaleDateString("vi-VN", {
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit",
+                      })}
                     </p>
                   </div>
-                  <Badge className={getStatusColor(orderDetails.status)}>
-                    {orderDetails.status === "PAID"
-                      ? "Đã thanh toán"
-                      : orderDetails.status === "PENDING"
-                        ? "Đang chờ"
-                        : orderDetails.status === "CANCELLED"
-                          ? "Đã hủy"
-                          : "Không xác định"}
+                  <Badge
+                    variant={getOrderStatusBadgeVariant(
+                      orderDetails.status as OrderStatus,
+                    )}
+                  >
+                    {getOrderStatusText(orderDetails.status as OrderStatus)}
                   </Badge>
                 </div>
                 <Separator className="my-4" />
@@ -146,7 +138,7 @@ export const OrderDetailsDialog = ({
                           </Link>
                           <div className="space-y-1">
                             <p className="text-muted-foreground text-sm">
-                              Tổng trọng lượng: {item.weight}kg
+                              Trọng lượng: {item.weight}kg
                             </p>
                             <p className="text-muted-foreground text-sm">
                               Số lượng: {item.quantity}{" "}
