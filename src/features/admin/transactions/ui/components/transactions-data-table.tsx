@@ -91,7 +91,7 @@ export function TransactionsDataTable({
     if (filters.status && filters.status !== statusFilter) {
       setStatusFilter(filters.status);
     }
-  }, [filters.status, statusFilter]);
+  }, [filters.status]);
 
   // Notify parent component when status filter changes
   React.useEffect(() => {
@@ -102,7 +102,7 @@ export function TransactionsDataTable({
         pageIndex: 1, // Reset to first page when changing status
       });
     }
-  }, [statusFilter, filters.status, filters, onFiltersChange]);
+  }, [statusFilter, filters.status]);
 
   // Bulk status update handler
   const handleBulkStatusUpdate = async (newStatus: OrderStatus) => {
