@@ -19,6 +19,7 @@ export interface OrderItemHistory {
   orderCode: number;
   totalAmount: number;
   status: OrderStatus;
+  createdAt?: string;
 }
 
 // GET

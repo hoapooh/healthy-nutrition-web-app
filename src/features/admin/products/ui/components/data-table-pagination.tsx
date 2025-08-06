@@ -1,7 +1,12 @@
 "use client";
 
-import React from "react";
-import { Table } from "@tanstack/react-table";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -10,12 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { Table } from "@tanstack/react-table";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -49,14 +49,14 @@ export function DataTablePagination<TData>({
       <div className="text-muted-foreground flex-1 text-sm">
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} of
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} của{" "}
+            {table.getFilteredRowModel().rows.length} hàng được chọn.
           </>
         )}
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">Số hàng trên trang</p>
           <Select value={`${pageSize}`} onValueChange={handlePageSizeChange}>
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={pageSize} />
