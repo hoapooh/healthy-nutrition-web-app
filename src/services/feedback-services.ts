@@ -1,11 +1,16 @@
 import { apiSlice } from "@/store/slices/api-slice";
-import { Feedback } from "@/types/feedback";
+import {
+  Feedback,
+  FeedbackListReponse,
+  FeedbackParams,
+} from "@/types/feedback";
 
 const feedbackApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllFeedbacks: builder.query({
-      query: () => ({
+    getAllFeedbacks: builder.query<FeedbackListReponse, FeedbackParams>({
+      query: (params) => ({
         url: "feedbacks",
+        params,
       }),
       providesTags: ["Feedback"],
     }),
@@ -15,7 +20,7 @@ const feedbackApi = apiSlice.injectEndpoints({
       }),
       providesTags: (result, error, id) => [{ type: "Feedback", id }],
     }),
-    CreateFeedback: builder.mutation<void, Feedback>({
+    createFeedback: builder.mutation<void, Feedback>({
       query: (newFeedback) => ({
         url: "feedbacks",
         method: "POST",
@@ -23,7 +28,7 @@ const feedbackApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Feedback"],
     }),
-    DeleteFeedback: builder.mutation({
+    deleteFeedback: builder.mutation({
       query: (id) => ({
         url: `feedbacks/${id}`,
         method: "DELETE",
