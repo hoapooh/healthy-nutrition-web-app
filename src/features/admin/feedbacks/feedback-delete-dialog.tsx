@@ -34,23 +34,23 @@ export const FeedbackDeleteDialog: React.FC<FeedbackDeleteDialogProps> = ({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Feedback</AlertDialogTitle>
+          <AlertDialogTitle>Xóa phản hồi</AlertDialogTitle>
           <AlertDialogDescription className="space-y-2">
-            <span>Are you sure you want to delete this feedback?</span>
+            <span>Bạn có chắc chắn muốn xóa phản hồi này không?</span>
             {feedback && (
               <div className="bg-muted mt-4 rounded-lg p-3">
-                <p className="text-foreground line-clamp-3 text-sm">
+                <div className="text-foreground line-clamp-3 text-sm">
                   &ldquo;{feedback.content}&rdquo;
-                </p>
+                </div>
               </div>
             )}
             <span className="text-destructive">
-              This action cannot be undone.
+              Hành động này không thể hoàn tác.
             </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isDeleting}>Hủy</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
             disabled={isDeleting}
@@ -59,10 +59,10 @@ export const FeedbackDeleteDialog: React.FC<FeedbackDeleteDialogProps> = ({
             {isDeleting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Deleting...
+                Đang xóa...
               </>
             ) : (
-              "Delete Feedback"
+              "Xóa phản hồi"
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

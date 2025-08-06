@@ -148,7 +148,7 @@ export const FeedbackList = () => {
           <MessageSquare className="h-5 w-5" />
           <h2 className="text-2xl font-semibold">Tất cả phản hồi</h2>
           <Badge variant="secondary" className="ml-2">
-            {filteredFeedbacks.length} of {feedbacks.length}
+            {filteredFeedbacks.length} trên {feedbacks.length}
           </Badge>
         </div>
       </div>

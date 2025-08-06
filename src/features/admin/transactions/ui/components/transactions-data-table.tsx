@@ -232,6 +232,38 @@ export function TransactionsDataTable({
         );
       },
     },
+    {
+      id: "createdAt",
+      accessorKey: "createdAt",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Ngày tạo
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const createdAt = row.getValue("createdAt") as string;
+        if (!createdAt) return <div className="text-muted-foreground">-</div>;
+
+        const date = new Date(createdAt);
+        return (
+          <div className="text-sm">
+            {date.toLocaleDateString("vi-VN", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </div>
+        );
+      },
+    },
   ];
 
   const table = useReactTable({

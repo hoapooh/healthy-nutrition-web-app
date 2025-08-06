@@ -177,6 +177,27 @@ export function OrderDetailsDrawer({
 
               <Separator />
 
+              {order.createdAt && (
+                <>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground text-sm font-medium">
+                      Ngày tạo:
+                    </span>
+                    <span className="text-sm">
+                      {new Date(order.createdAt).toLocaleDateString("vi-VN", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </div>
+
+                  <Separator />
+                </>
+              )}
+
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm font-medium">
                   Tổng tiền:

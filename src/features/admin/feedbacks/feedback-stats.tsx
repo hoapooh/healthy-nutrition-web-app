@@ -26,7 +26,7 @@ export const FeedbackStats: React.FC<FeedbackStatsProps> = ({ feedbacks }) => {
         <CardContent>
           <div className="text-2xl font-bold">{totalFeedbacks}</div>
           <p className="text-muted-foreground text-xs">
-            <span className="text-green-600">+12% from last month</span>
+            <span className="text-green-600">+12% kể từ tháng trước</span>
           </p>
         </CardContent>
       </Card>
