@@ -1,5 +1,5 @@
 export interface Feedback {
-  id: string;
+  id?: string;
   content: string;
 }
 
